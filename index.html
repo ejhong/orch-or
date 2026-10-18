@@ -239,7 +239,7 @@ footer em{color:var(--ink2);font-style:normal}
     <canvas id="sim" width="1600" height="1010" role="img" aria-label="Three-layer simulation: an aperiodic Penrose tiling as Platonic structure above, a tubulin lattice entering superposition in the middle, and two candidate representations in a neural population below"></canvas>
     <div class="fig-bar">
       <div class="ctl"><span class="k">Selector</span>
-        <div class="seg"><button id="m-or" aria-pressed="true">Objective reduction</button><button id="m-cl" aria-pressed="false">Classical competition</button></div></div>
+        <div class="seg"><button id="m-or" aria-pressed="true">Objective reduction</button><button id="m-ad" aria-pressed="false">Classical · adaptation</button><button id="m-cl" aria-pressed="false">Classical · noise</button></div></div>
       <div class="ctl"><span class="k">Coherent mass</span>
         <input type="range" id="mass" min="50" max="200" value="100" aria-label="Coherent tubulin mass, relative">
         <span class="v" id="mass-v">1.00 ×</span></div>
@@ -256,7 +256,7 @@ footer em{color:var(--ink2);font-style:normal}
         <div><p class="ro-k">Median</p><p class="ro-v" id="md">—</p><p class="ro-n">ms</p></div>
       </div>
     </div>
-    <p class="fig-cap"><b>What to try.</b> The selector sets what decides each switch. <em>Objective reduction</em> is the Orch OR route, in which the Platonic layer supplies the outcome. <em>Classical competition</em> is the mainstream alternative with no Orch OR in it anywhere — mutual inhibition between the two populations, switching driven by adaptation and noise — so under it the Platonic band goes dim and unlit and its axis reads <em>not consulted</em>, because nothing in that account reaches for it. Switch between them and watch the histogram change shape. Accumulation to a threshold clusters dwells around a characteristic duration, giving a coefficient of variation well below 1; memoryless competition spreads them exponentially toward CV ≈ 1. That difference is the one measurement in this theory that existing primate data could settle. Raise the coherent mass and dwells shorten, because larger E<sub>G</sub> means shorter τ. Raise the anesthetic and selection stalls while the classical layer keeps computing both candidates.</p>
+    <p class="fig-cap"><b>What to try.</b> The selector sets what decides each switch. <em>Objective reduction</em> is the Orch OR route, in which the Platonic layer supplies the outcome. <em>Classical competition</em> is the mainstream alternative with no Orch OR in it anywhere — mutual inhibition between the two populations, switching driven by adaptation and noise — so under it the Platonic band goes dim and unlit and its axis reads <em>not consulted</em>, because nothing in that account reaches for it. Now watch the coefficient of variation, and note what it does <em>not</em> do. Objective reduction and classical adaptation both accumulate to a threshold, so both land well below 1 and their histograms largely overlap; only the pure-noise limit reaches CV ≈ 1. Human rivalry has measured CV ≈ 0.5 since Levelt in 1965, and the adaptation model already predicts it. So dwell-time shape alone cannot isolate a collapse threshold: it separates threshold processes from memoryless ones, and nothing finer. Raise the coherent mass and dwells shorten, because larger E<sub>G</sub> means shorter τ — <em>that</em> dependence, not the histogram, is where Orch OR says something no classical model does. Raise the anesthetic and selection stalls while the classical layer keeps computing both candidates.</p>
   </figure>
 </section>
 
@@ -339,7 +339,7 @@ footer em{color:var(--ink2);font-style:normal}
     <div class="seg"><button id="aw" aria-pressed="false">Awake</button><button id="an" aria-pressed="true">Anesthetised</button></div>
   </div>
   <div class="preds" id="preds"></div>
-  <p style="margin-top:19px;font-size:.92rem;color:var(--ink2);max-width:70ch">Note the overlap. The selection reading and ordinary classical access accounts predict the <em>same</em> outcome here. The experiment cleanly rules out content-generating Orch OR and does not adjudicate between the other two. Only the dwell-time measurement carries information specific to a collapse threshold.</p>
+  <p style="margin-top:19px;font-size:.92rem;color:var(--ink2);max-width:70ch">Note the overlap. The selection reading and ordinary classical access accounts predict the <em>same</em> outcome here. The experiment cleanly rules out content-generating Orch OR and does not adjudicate between the other two. Nor does the dwell-time measurement, which separates threshold processes from memoryless ones but not objective reduction from neural adaptation — both accumulate. What would separate them is whether dwell times track coherent tubulin mass, which is a causal manipulation rather than a distributional one.</p>
 </section>
 
 <section>
@@ -387,7 +387,7 @@ footer em{color:var(--ink2);font-style:normal}
 
 <footer>
   <span class="lbl">Notes</span>
-  <p><b>Sources.</b> Hameroff &amp; Penrose, <em>Phys Life Rev</em> 11:39 (2014) · Penrose &amp; Hameroff, <em>J Conscious Stud</em> 3:36 (1996) · Hameroff, Bandyopadhyay &amp; Lauretta, <em>J Conscious Stud</em> 33:211 (2026) · Hesse et al., bioRxiv 10.64898/2026.10.15.759299 · Kalra et al., <em>ACS Cent Sci</em> 9:352 (2023) · Craddock et al., <em>Sci Rep</em> 7:9877 (2017) · Donadi et al., <em>Nat Phys</em> 17:74 (2021) · Derakhshani, Diósi, Laubenstein, Piscicchia &amp; Curceanu, <em>Phys Life Rev</em> 42:8 (2022) · Hagan, Hameroff &amp; Tuszyński, <em>Phys Rev E</em> 65:061901 (2002) · Tegmark, <em>Phys Rev E</em> 61:4194 (2000) · Li et al., <em>Anesthesiology</em> 129:271 (2018) · Khan et al., <em>eNeuro</em> 11 (2024) · Emerson et al., <em>JACS</em> 135:5389 (2013) · Kapitein &amp; Hoogenraad, <em>Neuron</em> 87:492 (2015) · Adlam, McQueen &amp; Waegell, arXiv:2510.13247 (2025)</p>
+  <p><b>Sources.</b> Hameroff &amp; Penrose, <em>Phys Life Rev</em> 11:39 (2014) · Penrose &amp; Hameroff, <em>J Conscious Stud</em> 3:36 (1996) · Hameroff, Bandyopadhyay &amp; Lauretta, <em>J Conscious Stud</em> 33:211 (2026) · Hesse et al., bioRxiv 10.64898/2026.10.15.759299 · Kalra et al., <em>ACS Cent Sci</em> 9:352 (2023) · Craddock et al., <em>Sci Rep</em> 7:9877 (2017) · Donadi et al., <em>Nat Phys</em> 17:74 (2021) · Derakhshani, Diósi, Laubenstein, Piscicchia &amp; Curceanu, <em>Phys Life Rev</em> 42:8 (2022) · Hagan, Hameroff &amp; Tuszyński, <em>Phys Rev E</em> 65:061901 (2002) · Tegmark, <em>Phys Rev E</em> 61:4194 (2000) · Li et al., <em>Anesthesiology</em> 129:271 (2018) · Khan et al., <em>eNeuro</em> 11 (2024) · Emerson et al., <em>JACS</em> 135:5389 (2013) · Kapitein &amp; Hoogenraad, <em>Neuron</em> 87:492 (2015) · Adlam, McQueen &amp; Waegell, arXiv:2510.13247 (2025) · Levelt, <em>Br J Psychol</em> 58 (1967) · Shpiro, Moreno-Bote, Rubin &amp; Rinzel, <em>J Comput Neurosci</em> (2009) · Cao, Pastukhov, Aleshin, Mattia &amp; Braun, <em>eLife</em> 10:e61581 (2021)</p>
   <p><b>On the reading.</b> The selection framing — nothing informational held in superposition, the collapse event selecting among classically prepared alternatives — is a narrowing of the published theory, not its authors' own formulation. Where it departs from Hameroff and Penrose, the schedule in section 04 says so.</p>
   <p><b>On the Platonic layer in FIG. 01.</b> The tiling is a genuine Penrose P3 construction, and it is aperiodic: no translation carries it onto itself. It is not non-computable. It is computed here, by Robinson-triangle subdivision, and Penrose tilings can equally be generated by projection from a five-dimensional lattice — so this figure illustrates non-computability with an object an algorithm produced on the spot. What is actually true of the tiling, and what Penrose uses it for, is weaker: the matching rules are local, yet legal local patches exist that cannot be extended to cover the plane, so no greedy local procedure reaches a complete tiling. That is a claim about locality, not about computability. The undecidable result in this area — Berger's theorem on the general domino problem — concerns arbitrary tile sets, not these two rhombs, which provably do tile. Aperiodicity stands in for a stronger property no drawing can depict, and the Platonic layer should be read as iconography rather than as an argument.</p>
 </footer>
@@ -518,7 +518,10 @@ const TILES=(function(){let t=[];
  const BASE=60, SPS=150;
  let mode="or",mass=1,anes=0,run=true;
  let EG=0,th=1,cur=0,since=0,dw=[],pulse=9,flash=0,laneI=Math.floor(LANE.length/2),coh=0,T=0;
- const nth=()=>Math.max(.28,1+randn()*.30); th=nth();
+ /* Threshold scatter sets the dwell CV. Orch OR is the tight case; classical
+    adaptation is looser, landing near the CV ≈ 0.5 rivalry has shown since
+    Levelt 1965 — which is the point, since both are below 1. */
+ const nth=()=>Math.max(.28,1+randn()*(mode==="adapt"?.50:.30)); th=nth();
  function collapse(){
   dw.push(since); if(dw.length>240)dw.shift();
   since=0;EG=0;th=nth();pulse=0;flash=1;
@@ -532,7 +535,9 @@ const TILES=(function(){let t=[];
   cur = Math.random()<pA?0:1}
  function step(dt){
   const d=dt*SPS; T+=d; since+=d; const damp=1-anes*.94;
-  if(mode==="or"){EG+=d*mass*damp/BASE; coh=Math.min(1,EG/th);
+  /* Both OR and classical adaptation accumulate to a threshold. Only the
+     pure-noise limit is memoryless. */
+  if(mode!=="noise"){EG+=d*mass*damp/BASE; coh=Math.min(1,EG/th);
     if(EG>=th&&damp>.06)collapse(); if(since>BASE*14)since=BASE*14}
   else{coh=.5+.4*Math.sin(T/37); EG=0;
     if(Math.random()<d/(BASE/damp||1e9))collapse()}
@@ -577,16 +582,20 @@ const TILES=(function(){let t=[];
     ctx.globalAlpha=.30;ctx.strokeStyle=P.cy;
     ctx.strokeRect(X+ph*2.4,Y-ph*1.6,cw,chh);ctx.globalAlpha=1}}
   ctx.strokeStyle=P.h2;ctx.lineWidth=1;ctx.strokeRect(QB.x,QB.y,QB.w,QB.h);
-  A.txt(QB.x,GY-11,"E_G",{sz:17,c:P.i2});
-  A.txt(QB.x+QB.w,GY-11,"ℏ/τ",{sz:17,c:mode==="or"?P.cy:P.i3,a:"right"});
+  const accum = mode!=="noise";
+  A.txt(QB.x,GY-11,mode==="or"?"E_G":(mode==="adapt"?"ADAPTATION":"—"),{sz:17,c:P.i2});
+  A.txt(QB.x+QB.w,GY-11,mode==="or"?"ℏ/τ":(mode==="adapt"?"threshold":"—"),
+    {sz:17,c:accum?P.cy:P.i3,a:"right"});
   ctx.strokeStyle=P.h2;ctx.lineWidth=1;ctx.strokeRect(QB.x,GY,QB.w,20);
-  const lv2=mode==="or"?Math.min(1,EG/th):0;
+  const lv2=accum?Math.min(1,EG/th):0;
   ctx.fillStyle=P.cy;ctx.globalAlpha=.62;ctx.fillRect(QB.x+1,GY+1,(QB.w-2)*lv2,18);ctx.globalAlpha=1;
   for(let i=1;i<10;i++){const X=QB.x+QB.w*i/10;A.hair(X,GY+14,X,GY+20,P.h2)}
-  ctx.strokeStyle=mode==="or"?P.cy:P.h3;ctx.lineWidth=2;
+  ctx.strokeStyle=accum?P.cy:P.h3;ctx.lineWidth=2;
   ctx.beginPath();ctx.moveTo(QB.x+QB.w,GY-6);ctx.lineTo(QB.x+QB.w,GY+26);ctx.stroke();
-  if(mode!=="or")A.txt(QB.x+QB.w/2,GY+42,"no threshold — switching is memoryless",
-    {sz:16,c:P.i3,a:"center"});
+  A.txt(QB.x+QB.w/2,GY+42,
+    mode==="noise" ? "no threshold — switching is memoryless"
+   :mode==="adapt" ? "accumulation to threshold — but neural adaptation, not E_G"
+   :                 "", {sz:16,c:P.i3,a:"center"});
 
   if(pulse<1&&act&&tl){
    const yT=PB.y+PB.h, yB=CB.y, a2=(1-pulse)*.9;
@@ -648,7 +657,8 @@ const TILES=(function(){let t=[];
   document.getElementById("cv").textContent=s?s.cv.toFixed(2):"—";
   document.getElementById("md").textContent=s?Math.round(s.med):"—";
   document.getElementById("cvn").textContent=s?
-   (s.cv<.72?"peaked — threshold-like":(s.cv>.86?"≈1 — memoryless":"intermediate"))+" · n="+s.n
+   (s.cv<.72?"below 1 — threshold-like, either account"
+    :(s.cv>.86?"≈1 — memoryless":"intermediate"))+" · n="+s.n
    :"collecting"}
 
  for(let i=0;i<36;i++)dw.push(Math.max(14,BASE*(1+randn()*.30)));
@@ -665,13 +675,19 @@ const TILES=(function(){let t=[];
  const $=i=>document.getElementById(i);
  /* seed with mode-appropriate samples so the contrast is visible immediately
     rather than after thirty seconds of collection */
- function seed(){dw=[];for(let i=0;i<36;i++)dw.push(mode==="or"
-  ? Math.max(14,BASE/mass*(1+randn()*.30))
-  : -BASE/mass*Math.log(Math.random()||1e-9))}
+ const erl=(k,mean)=>{let s=0;for(let i=0;i<k;i++)s+=-Math.log(Math.random()||1e-9);
+  return s*mean/k};                       /* Erlang-k: CV = 1/sqrt(k) */
+ function seed(){dw=[];const M=BASE/mass;
+  for(let i=0;i<36;i++)dw.push(
+    mode==="or"    ? Math.max(14,M*(1+randn()*.30))   /* CV ≈ .30 */
+   :mode==="adapt" ? erl(4,M)                         /* CV ≈ .50, as measured */
+   :                 -M*Math.log(Math.random()||1e-9))}  /* CV ≈ 1 */
  const setM=m=>{mode=m;EG=0;since=0;th=nth();seed();
   $("m-or").setAttribute("aria-pressed",String(m==="or"));
-  $("m-cl").setAttribute("aria-pressed",String(m!=="or"));hist()};
- $("m-or").onclick=()=>setM("or"); $("m-cl").onclick=()=>setM("classical");
+  $("m-ad").setAttribute("aria-pressed",String(m==="adapt"));
+  $("m-cl").setAttribute("aria-pressed",String(m==="noise"));hist()};
+ $("m-or").onclick=()=>setM("or"); $("m-ad").onclick=()=>setM("adapt");
+ $("m-cl").onclick=()=>setM("noise");
  $("mass").oninput=e=>{mass=+e.target.value/100;$("mass-v").textContent=mass.toFixed(2)+" ×";seed();hist()};
  $("anes").oninput=e=>{anes=+e.target.value/100;$("anes-v").textContent=(anes*1.4).toFixed(2)+" MAC";hist()};
  $("run").onclick=e=>{run=!run;e.target.textContent=run?"Pause":"Play";
@@ -695,7 +711,7 @@ const MARKS=[
  {e:-1.55,l:"τ = ℏ/E_G",t:"Predicted collapse time",v:"25–40 ms · from τ = ℏ/E_G",tag:["t-unt","Not currently testable"],
   b:"The quantitative core. Collapse time varies inversely with the gravitational self-energy of the mass difference held in superposition, so more coherent tubulin means faster collapse. For biologically plausible masses this lands in the tens of milliseconds — how the theory arrived at gamma-band conscious moments. Gran Sasso in 2021 excluded the version of the mechanism whose length scale was pinned by measurement; Penrose's own version escapes that result and fixes the scale by hand instead. Links 07 and 08 in section 04."},
  {e:-1.22,l:"60 ms",t:"Observed alternation epochs",v:"59 and 64 ms · Hesse et al. 2026",tag:["t-ok","Measured in vivo"],
-  b:"Measured dwell times for the two states in macaque face patches, at the peak-likelihood bin size of 5 ms. They land squarely in the predicted window. A coincidence worth testing rather than celebrating: the duration distribution was assumed exponential, not measured, so whether this is a threshold process or a memoryless one is still open."},
+  b:"Measured dwell times for the two states in macaque face patches, at the peak-likelihood bin size of 5 ms. They land squarely in the predicted window. A coincidence worth testing rather than celebrating: the duration distribution was assumed exponential, not measured, so whether this is a threshold process or a memoryless one is still open. Settling it would not separate objective reduction from neural adaptation, since both accumulate."},
  {e:0,l:"behaviour",t:"Report and action",v:"~1 s · behavioural timescale",tag:["t-ok","Measured in vivo"],
   b:"Where every measurement bearing on consciousness is ultimately read out — a button press, a righting reflex, a verbal report. Three orders of magnitude above the proposed mechanism, and the whole inferential distance the theory must cover."}];
 (function(){
@@ -938,7 +954,7 @@ const STAGES=[
  {t:"Superposition builds",m:["10⁻⁵–10⁻⁴ s and up","contested","coherent tubulin rising"],
   b:"Tubulin dimers enter a superposition of conformational states, recruited by the prepared classical state. The number of coherent dimers grows. This is the step every decoherence objection targets, and the step the corrected Hagan calculation defends."},
  {t:"E_G accumulates",m:["rising toward ℏ/τ","theoretical","signature: regular dwells"],
-  b:"As more mass joins the superposition, the gravitational self-energy of the difference between the two mass distributions grows. This is accumulation toward a boundary — which is why the theory predicts regular rather than memoryless intervals, and the one place it makes a testable timing claim."},
+  b:"As more mass joins the superposition, the gravitational self-energy of the difference between the two mass distributions grows. This is accumulation toward a boundary — which is why the theory predicts regular rather than memoryless intervals. Classical adaptation predicts the same shape, so this signature is necessary for Orch OR and nowhere near sufficient."},
  {t:"Threshold",m:["τ = ℏ/E_G · 25–40 ms","R₀ fixed by hand","no external trigger"],
   b:"E_G reaches ℏ/τ. Nothing external triggers it: collapse is objective, not caused by measurement or environment. The Gran Sasso measurement in 2021 excluded the dynamical version of this mechanism — the one that pinned the length scale setting E_G. Penrose's version emits no radiation to hunt for, so it survives, with that scale and hence the 25–40 ms now chosen rather than derived."},
  {t:"Collapse — the conscious moment",m:["not currently testable","outcome non-computable","this is the moment"],
@@ -1163,7 +1179,7 @@ renderPred();
 /* ═══ 07 · tests ════════════════════════════════════════════════════════ */
 const TESTS=[
  {h:"Are the dwell times memoryless?",c:"~$15k · existing data",
-  p:"The 2026 primate analysis fitted a time-homogeneous transition matrix, which imposes geometric state durations, and the autocorrelation fit explicitly assumes exponential dwells. So the analysis cannot distinguish memoryless switching from accumulation to a threshold. A hidden semi-Markov model with a flexible duration distribution would, with the coefficient of variation as the readout: 1 for exponential, below 1 for a threshold process.",
+  p:"The 2026 primate analysis fitted a time-homogeneous transition matrix, which imposes geometric state durations, and the autocorrelation fit explicitly assumes exponential dwells. So the analysis cannot distinguish memoryless switching from accumulation to a threshold. A hidden semi-Markov model with a flexible duration distribution would, with the coefficient of variation as the readout: 1 for exponential, below 1 for a threshold process. Worth doing, and worth being clear about the ceiling. The same measurement on <em>perceptual</em> rivalry dates to Levelt in 1965 and has returned CV ≈ 0.5 ever since, which the standard adaptation-plus-noise competition model already predicts. These neural epochs are two orders of magnitude shorter and genuinely unmeasured, so the number would be new. The inference it licenses would not.",
   d:"SETTLES — whether switching probability depends on elapsed duration.<br>DOES NOT SETTLE — whether any accumulation is quantum, or classical refractoriness and synaptic time constants."},
  {h:"Does a tubulin-binding drug change the alternation period?",c:"~$300k · new recordings",
   p:"The sharpest available test of the physics. More coherent mass means larger E_G, hence shorter τ, hence faster alternation. No classical account of a 15 Hz cortical rhythm predicts that a microtubule-stabilising drug shifts its period by an inverse-mass law. Requires a non-tubulin comparator matched for excitability effects, and direction plus rough magnitude preregistered — the tubulin count in E_G is a free parameter that will otherwise absorb any result.",
