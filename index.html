@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Orch OR, Honestly</title>
+<meta name="description" content="An interactive walkthrough of the Penrose-Hameroff Orch OR theory in its narrowest defensible reading, with every link in the causal chain labelled by what actually supports it.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Orch OR, Honestly">
+<meta property="og:description" content="An interactive walkthrough of the Penrose-Hameroff Orch OR theory in its narrowest defensible reading, with every link in the causal chain labelled by what actually supports it.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Orch OR, Honestly">
+<meta name="twitter:description" content="An interactive walkthrough of the Penrose-Hameroff Orch OR theory in its narrowest defensible reading, with every link in the causal chain labelled by what actually supports it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Base reset equivalent to the one the artifact platform injects. */
+:root{
+  color-scheme:light;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+body{margin:0;font:14px system-ui,-apple-system,"Segoe UI",sans-serif}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<style>
+/* Layout: a single causal chain down the page, rail of log-time on the left of the ladder.
+   Palette grounded in the subject: tryptophan fluoresces in the near-UV, so violet is the
+   accent; evidence states carry their own semantic hues, kept separate from it. */
+:root{
+  --bg:#f7f6f9; --surface:#ffffff; --surface-2:#f1eff5;
+  --fg:#17141f; --fg-2:#4a4458; --fg-3:#79728a;
+  --rule:#ddd9e4; --rule-2:#c9c3d6;
+  --accent:#5b3fd6; --accent-soft:#ebe6fb;
+  --ok:#1a7a52; --ok-soft:#e2f3eb;
+  --vitro:#1f6a9c; --vitro-soft:#e3eff7;
+  --contest:#9a6407; --contest-soft:#faeedb;
+  --theory:#6b6578; --theory-soft:#eceaf0;
+  --excluded:#a62f3c; --excluded-soft:#fae8ea;
+  --f-disp:"Newsreader",Georgia,"Times New Roman",serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#100e16; --surface:#191620; --surface-2:#211d2b;
+  --fg:#efecf4; --fg-2:#b5aec4; --fg-3:#8b8399;
+  --rule:#2d2838; --rule-2:#3d3650;
+  --accent:#a894ff; --accent-soft:#241c44;
+  --ok:#5fd19b; --ok-soft:#133227;
+  --vitro:#6cb6e8; --vitro-soft:#11293b;
+  --contest:#e0a944; --contest-soft:#332509;
+  --theory:#9c94ab; --theory-soft:#262231;
+  --excluded:#f08b96; --excluded-soft:#381a1f;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#100e16; --surface:#191620; --surface-2:#211d2b;
+  --fg:#efecf4; --fg-2:#b5aec4; --fg-3:#8b8399;
+  --rule:#2d2838; --rule-2:#3d3650;
+  --accent:#a894ff; --accent-soft:#241c44;
+  --ok:#5fd19b; --ok-soft:#133227;
+  --vitro:#6cb6e8; --vitro-soft:#11293b;
+  --contest:#e0a944; --contest-soft:#332509;
+  --theory:#9c94ab; --theory-soft:#262231;
+  --excluded:#f08b96; --excluded-soft:#381a1f;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-disp);font-size:17px;line-height:1.6;margin:0;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+h1,h2,h3{font-weight:500;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.1rem,6vw,3.1rem);line-height:1.08;letter-spacing:-.02em}
+h2{font-size:clamp(1.4rem,3.6vw,1.85rem);line-height:1.2;letter-spacing:-.01em}
+h3{font-size:1.05rem;line-height:1.3}
+p{margin:0}
+.mono{font-family:var(--f-mono)}
+.eyebrow{font-family:var(--f-mono);font-size:.69rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
+a{color:var(--accent)}
+
+/* header */
+header{padding-block:clamp(44px,9vw,84px) clamp(28px,5vw,44px);border-bottom:1px solid var(--rule)}
+.lede{font-size:clamp(1.05rem,2.4vw,1.22rem);color:var(--fg-2);max-width:62ch;margin-top:20px}
+.standfirst{margin-top:26px;padding:18px 20px;background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--accent);font-size:.95rem;color:var(--fg-2)}
+.standfirst strong{color:var(--fg);font-weight:600}
+
+section{padding-block:clamp(40px,7vw,68px);border-bottom:1px solid var(--rule)}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:30px}
+.sec-head p{color:var(--fg-2);max-width:64ch;font-size:.97rem}
+
+/* ---- timescale ladder ---- */
+.ladder{background:var(--surface);border:1px solid var(--rule);padding:22px 18px 16px}
+.axis-wrap{overflow-x:auto}
+svg.axis{display:block;width:100%;min-width:520px;height:auto;max-width:100%}
+.tickline{stroke:var(--rule-2);stroke-width:1}
+.axisline{stroke:var(--fg-3);stroke-width:1.5}
+.ticklbl{font-family:var(--f-mono);font-size:9.5px;fill:var(--fg-3)}
+.mk{cursor:pointer}
+.mk circle{stroke:var(--surface);stroke-width:2}
+.mk text{font-family:var(--f-mono);font-size:10px;fill:var(--fg-2)}
+.mk:hover text,.mk[data-on="1"] text{fill:var(--fg);font-weight:600}
+.mk:hover circle,.mk[data-on="1"] circle{r:7}
+.gapband{fill:var(--contest-soft);opacity:.85}
+.gaplbl{font-family:var(--f-mono);font-size:9.5px;fill:var(--contest);font-weight:600}
+.readout{margin-top:14px;padding:14px 16px;background:var(--surface-2);border:1px solid var(--rule);min-height:92px}
+.readout .ro-t{font-family:var(--f-mono);font-size:.76rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--accent)}
+.readout .ro-v{font-family:var(--f-mono);font-size:.8rem;color:var(--fg-3);margin-top:3px}
+.readout .ro-b{font-size:.92rem;color:var(--fg-2);margin-top:9px;max-width:66ch}
+
+/* ---- the moment ---- */
+.moment{background:var(--surface);border:1px solid var(--rule)}
+.canvas-hold{position:relative;background:var(--surface-2);border-bottom:1px solid var(--rule)}
+canvas{display:block;width:100%;height:auto}
+.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--rule)}
+button{font-family:var(--f-mono);font-size:.78rem;font-weight:500;letter-spacing:.04em;text-transform:uppercase;background:var(--accent);color:#fff;border:0;padding:9px 16px;cursor:pointer;border-radius:2px}
+button:hover{filter:brightness(1.1)}
+button.ghost{background:transparent;color:var(--fg-2);border:1px solid var(--rule-2)}
+button.ghost[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+input[type=range]{flex:1 1 180px;min-width:120px;accent-color:var(--accent)}
+.stage-pane{padding:18px 16px 22px;min-height:150px}
+.stage-n{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)}
+.stage-t{font-size:1.18rem;margin-top:4px;font-weight:500}
+.stage-b{color:var(--fg-2);font-size:.95rem;margin-top:10px;max-width:66ch}
+.stage-meta{font-family:var(--f-mono);font-size:.76rem;color:var(--fg-3);margin-top:12px;display:flex;flex-wrap:wrap;gap:6px 18px}
+
+/* ---- evidence ledger ---- */
+.tag{display:inline-flex;align-items:center;gap:5px;font-family:var(--f-mono);font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:2px;white-space:nowrap}
+.tag::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
+.t-ok{color:var(--ok);background:var(--ok-soft)}
+.t-vitro{color:var(--vitro);background:var(--vitro-soft)}
+.t-contest{color:var(--contest);background:var(--contest-soft)}
+.t-theory{color:var(--theory);background:var(--theory-soft)}
+.t-excluded{color:var(--excluded);background:var(--excluded-soft)}
+.t-untest{color:var(--theory);background:transparent;border:1px dashed var(--rule-2)}
+.key{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.chain{display:flex;flex-direction:column;gap:0}
+.link{display:grid;grid-template-columns:34px 1fr;gap:0 16px;position:relative}
+.link-rail{display:flex;flex-direction:column;align-items:center}
+.link-dot{width:11px;height:11px;border-radius:50%;background:var(--surface);border:2px solid var(--rule-2);margin-top:20px;flex:none;z-index:1}
+.link.ok .link-dot{border-color:var(--ok)}.link.vitro .link-dot{border-color:var(--vitro)}
+.link.contest .link-dot{border-color:var(--contest)}.link.theory .link-dot{border-color:var(--theory)}
+.link.excluded .link-dot{border-color:var(--excluded);background:var(--excluded)}
+.link-stem{flex:1;width:2px;background:var(--rule);margin-top:2px}
+.link:last-child .link-stem{display:none}
+.link-body{padding-block:14px 20px}
+.link-head{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:baseline}
+.link-head h3{flex:1 1 300px;min-width:0}
+.link-ev{color:var(--fg-2);font-size:.92rem;margin-top:9px;max-width:64ch}
+.link-ev .src{font-family:var(--f-mono);font-size:.82rem;color:var(--fg-3)}
+
+/* ---- anesthesia ---- */
+.tog{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.preds{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px}
+.pred{background:var(--surface);border:1px solid var(--rule);padding:16px}
+.pred.live{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.pred h3{font-size:.98rem}
+.pred .who{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;color:var(--fg-3);margin-bottom:7px}
+.pred ul{list-style:none;padding:0;margin:11px 0 0;display:flex;flex-direction:column;gap:7px}
+.pred li{font-size:.87rem;color:var(--fg-2);display:flex;gap:8px;align-items:baseline}
+.pred li .k{font-family:var(--f-mono);font-size:.74rem;color:var(--fg-3);flex:none;width:74px}
+
+/* ---- fit table ---- */
+.fit{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.fitcol{background:var(--surface);border:1px solid var(--rule);padding:18px}
+.fitcol h3{margin-bottom:12px}
+.fitcol ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+.fitcol li{font-size:.92rem;color:var(--fg-2)}
+.fitcol li b{color:var(--fg);font-weight:600;display:block;font-size:.88rem;font-family:var(--f-mono);letter-spacing:.01em;margin-bottom:3px}
+.fitcol.plus{border-top:3px solid var(--ok)}
+.fitcol.minus{border-top:3px solid var(--contest)}
+
+/* ---- tests ---- */
+.tests{display:flex;flex-direction:column;gap:14px}
+.test{background:var(--surface);border:1px solid var(--rule);padding:18px;display:grid;grid-template-columns:1fr auto;gap:10px 18px;align-items:start}
+.test .cost{font-family:var(--f-mono);font-size:.78rem;color:var(--accent);white-space:nowrap;text-align:right}
+.test p{grid-column:1/-1;font-size:.92rem;color:var(--fg-2);max-width:66ch}
+.test .disc{grid-column:1/-1;font-family:var(--f-mono);font-size:.8rem;color:var(--fg-3);padding-top:9px;border-top:1px solid var(--rule)}
+
+footer{padding-block:34px 56px;color:var(--fg-3);font-size:.85rem}
+footer p{max-width:66ch;margin-bottom:11px}
+footer .mono{font-size:.78rem}
+@media (max-width:560px){
+  .link{grid-template-columns:22px 1fr;gap:0 12px}
+  .test{grid-template-columns:1fr}
+  .test .cost{text-align:left}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+
+<div class="wrap">
+<header>
+  <p class="eyebrow">Orchestrated Objective Reduction</p>
+  <h1>Orch OR, Honestly</h1>
+  <p class="lede">A walkthrough of the Penrose–Hameroff theory in the narrowest reading that current data will bear — with every link in the causal chain labelled by what actually supports it.</p>
+  <div class="standfirst"><strong>Why this page exists.</strong> Most explanations of this theory present every step with the same confidence. In fact some links are measured, several are in vitro only, one has been experimentally excluded, and two are not testable with any instrument we have. Reading it as a chain of mixed-strength claims is the only way to see where the real work is.</div>
+</header>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">01 — The problem of scale</p>
+    <h2>The theory spans fifteen orders of magnitude</h2>
+    <p>This is the first thing that makes Orch OR hard to hold in your head. It invokes physics at the femtosecond and behaviour at the second, and the argument lives in the gap between them. Select a marker to see what sits there.</p>
+  </div>
+  <div class="ladder">
+    <div class="axis-wrap"><svg class="axis" viewBox="0 0 760 196" role="img" aria-label="Logarithmic time axis from 100 femtoseconds to 1 second, with the phenomena Orch OR invokes marked along it"></svg></div>
+    <div class="readout" id="ro" aria-live="polite"></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">02 — Mechanism</p>
+    <h2>One conscious moment, step by step</h2>
+    <p>This is the selection reading: the classical brain prepares the alternatives, a collapse event picks one, and the outcome is carried back out through ordinary signalling. Scrub through a single cycle.</p>
+  </div>
+  <div class="moment">
+    <div class="canvas-hold"><canvas id="cv" width="1520" height="760"></canvas></div>
+    <div class="controls">
+      <button id="play">Play</button>
+      <input type="range" id="scrub" min="0" max="7" step="1" value="0" aria-label="Stage of the conscious moment">
+      <span class="mono" id="stagecount" style="font-size:.76rem;color:var(--fg-3)"></span>
+    </div>
+    <div class="stage-pane">
+      <p class="stage-n" id="sn"></p>
+      <h3 class="stage-t" id="st"></h3>
+      <p class="stage-b" id="sb"></p>
+      <div class="stage-meta" id="sm"></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">03 — Evidence</p>
+    <h2>The chain, link by link</h2>
+    <p>Each step the theory needs, and what stands behind it. The weakest links are not where critics usually attack.</p>
+  </div>
+  <div class="key">
+    <span class="tag t-ok">Measured in vivo</span>
+    <span class="tag t-vitro">In vitro only</span>
+    <span class="tag t-contest">Contested</span>
+    <span class="tag t-theory">Theoretical</span>
+    <span class="tag t-excluded">Excluded by experiment</span>
+    <span class="tag t-untest">Not currently testable</span>
+  </div>
+  <div class="chain" id="chain"></div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">04 — Anesthesia</p>
+    <h2>What switching consciousness off should do</h2>
+    <p>Anesthesia is the sharpest tool available, because it removes experience while leaving the stimulus and most of the machinery intact. The three live accounts predict different failures — which is what makes it worth running.</p>
+  </div>
+  <div class="tog">
+    <button class="ghost" id="aw" aria-pressed="true">Awake</button>
+    <button class="ghost" id="an" aria-pressed="false">Anesthetised</button>
+  </div>
+  <div class="preds" id="preds"></div>
+  <p style="margin-top:18px;font-size:.92rem;color:var(--fg-2);max-width:66ch">Note the overlap: the selection reading and ordinary classical access accounts predict the <em>same</em> outcome here. The experiment cleanly rules out content-generating Orch OR, and does not adjudicate between the other two. Only the dwell-time measurement carries information specific to a collapse threshold.</p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">05 — The 2026 primate data</p>
+    <h2>Where it fits the new result, and where it doesn't</h2>
+    <p>Hesse and colleagues found that macaque face-patch populations alternate about fifteen times a second between representing a consciously seen face and a perceptually suppressed one, both at high fidelity, in the same neurons. It is the most relevant new evidence, and it cuts both ways.</p>
+  </div>
+  <div class="fit">
+    <div class="fitcol plus">
+      <h3>What it helps</h3>
+      <ul>
+        <li><b>Candidates really are prepared in parallel</b>Two full representations coexist in one population, time-shared. The selection reading needs exactly this, and nobody had shown it.</li>
+        <li><b>Substrate-property theories are squeezed</b>Suppressed content sits in the same cells, same linear code, near-equal fidelity. Theories where experience is a property of the substrate now owe an account of why one epoch is felt and the next is not.</li>
+        <li><b>Selection architectures gain ground</b>Any theory where consciousness is a choice over prepared alternatives handles this naturally. Orch OR, read this way, is one.</li>
+      </ul>
+    </div>
+    <div class="fitcol minus">
+      <h3>What it doesn't</h3>
+      <ul>
+        <li><b>The discreteness isn't selective</b>Conscious and suppressed epochs alternate at the <em>same</em> grain. If each collapse is one conscious moment, the suppressed epochs need their own explanation — so the discreteness tracks a multiplexing schedule, not awareness.</li>
+        <li><b>60 ms is not a distinctive signature</b>The authors situate it among rhythmic attention, working-memory bursts and theta-paced hippocampal flickering. A prediction of "tens of milliseconds" is matched by a crowd of classical phenomena.</li>
+        <li><b>The content is thoroughly classical</b>Both faces are reconstructable from firing rates. That is awkward for the version of Orch OR where quantum computation generates conscious content.</li>
+        <li><b>Crowded company</b>Higher-order theories and global workspace with dynamic routing explain the same data without a quantum mechanism.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">06 — What would move the needle</p>
+    <h2>Three tests, and what each can actually settle</h2>
+    <p>No statistical test on neural data can detect non-computability — a non-computable sequence passes every randomness test by construction. The leverage is all in the physics of the collapse event, which makes a timing prediction nothing classical reproduces.</p>
+  </div>
+  <div class="tests" id="tests"></div>
+</section>
+
+<footer>
+  <p><strong style="color:var(--fg)">Sources.</strong> Hameroff &amp; Penrose, <em>Phys Life Rev</em> 11:39 (2014) · Penrose &amp; Hameroff, <em>J Conscious Stud</em> 3:36 (1996) · Hameroff, Bandyopadhyay &amp; Lauretta, <em>J Conscious Stud</em> 33:211 (2026) · Hesse et al., bioRxiv 10.64898/2026.10.15.759299 · Kalra et al., <em>ACS Cent Sci</em> 9:352 (2023) · Craddock et al., <em>Sci Rep</em> 7:9877 (2017) · Donadi et al., <em>Nat Phys</em> 17:74 (2021) · Hagan, Hameroff &amp; Tuszyński, <em>Phys Rev E</em> 65:061901 (2002) · Tegmark, <em>Phys Rev E</em> 61:4194 (2000) · Li et al., <em>Anesthesiology</em> 129:271 (2018) · Khan et al., <em>eNeuro</em> 11 (2024) · Emerson et al., <em>JACS</em> 135:5389 (2013) · Adlam, McQueen &amp; Waegell, arXiv:2510.13247 (2025)</p>
+  <p class="mono">The selection reading presented here is a narrowing of the published theory, not the authors' own formulation. Where it departs from Hameroff and Penrose, the evidence ledger says so.</p>
+</footer>
+</div>
+
+<script>
+/* ============ 01 · time axis ============ */
+const MARKS=[
+ {e:-13,lbl:"decoherence",t:"Tegmark's decoherence estimate",v:"~10⁻¹³ s · 100 femtoseconds",
+  b:"Tegmark (2000) calculated that microtubule superpositions would decohere in about 100 femtoseconds — far too fast to matter. Hagan, Hameroff and Tuszyński showed he had used a superposition separation of tens of nanometres where the theory stipulates femtometres, and recalculated 10⁻⁵–10⁻⁴ s. The correction was published in the same journal. The objection shaped the field's scepticism anyway."},
+ {e:-12,lbl:"terahertz",t:"π-electron transitions in tubulin",v:"~10⁻¹² s · 1 terahertz",
+  b:"Aromatic rings inside tubulin. This is where Craddock's modelling found that anesthetic disruption of collective oscillations tracked clinical potency across all eight anesthetics tested — the one potency correlation the microtubule account has that rival targets lack."},
+ {e:-9,lbl:"gigahertz",t:"Ordered water in the hollow core",v:"~10⁻⁹ s · 1 gigahertz",
+  b:"One of the four oscillatory subsystems in the 2026 fractal-time-crystal paper. Bandyopadhyay's group reports resonances here; the measurements are contested and have not been independently replicated at the level the theory needs."},
+ {e:-6,lbl:"megahertz",t:"Lattice phonons and polaritons",v:"~10⁻⁶ s · 1 megahertz",
+  b:"Also where the corrected coherence estimate lands: Hagan et al. put microtubule coherence at 10⁻⁵–10⁻⁴ s. Note the distance still to travel — three to four further orders of magnitude up to a conscious moment."},
+ {e:-3,lbl:"kilohertz",t:"Tubulin C-termini",v:"~10⁻³ s · 1 kilohertz",
+  b:"The slowest of the four subsystems. Hameroff and Penrose propose that beat frequencies between the faster oscillations generate the EEG rhythms we actually record — which is the theory's one testable bridge from molecular to measurable."},
+ {e:-1.55,lbl:"τ = ℏ/E_G",t:"Predicted collapse time",v:"25–40 ms · from τ = ℏ/E_G",
+  b:"The theory's quantitative core. Collapse time varies inversely with the gravitational self-energy of the mass difference held in superposition, so more coherent tubulin means faster collapse. For biologically plausible masses this lands in the tens of milliseconds — which is how the theory arrived at gamma-band conscious moments."},
+ {e:-1.22,lbl:"60 ms",t:"Observed alternation epochs",v:"59 and 64 ms · Hesse et al. 2026",
+  b:"Measured dwell times for the two states in macaque face patches, at the peak-likelihood bin size of 5 ms. They land squarely in the predicted window. That is a coincidence worth testing rather than celebrating: the duration distribution was assumed exponential, not measured, so whether this is a threshold process or a memoryless one is still open."},
+ {e:0,lbl:"behaviour",t:"Report and action",v:"~1 s · behavioural timescale",
+  b:"Where every measurement that bears on consciousness is ultimately read out — a button press, a righting reflex, a verbal report. Three orders of magnitude above the proposed mechanism, and the whole inferential distance the theory has to cover."}
+];
+(function(){
+ const svg=document.querySelector("svg.axis"),W=760,H=196,L=58,R=26,Y=138;
+ const x=e=>L+((e+13.6)/13.6)*(W-L-R);
+ const NS="http://www.w3.org/2000/svg";
+ const el=(n,a)=>{const o=document.createElementNS(NS,n);for(const k in a)o.setAttribute(k,a[k]);return o};
+ // the contested gap: from corrected coherence estimate to required collapse time
+ const g=el("rect",{class:"gapband",x:x(-5),y:Y-74,width:x(-1.55)-x(-5),height:74});svg.appendChild(g);
+ svg.appendChild(el("line",{class:"axisline",x1:L,y1:Y,x2:W-R,y2:Y}));
+ const gl=el("text",{class:"gaplbl",x:(x(-5)+x(-1.55))/2,y:Y-80,"text-anchor":"middle"});
+ gl.textContent="the gap the whole argument lives in";svg.appendChild(gl);
+ for(let e=-13;e<=0;e++){
+   svg.appendChild(el("line",{class:"tickline",x1:x(e),y1:Y,x2:x(e),y2:Y+6}));
+   const t=el("text",{class:"ticklbl",x:x(e),y:Y+19,"text-anchor":"middle"});
+   t.textContent="10"+String(e).replace(/-/g,"⁻").replace(/0/g,"⁰").replace(/1/g,"¹").replace(/2/g,"²").replace(/3/g,"³").replace(/4/g,"⁴").replace(/5/g,"⁵").replace(/6/g,"⁶").replace(/7/g,"⁷").replace(/8/g,"⁸").replace(/9/g,"⁹");
+   svg.appendChild(t);
+ }
+ const sl=el("text",{class:"ticklbl",x:L-8,y:Y+19,"text-anchor":"end"});sl.textContent="seconds";svg.appendChild(sl);
+ const rows=[0,1,0,1,0,1,0,1];
+ MARKS.forEach((m,i)=>{
+   const gx=x(m.e),gy=Y-(rows[i]?34:14);
+   const grp=el("g",{class:"mk",tabindex:"0",role:"button","data-i":i,"aria-label":m.t});
+   grp.appendChild(el("line",{class:"tickline",x1:gx,y1:Y,x2:gx,y2:gy+5}));
+   grp.appendChild(el("circle",{cx:gx,cy:gy,r:5,fill:"var(--accent)"}));
+   const tx=el("text",{x:gx,y:gy-11,"text-anchor":i>5?"end":(i<2?"start":"middle")});
+   tx.textContent=m.lbl;grp.appendChild(tx);
+   const act=()=>{document.querySelectorAll(".mk").forEach(n=>n.removeAttribute("data-on"));grp.setAttribute("data-on","1");show(i)};
+   grp.addEventListener("click",act);
+   grp.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();act()}});
+   svg.appendChild(grp);
+ });
+ const ro=document.getElementById("ro");
+ function show(i){const m=MARKS[i];ro.innerHTML='<p class="ro-t">'+m.t+'</p><p class="ro-v">'+m.v+'</p><p class="ro-b">'+m.b+'</p>'}
+ show(5);document.querySelector('.mk[data-i="5"]').setAttribute("data-on","1");
+})();
+
+/* ============ 02 · the moment ============ */
+const STAGES=[
+ {t:"Classical preparation",b:"Dendritic and synaptic input sets the stage: which tubulin configurations are available, and which representations the surrounding population is holding. On the selection reading nothing informational is in superposition yet — the candidates are ordinary firing patterns. This is the step the word “orchestrated” refers to.",
+  m:["timescale · milliseconds","status · measured","candidates · 2 prepared"]},
+ {t:"Superposition builds",b:"Tubulin dimers enter a superposition of conformational states, recruited by the prepared classical state. The number of coherent dimers grows. This is the step every decoherence objection targets, and the step the corrected Hagan calculation defends.",
+  m:["timescale · 10⁻⁵–10⁻⁴ s and up","status · contested","coherent tubulin · rising"]},
+ {t:"E_G accumulates",b:"As more mass joins the superposition, the gravitational self-energy of the difference between the two mass distributions grows. This is an accumulation toward a boundary — which is why the theory predicts regular rather than memoryless intervals, and the one place it makes a testable timing claim.",
+  m:["E_G · rising toward ℏ/τ","status · theoretical","signature · regular dwells"]},
+ {t:"Threshold",b:"E_G reaches ℏ/τ. For biologically plausible masses this takes tens of milliseconds. Nothing external triggers it: collapse is objective, not caused by measurement or environment. The parameter-free version of this mechanism was excluded by the Gran Sasso radiation measurement in 2021 — the theory needs objective reduction to exist in some modified form.",
+  m:["τ = ℏ/E_G · 25–40 ms","status · excluded (parameter-free)","trigger · none"]},
+ {t:"Collapse — the conscious moment",b:"One configuration is selected. On the theory, this event is not a cause of experience; it is the experience. The outcome is held to be non-computable: neither determined nor random. That identity claim is the heart of the proposal and is not testable with any instrument currently available.",
+  m:["status · not currently testable","outcome · non-computable","this is the moment"]},
+ {t:"Conformational outcome",b:"The selected tubulin states persist classically. From here on everything is ordinary cell biology — which is the point. The quantum layer has done its one job and hands off.",
+  m:["timescale · milliseconds","status · plausible","quantum layer · done"]},
+ {t:"Classical signalling",b:"Microtubule states regulate ion channel trafficking, receptor positioning and dendritic excitability. This machinery is well documented independent of any consciousness claim, which makes it the least speculative link in the chain.",
+  m:["timescale · 10–100 ms","status · measured","mechanism · trafficking"]},
+ {t:"Gain change, then routing",b:"One representation is amplified relative to the other and routed onward to systems that support report and control. In the 2026 primate data the measured difference between conscious and suppressed epochs was a tuning-gain ratio of about 1.21 — though whether that signature reflects awareness or ordinary adaptation is currently unresolved.",
+  m:["gain ratio · ~1.21","status · measured, confounded","read out as · report"]}
+];
+(function(){
+ const cv=document.getElementById("cv"),ctx=cv.getContext("2d");
+ const scrub=document.getElementById("scrub"),play=document.getElementById("play");
+ let stage=0,playing=false,timer=null,t0=performance.now();
+ const css=k=>getComputedStyle(document.documentElement).getPropertyValue(k).trim();
+ const ROWS=5,COLS=26;
+ function draw(){
+  const W=cv.width,H=cv.height,now=performance.now(),ph=((now-t0)/1000)%1;
+  const bg=css("--surface-2"),fg=css("--fg"),f2=css("--fg-2"),f3=css("--fg-3"),ac=css("--accent"),rl=css("--rule-2"),ok=css("--ok");
+  ctx.clearRect(0,0,W,H);ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+  // ---- microtubule lattice ----
+  const lx=90,ly=130,cw=42,chh=44,gap=6;
+  ctx.font="500 26px "+'"IBM Plex Mono",monospace';ctx.fillStyle=f3;ctx.textAlign="left";
+  ctx.fillText("MICROTUBULE LATTICE", lx, ly-32);
+  const frac=stage<=0?0:stage===1?0.45:stage===2?0.85:stage>=4?1:1;
+  for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
+    const X=lx+c*(cw+gap),Y=ly+r*(chh+gap);
+    const idx=(c*ROWS+r)/(ROWS*COLS);
+    const inSup=idx<frac&&stage>=1&&stage<=3;
+    const settled=stage>=4&&idx<1;
+    ctx.fillStyle=bg;ctx.strokeStyle=rl;ctx.lineWidth=2;
+    ctx.beginPath();ctx.roundRect(X,Y,cw,chh,4);ctx.fill();ctx.stroke();
+    if(inSup){
+      const a=.3+.55*Math.abs(Math.sin(ph*Math.PI*2+idx*9));
+      ctx.fillStyle=ac;ctx.globalAlpha=a;ctx.beginPath();ctx.roundRect(X,Y,cw,chh,4);ctx.fill();ctx.globalAlpha=1;
+    } else if(settled){
+      const up=(Math.sin(c*2.7+r*1.3)>0);
+      ctx.fillStyle=up?ac:bg;ctx.strokeStyle=ac;
+      ctx.beginPath();ctx.roundRect(X,Y,cw,chh,4);ctx.fill();ctx.stroke();
+    }
+  }
+  if(stage===4){ // collapse flash
+    const a=Math.max(0,1-((now-t0)%1000)/400);
+    ctx.fillStyle=ac;ctx.globalAlpha=a*.3;ctx.fillRect(lx-14,ly-14,COLS*(cw+gap)+14,ROWS*(chh+gap)+14);ctx.globalAlpha=1;
+  }
+  // ---- E_G gauge ----
+  const gx=90,gy=460,gw=COLS*(cw+gap)-gap,gh=40;
+  ctx.font="500 26px "+'"IBM Plex Mono",monospace';ctx.fillStyle=f3;
+  ctx.fillText("E_G  —  GRAVITATIONAL SELF-ENERGY", gx, gy-20);
+  ctx.strokeStyle=rl;ctx.lineWidth=2;ctx.strokeRect(gx,gy,gw,gh);
+  const lvl=stage<=0?0:stage===1?.42:stage===2?.82:stage>=3?1:0;
+  ctx.fillStyle=stage>=3?ok:ac;ctx.fillRect(gx+2,gy+2,(gw-4)*lvl,gh-4);
+  const thx=gx+gw-4;
+  ctx.strokeStyle=ok;ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(thx,gy-8);ctx.lineTo(thx,gy+gh+8);ctx.stroke();
+  ctx.font="500 24px "+'"IBM Plex Mono",monospace';ctx.fillStyle=ok;ctx.textAlign="right";
+  ctx.fillText("ℏ/τ", thx-10, gy-16);ctx.textAlign="left";
+  // ---- two candidate channels ----
+  const chy=566,chw=(gw-40)/2;
+  ["CANDIDATE A","CANDIDATE B"].forEach((nm,i)=>{
+    const X=gx+i*(chw+40);
+    const sel=(stage>=7&&i===0);
+    const pre=stage>=0;
+    ctx.font="500 24px "+'"IBM Plex Mono",monospace';
+    ctx.fillStyle=sel?ac:f3;ctx.textAlign="left";ctx.fillText(nm,X,chy-12);
+    ctx.strokeStyle=sel?ac:rl;ctx.lineWidth=sel?4:2;
+    ctx.beginPath();ctx.roundRect(X,chy,chw,96,4);ctx.stroke();
+    // waveform
+    ctx.strokeStyle=sel?ac:f3;ctx.lineWidth=sel?5:2.5;ctx.globalAlpha=pre?1:.25;
+    ctx.beginPath();
+    const amp=sel?34:(stage>=7?12:22);
+    for(let p=0;p<=chw-20;p+=3){
+      const yy=chy+48+Math.sin(p/14+i*2+ph*6.28)*amp*(sel?1:.8);
+      p===0?ctx.moveTo(X+10+p,yy):ctx.lineTo(X+10+p,yy);
+    }
+    ctx.stroke();ctx.globalAlpha=1;
+    if(sel){ctx.font="500 22px "+'"IBM Plex Mono",monospace';ctx.fillStyle=ac;ctx.textAlign="right";
+      ctx.fillText("ROUTED · gain ×1.21",X+chw-12,chy+86);ctx.textAlign="left"}
+  });
+  // ---- stage rail ----
+  const ry=712;
+  for(let i=0;i<8;i++){
+    const X=gx+i*((gw-0)/8),w=(gw/8)-8;
+    ctx.fillStyle=i<=stage?ac:rl;ctx.globalAlpha=i===stage?1:(i<stage?.5:.35);
+    ctx.fillRect(X,ry,w,7);ctx.globalAlpha=1;
+  }
+  if(playing||stage===4||stage<=2)raf=requestAnimationFrame(draw);
+ }
+ let raf=null;
+ function render(){
+  const s=STAGES[stage];
+  document.getElementById("sn").textContent="Stage "+(stage+1)+" of 8";
+  document.getElementById("st").textContent=s.t;
+  document.getElementById("sb").textContent=s.b;
+  document.getElementById("sm").innerHTML=s.m.map(x=>"<span>"+x+"</span>").join("");
+  document.getElementById("stagecount").textContent=(stage+1)+" / 8";
+  scrub.value=stage;
+  cancelAnimationFrame(raf);t0=performance.now();raf=requestAnimationFrame(draw);
+ }
+ scrub.addEventListener("input",()=>{stage=+scrub.value;stop();render()});
+ function stop(){playing=false;clearInterval(timer);play.textContent="Play"}
+ play.addEventListener("click",()=>{
+   if(playing){stop();return}
+   playing=true;play.textContent="Pause";
+   if(stage>=7)stage=0;
+   render();
+   timer=setInterval(()=>{if(stage>=7){stop();return}stage++;render()},2600);
+ });
+ render();
+ window.addEventListener("resize",()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(draw)});
+})();
+
+/* ============ 03 · ledger ============ */
+const CHAIN=[
+ {k:"ok",tag:["t-ok","Measured in vivo"],h:"Anesthetics bind tubulin and microtubules",
+  e:"Settled structural and proteomic pharmacology, independent of any consciousness claim. Epothilone B's binding site on β-tubulin is likewise established. <span class='src'>Pan et al. 2008; Bodakuntla et al. 2025</span>"},
+ {k:"ok",tag:["t-ok","Measured in vivo"],h:"Microtubule-targeting drugs shift anesthetic sensitivity",
+  e:"Brain-penetrant epothilone B delays isoflurane-induced loss of righting reflex in rats and mice. But the literature is unresolved: epothilone D shifted sensitivity the opposite way, and a destabiliser shifted it the same way as the stabiliser — which no simple stabilisation account predicts. <span class='src'>Khan et al. 2024; Huang et al. 2026; BMC Anesthesiol 2025</span>"},
+ {k:"vitro",tag:["t-vitro","In vitro only"],h:"Anesthetics dampen quantum optical effects in microtubules",
+  e:"Isoflurane and etomidate reduce exciton diffusion in microtubules, measured by tryptophan autofluorescence lifetimes; energy migration over 6.6 nm exceeds what conventional Förster theory accounts for. Isolated microtubules, not neurons. <span class='src'>Kalra et al. 2023</span>"},
+ {k:"vitro",tag:["t-vitro","In vitro only"],h:"Anesthetic potency tracks disruption of tubulin terahertz oscillations",
+  e:"Computational modelling found a Meyer–Overton correlation across all eight anesthetics studied. This is the microtubule account's strongest comparative claim — no equivalent potency correlation has been demonstrated for any rival target. It is modelling, not measurement. <span class='src'>Craddock et al. 2017</span>"},
+ {k:"contest",tag:["t-contest","Contested"],h:"Microtubules sustain coherence long enough to matter",
+  e:"Tegmark put decoherence at 10⁻¹³ s. Hagan et al. showed he used a separation distance seven orders of magnitude too large and recalculated 10⁻⁵–10⁻⁴ s. Even the corrected figure leaves several orders of magnitude to the tens of milliseconds the theory needs. <span class='src'>Tegmark 2000; Hagan et al. 2002</span>"},
+ {k:"contest",tag:["t-contest","Contested"],h:"The lattice has resonance structure across many frequencies",
+  e:"Bandyopadhyay's group reports self-similar oscillations from hertz to terahertz, framed in 2026 as fractal time crystals with four distinct subsystems. Independent replication at the level the theory requires is not yet available. <span class='src'>Hameroff, Bandyopadhyay &amp; Lauretta 2026</span>"},
+ {k:"excluded",tag:["t-excluded","Excluded by experiment"],h:"Collapse occurs objectively at τ = ℏ/E_G",
+  e:"The quantitative core, and the only place the theory makes a prediction nothing classical reproduces. A dedicated measurement of spontaneous radiation at the Gran Sasso underground laboratory ruled out the natural parameter-free version of the Diósi–Penrose model. Objective reduction must exist in some modified form for anything downstream to follow. <span class='src'>Donadi et al. 2021</span>"},
+ {k:"theory",tag:["t-theory","Theoretical"],h:"Nothing informational is held in superposition",
+  e:"The narrowing this page presents. In the published theory, superposed tubulin states carry information and undergo quantum computation; here they do not, and the collapse event selects among classically prepared alternatives. This buys immunity to the no-cloning argument against quantum agency, and costs the entanglement account of unified experience. <span class='src'>departs from Hameroff &amp; Penrose 2014; cf. Adlam, McQueen &amp; Waegell 2025</span>"},
+ {k:"theory",tag:["t-untest","Not currently testable"],h:"The collapse outcome is non-computable",
+  e:"No computable statistical test can distinguish a non-computable sequence from a random one — every such test is itself an algorithm, and a non-computable sequence is generally maximally incompressible. Penrose's claim was never about the statistics of outcomes but about performance: producing right answers where no computable procedure could. That signature is unavailable in any perception experiment. <span class='src'>Penrose 1989, 1994</span>"},
+ {k:"theory",tag:["t-untest","Not currently testable"],h:"The collapse event is the moment of experience",
+  e:"An identity claim, not a causal one, and the load-bearing step for the whole proposal. Why gravitational self-energy minimisation should track anything experiential is answered by appeal to proto-conscious structure in Planck-scale geometry. That is an enormous promissory note, and narrowing the theory makes it starker rather than smaller, because selection now carries the entire explanatory burden."},
+ {k:"ok",tag:["t-ok","Measured in vivo"],h:"Microtubule states regulate synaptic and neural function",
+  e:"Ion channel trafficking, receptor positioning, dendritic excitability. Thoroughly documented cell biology, and the reason a collapse outcome has a short causal path to the neuronal gain that distinguishes conscious from suppressed epochs in the primate data. <span class='src'>Kapitein &amp; Hoogenraad 2015</span>"}
+];
+document.getElementById("chain").innerHTML=CHAIN.map(l=>
+ '<div class="link '+l.k+'"><div class="link-rail"><div class="link-dot"></div><div class="link-stem"></div></div>'+
+ '<div class="link-body"><div class="link-head"><h3>'+l.h+'</h3><span class="tag '+l.tag[0]+'">'+l.tag[1]+'</span></div>'+
+ '<p class="link-ev">'+l.e+'</p></div></div>').join("");
+
+/* ============ 04 · anesthesia ============ */
+const PRED=[
+ {who:"Content-generating Orch OR",h:"The pictures themselves degrade",
+  r:{Multiplexing:"stops or fragments",Fidelity:"degrades",Asymmetry:"gone with everything else"},
+  a:{Multiplexing:"stops or fragments",Fidelity:"degrades",Asymmetry:"gone with everything else"}},
+ {who:"Selection reading",h:"Generation survives, selection stops",
+  r:{Multiplexing:"continues",Fidelity:"near-normal",Asymmetry:"collapses toward 1.0"},
+  a:{Multiplexing:"continues",Fidelity:"near-normal",Asymmetry:"collapses toward 1.0"}},
+ {who:"Classical access accounts",h:"Broadcast is blocked",
+  r:{Multiplexing:"continues",Fidelity:"near-normal",Asymmetry:"collapses, or scales with arousal"},
+  a:{Multiplexing:"continues",Fidelity:"near-normal",Asymmetry:"collapses, or scales with arousal"}}
+];
+let anes=false;
+function renderPred(){
+ document.getElementById("preds").innerHTML=PRED.map((p,i)=>{
+  const d=anes?p.a:p.r;
+  const rows=anes?Object.keys(d).map(k=>'<li><span class="k">'+k+'</span><span>'+d[k]+'</span></li>').join("")
+   :'<li><span class="k">Awake</span><span>two states alternate, ~1.21 gain ratio, decodable at 66%</span></li>';
+  return '<div class="pred'+(anes?' live':'')+'"><p class="who">'+p.who+'</p><h3>'+(anes?p.h:"Prediction appears when anesthetised")+'</h3><ul>'+rows+'</ul></div>';
+ }).join("");
+ document.getElementById("aw").setAttribute("aria-pressed",String(!anes));
+ document.getElementById("an").setAttribute("aria-pressed",String(anes));
+}
+document.getElementById("aw").addEventListener("click",()=>{anes=false;renderPred()});
+document.getElementById("an").addEventListener("click",()=>{anes=true;renderPred()});
+anes=true;renderPred();
+
+/* ============ 06 · tests ============ */
+const TESTS=[
+ {h:"Are the dwell times memoryless?",c:"~$15k · existing data",
+  p:"The 2026 primate analysis fitted a time-homogeneous transition matrix, which imposes geometric state durations, and the autocorrelation fit explicitly assumes exponential dwells. So the analysis cannot distinguish memoryless switching from accumulation to a threshold. A hidden semi-Markov model with a flexible duration distribution would, with the coefficient of variation as the readout: 1 for exponential, below 1 for a threshold process.",
+  d:"Settles: whether switching probability depends on elapsed duration. Does not settle: whether any accumulation is quantum, or classical refractoriness and synaptic time constants."},
+ {h:"Does a tubulin-binding drug change the alternation period?",c:"~$300k · new recordings",
+  p:"The sharpest available test of the physics. More coherent mass means larger E_G, hence shorter τ, hence faster alternation. No classical account of a 15 Hz cortical rhythm predicts that a microtubule-stabilising drug shifts its period by an inverse-mass law. Requires a non-tubulin comparator matched for excitability effects, and direction plus rough magnitude preregistered — the tubulin count in E_G is a free parameter that will otherwise absorb any result.",
+  d:"Settles: whether the putative clock is touchable by microtubule pharmacology. Does not settle: the identity claim."},
+ {h:"Flash suppression under light anesthesia",c:"~$300k · new recordings",
+  p:"Removes consciousness while holding stimulus and adaptation structure fixed. Its main value is theory-neutral: it resolves whether the measured gain asymmetry is a signature of conscious access or an artefact of stimulus recency, which the awake paradigm cannot separate because the suppressed face is always the primed one.",
+  d:"Settles: the recency confound, and rules out content-generating Orch OR. Does not settle: selection versus classical access — they predict the same result."}
+];
+document.getElementById("tests").innerHTML=TESTS.map(t=>
+ '<div class="test"><h3>'+t.h+'</h3><span class="cost">'+t.c+'</span><p>'+t.p+'</p><p class="disc">'+t.d+'</p></div>').join("");
+</script>
+</body>
+</html>
