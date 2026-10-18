@@ -1,4 +1,4 @@
-# Orch OR, Honestly
+# The Orch OR Chain
 
 An interactive walkthrough of the Penrose–Hameroff Orchestrated Objective Reduction theory,
 in the narrowest reading current data will bear, with every link in the causal chain labelled
