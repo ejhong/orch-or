@@ -4,902 +4,1048 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Orch OR, Honestly</title>
-<meta name="description" content="An interactive walkthrough of the Penrose-Hameroff Orch OR theory in its narrowest defensible reading, with every link in the causal chain labelled by what actually supports it.">
-<meta name="color-scheme" content="light dark">
+<meta name="description" content="A technical sheet on the Penrose-Hameroff Orch OR theory in its narrowest defensible reading, with every link in the causal chain labelled by what actually supports it.">
+<meta name="color-scheme" content="dark">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Orch OR, Honestly">
-<meta property="og:description" content="An interactive walkthrough of the Penrose-Hameroff Orch OR theory in its narrowest defensible reading, with every link in the causal chain labelled by what actually supports it.">
+<meta property="og:description" content="A technical sheet on the Penrose-Hameroff Orch OR theory, with every link labelled by what actually supports it.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Orch OR, Honestly">
-<meta name="twitter:description" content="An interactive walkthrough of the Penrose-Hameroff Orch OR theory in its narrowest defensible reading, with every link in the causal chain labelled by what actually supports it.">
+<meta name="twitter:description" content="A technical sheet on Orch OR, with every link labelled by what actually supports it.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@300;500&family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-/* Base reset equivalent to the one the artifact platform injects. */
+/* ─────────────────────────────────────────────────────────────────────────
+   A technical drawing sheet. Blueprint-negative: deep ink ground, cool
+   hairlines for structure, cyan for coherence, amber for the Platonic layer
+   and every collapse event. Committed to one dark world — an instrument
+   sheet, not a document that flips theme.
+   ───────────────────────────────────────────────────────────────────────── */
 :root{
-  color-scheme:light;
+  --ground:#06080d; --sheet:#0a0e15; --sheet2:#0e131c; --sheet3:#121823;
+  --hair:#19202b; --hair2:#27313f; --hair3:#38455a;
+  --ink3:#4e5c6e; --ink2:#8595a8; --ink:#c3cedb; --ink1:#e8eef6;
+  --cy:#46d9e8; --cyd:#1b5a63; --cyf:#0e2b31;
+  --am:#f0a93c; --amd:#6b4a14; --amf:#2a1d07;
+  --rd:#e8594f; --rdf:#2d1110;
+  --bl:#6aa9e0; --blf:#13222f;
+  --f-disp:"Martian Mono",ui-monospace,monospace;
+  --f-body:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  color-scheme:dark;
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);
 }
-body{margin:0;font:14px system-ui,-apple-system,"Segoe UI",sans-serif}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:var(--f-body);font-size:16.5px;line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+  background-image:linear-gradient(var(--hair) 1px,transparent 1px),
+                   linear-gradient(90deg,var(--hair) 1px,transparent 1px);
+  background-size:72px 72px;background-position:-1px -1px;
+}
 img{max-width:100%}
 [hidden]{display:none!important}
+.wrap{max-width:1000px;margin:0 auto;background:var(--ground);
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  border-left:1px solid var(--hair);border-right:1px solid var(--hair)}
+h1,h2,h3{margin:0;font-weight:500;text-wrap:balance}
+h1{font-family:var(--f-disp);font-weight:300;font-size:clamp(1.5rem,5vw,2.8rem);
+  line-height:1.1;letter-spacing:-.045em;color:var(--ink1)}
+h2{font-family:var(--f-disp);font-weight:300;font-size:clamp(1.1rem,2.8vw,1.56rem);
+  line-height:1.25;letter-spacing:-.035em;color:var(--ink1)}
+h3{font-family:var(--f-body);font-weight:600;font-size:1.01rem;line-height:1.34;color:var(--ink1)}
+p{margin:0}
+a{color:var(--cy);text-decoration-color:var(--cyd);text-underline-offset:3px}
+.lbl{font-family:var(--f-mono);font-size:.66rem;font-weight:500;letter-spacing:.17em;
+  text-transform:uppercase;color:var(--ink3)}
+
+/* ── title block ───────────────────────────────────────────────────────── */
+header{padding-block:clamp(28px,5vw,52px) 0}
+.tb{border:1px solid var(--hair2);display:grid;grid-template-columns:repeat(auto-fit,minmax(116px,1fr))}
+.tb>div{padding:11px 13px 12px;border-right:1px solid var(--hair2);min-width:0}
+.tb>div:last-child{border-right:0}
+.tb dt{font-family:var(--f-mono);font-size:.59rem;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--ink3);margin-bottom:5px}
+.tb dd{margin:0;font-family:var(--f-mono);font-size:.73rem;color:var(--ink);line-height:1.38}
+.tb dd.hi{color:var(--am)}
+.hero{padding-block:clamp(30px,5.5vw,52px) clamp(24px,4vw,36px)}
+.hero h1{margin-bottom:20px}
+.lede{font-size:clamp(1rem,2.1vw,1.15rem);color:var(--ink2);max-width:60ch}
+.caveat{margin-top:25px;border:1px solid var(--hair2);border-left:2px solid var(--am);
+  background:var(--sheet);padding:16px 18px;font-size:.91rem;color:var(--ink2);max-width:72ch}
+.caveat b{color:var(--ink1);font-weight:600}
+
+/* ── sections ──────────────────────────────────────────────────────────── */
+section{padding-block:clamp(34px,5.5vw,58px);border-top:1px solid var(--hair)}
+.sh{margin-bottom:25px}
+.sh .lbl{display:block;margin-bottom:10px}
+.sh h2{margin-bottom:12px}
+.sh p{color:var(--ink2);max-width:66ch;font-size:.95rem}
+
+/* ── figures ───────────────────────────────────────────────────────────── */
+figure{margin:0;border:1px solid var(--hair2);background:var(--sheet)}
+.fig-top{display:flex;flex-wrap:wrap;gap:4px 16px;align-items:baseline;
+  padding:9px 14px;border-bottom:1px solid var(--hair2);background:var(--sheet2)}
+.fig-n{font-family:var(--f-mono);font-size:.63rem;font-weight:500;letter-spacing:.15em;color:var(--am)}
+.fig-t{font-family:var(--f-mono);font-size:.63rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3)}
+canvas{display:block;width:100%;height:auto;background:var(--sheet)}
+.fig-bar{display:flex;flex-wrap:wrap;gap:15px 22px;align-items:flex-end;
+  padding:14px;border-top:1px solid var(--hair2);background:var(--sheet2)}
+.ctl{display:flex;flex-direction:column;gap:6px;min-width:0}
+.ctl .k{font-family:var(--f-mono);font-size:.59rem;font-weight:500;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--ink3);white-space:nowrap}
+.ctl .v{font-family:var(--f-mono);font-size:.63rem;color:var(--cy)}
+.seg{display:flex;border:1px solid var(--hair3)}
+.seg button{background:transparent;color:var(--ink2);border:0;border-right:1px solid var(--hair3);
+  padding:7px 12px;font-family:var(--f-mono);font-size:.65rem;letter-spacing:.07em;
+  text-transform:uppercase;cursor:pointer}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--cyf);color:var(--cy)}
+.seg button:hover{color:var(--ink1)}
+button:focus-visible,input:focus-visible{outline:1px solid var(--cy);outline-offset:2px}
+input[type=range]{flex:0 1 118px;min-width:80px;accent-color:var(--cy);margin:0;height:18px}
+.fig-cap{padding:14px;border-top:1px solid var(--hair2);font-size:.87rem;color:var(--ink2);max-width:78ch}
+.fig-cap b{color:var(--ink1);font-weight:600}
+
+.ro{display:grid;grid-template-columns:1fr auto;gap:12px 20px;align-items:end;
+  padding:14px;border-top:1px solid var(--hair2);background:var(--sheet2)}
+.ro-nums{display:flex;gap:22px;text-align:right}
+.ro-k{font-family:var(--f-mono);font-size:.57rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink3)}
+.ro-v{font-family:var(--f-disp);font-weight:300;font-size:1.3rem;line-height:1.15;color:var(--cy);
+  font-variant-numeric:tabular-nums;letter-spacing:-.04em}
+.ro-n{font-family:var(--f-mono);font-size:.59rem;color:var(--ink3);margin-top:3px}
+@media (max-width:640px){.ro{grid-template-columns:1fr}.ro-nums{text-align:left}}
+
+.zt{display:flex;flex-wrap:wrap;border-top:1px solid var(--hair2);background:var(--sheet2)}
+.zt button{flex:1 1 110px;background:transparent;border:0;border-right:1px solid var(--hair2);
+  padding:11px 11px 10px;text-align:left;cursor:pointer;min-width:0;color:var(--ink2)}
+.zt button:last-child{border-right:0}
+.zt button[aria-pressed="true"]{background:var(--cyf);box-shadow:inset 0 1px 0 var(--cy)}
+.zt .a{display:block;font-family:var(--f-mono);font-size:.56rem;letter-spacing:.16em;
+  color:var(--ink3);margin-bottom:4px}
+.zt button[aria-pressed="true"] .a{color:var(--cy)}
+.zt .b{display:block;font-family:var(--f-mono);font-size:.72rem;color:inherit}
+.zt button[aria-pressed="true"] .b{color:var(--ink1)}
+
+.sp{padding:16px 14px 20px;border-top:1px solid var(--hair2)}
+.sp .n{font-family:var(--f-mono);font-size:.61rem;letter-spacing:.15em;text-transform:uppercase;color:var(--am)}
+.sp h3{margin-top:7px}
+.sp .b{color:var(--ink2);font-size:.91rem;margin-top:10px;max-width:70ch}
+.sp .b+.b{margin-top:9px}
+.sp .meta{display:flex;flex-wrap:wrap;gap:5px 20px;margin-top:13px;
+  font-family:var(--f-mono);font-size:.69rem;color:var(--ink3)}
+.sp .hd{display:flex;flex-wrap:wrap;gap:9px 12px;align-items:center;margin-top:7px}
+.sp .hd h3{flex:1 1 250px;margin-top:0}
+
+/* ── tags ──────────────────────────────────────────────────────────────── */
+.tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:.61rem;
+  font-weight:500;letter-spacing:.11em;text-transform:uppercase;padding:3px 8px;white-space:nowrap;
+  border:1px solid currentColor}
+.tag::before{content:"";width:5px;height:5px;background:currentColor;flex:none}
+.t-ok{color:var(--cy);background:var(--cyf)}
+.t-vit{color:var(--bl);background:var(--blf)}
+.t-con{color:var(--am);background:var(--amf)}
+.t-the{color:var(--ink3);background:var(--sheet3)}
+.t-exc{color:var(--rd);background:var(--rdf)}
+.t-unt{color:var(--ink3);background:transparent;border-style:dashed}
+.t-unt::before{background:transparent;border:1px solid currentColor}
+.key{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:23px}
+
+/* ── schedule ──────────────────────────────────────────────────────────── */
+.sched{border:1px solid var(--hair2)}
+.row{display:grid;grid-template-columns:44px 1fr;border-bottom:1px solid var(--hair)}
+.row:last-child{border-bottom:0}
+.row .idx{font-family:var(--f-mono);font-size:.65rem;color:var(--ink3);padding:17px 0 0;
+  text-align:center;border-right:1px solid var(--hair);background:var(--sheet2)}
+.row .bod{padding:15px 15px 17px;min-width:0}
+.row .hd{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.row .hd h3{flex:1 1 270px;min-width:0;font-size:.96rem}
+.row .ev{color:var(--ink2);font-size:.88rem;margin-top:9px;max-width:68ch}
+.row .src{font-family:var(--f-mono);font-size:.73rem;color:var(--ink3)}
+.row.exc{background:linear-gradient(90deg,var(--rdf),transparent 46%)}
+.row.exc .idx{color:var(--rd)}
+
+/* ── predictions ───────────────────────────────────────────────────────── */
+.tog{margin-bottom:19px}
+.preds{display:grid;grid-template-columns:repeat(auto-fit,minmax(204px,1fr));gap:1px;
+  background:var(--hair2);border:1px solid var(--hair2)}
+.pred{background:var(--sheet);padding:15px}
+.pred.live{background:var(--sheet3);box-shadow:inset 0 2px 0 var(--cy)}
+.pred .who{font-family:var(--f-mono);font-size:.59rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink3);margin-bottom:8px}
+.pred h3{font-size:.92rem}
+.pred ul{list-style:none;padding:0;margin:12px 0 0;display:flex;flex-direction:column;gap:8px}
+.pred li{font-size:.83rem;color:var(--ink2);display:flex;gap:9px;align-items:baseline}
+.pred li .k{font-family:var(--f-mono);font-size:.67rem;color:var(--ink3);flex:none;width:70px}
+
+/* ── fit ───────────────────────────────────────────────────────────────── */
+.fit{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;
+  background:var(--hair2);border:1px solid var(--hair2)}
+.fc{background:var(--sheet);padding:17px}
+.fc.p{box-shadow:inset 0 2px 0 var(--cy)}
+.fc.m{box-shadow:inset 0 2px 0 var(--am)}
+.fc h3{margin-bottom:13px;font-size:.96rem}
+.fc ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:13px}
+.fc li{font-size:.88rem;color:var(--ink2)}
+.fc li b{display:block;font-family:var(--f-mono);font-size:.75rem;letter-spacing:.02em;
+  color:var(--ink1);font-weight:500;margin-bottom:4px}
+
+/* ── tests ─────────────────────────────────────────────────────────────── */
+.tests{display:flex;flex-direction:column;gap:1px;background:var(--hair2);border:1px solid var(--hair2)}
+.test{background:var(--sheet);padding:17px;display:grid;grid-template-columns:1fr auto;
+  gap:9px 18px;align-items:start}
+.test .c{font-family:var(--f-mono);font-size:.71rem;color:var(--am);white-space:nowrap;text-align:right}
+.test p{grid-column:1/-1;font-size:.88rem;color:var(--ink2);max-width:70ch}
+.test .d{grid-column:1/-1;font-family:var(--f-mono);font-size:.74rem;color:var(--ink3);
+  padding-top:11px;border-top:1px solid var(--hair);line-height:1.6}
+@media (max-width:560px){
+  .test{grid-template-columns:1fr}.test .c{text-align:left}
+  .row{grid-template-columns:30px 1fr}}
+
+footer{border-top:1px solid var(--hair2);padding-block:25px clamp(38px,6vw,60px)}
+footer .lbl{display:block;margin-bottom:13px}
+footer p{font-size:.81rem;color:var(--ink3);max-width:74ch;line-height:1.7}
+footer p+p{margin-top:13px}
+footer b{color:var(--ink2);font-weight:600}
+footer em{color:var(--ink2);font-style:normal}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
-<style>
-/* Layout: a single causal chain down the page, rail of log-time on the left of the ladder.
-   Palette grounded in the subject: tryptophan fluoresces in the near-UV, so violet is the
-   accent; evidence states carry their own semantic hues, kept separate from it. */
-:root{
-  --bg:#f7f6f9; --surface:#ffffff; --surface-2:#f1eff5;
-  --fg:#17141f; --fg-2:#4a4458; --fg-3:#79728a;
-  --rule:#ddd9e4; --rule-2:#c9c3d6;
-  --accent:#5b3fd6; --accent-soft:#ebe6fb;
-  --ok:#1a7a52; --ok-soft:#e2f3eb;
-  --vitro:#1f6a9c; --vitro-soft:#e3eff7;
-  --contest:#9a6407; --contest-soft:#faeedb;
-  --theory:#6b6578; --theory-soft:#eceaf0;
-  --excluded:#a62f3c; --excluded-soft:#fae8ea;
-  --f-disp:"Newsreader",Georgia,"Times New Roman",serif;
-  --f-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
-  color-scheme:light;
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#100e16; --surface:#191620; --surface-2:#211d2b;
-  --fg:#efecf4; --fg-2:#b5aec4; --fg-3:#8b8399;
-  --rule:#2d2838; --rule-2:#3d3650;
-  --accent:#a894ff; --accent-soft:#241c44;
-  --ok:#5fd19b; --ok-soft:#133227;
-  --vitro:#6cb6e8; --vitro-soft:#11293b;
-  --contest:#e0a944; --contest-soft:#332509;
-  --theory:#9c94ab; --theory-soft:#262231;
-  --excluded:#f08b96; --excluded-soft:#381a1f;
-  color-scheme:dark;
-}}
-:root[data-theme="dark"]{
-  --bg:#100e16; --surface:#191620; --surface-2:#211d2b;
-  --fg:#efecf4; --fg-2:#b5aec4; --fg-3:#8b8399;
-  --rule:#2d2838; --rule-2:#3d3650;
-  --accent:#a894ff; --accent-soft:#241c44;
-  --ok:#5fd19b; --ok-soft:#133227;
-  --vitro:#6cb6e8; --vitro-soft:#11293b;
-  --contest:#e0a944; --contest-soft:#332509;
-  --theory:#9c94ab; --theory-soft:#262231;
-  --excluded:#f08b96; --excluded-soft:#381a1f;
-  color-scheme:dark;
-}
-*{box-sizing:border-box}
-body{background:var(--bg);color:var(--fg);font-family:var(--f-disp);font-size:17px;line-height:1.6;margin:0;-webkit-font-smoothing:antialiased}
-.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
-h1,h2,h3{font-weight:500;text-wrap:balance;margin:0}
-h1{font-size:clamp(2.1rem,6vw,3.1rem);line-height:1.08;letter-spacing:-.02em}
-h2{font-size:clamp(1.4rem,3.6vw,1.85rem);line-height:1.2;letter-spacing:-.01em}
-h3{font-size:1.05rem;line-height:1.3}
-p{margin:0}
-.mono{font-family:var(--f-mono)}
-.eyebrow{font-family:var(--f-mono);font-size:.69rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3)}
-a{color:var(--accent)}
-
-/* header */
-header{padding-block:clamp(44px,9vw,84px) clamp(28px,5vw,44px);border-bottom:1px solid var(--rule)}
-.lede{font-size:clamp(1.05rem,2.4vw,1.22rem);color:var(--fg-2);max-width:62ch;margin-top:20px}
-.standfirst{margin-top:26px;padding:18px 20px;background:var(--surface);border:1px solid var(--rule);border-left:3px solid var(--accent);font-size:.95rem;color:var(--fg-2)}
-.standfirst strong{color:var(--fg);font-weight:600}
-
-section{padding-block:clamp(40px,7vw,68px);border-bottom:1px solid var(--rule)}
-.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:30px}
-.sec-head p{color:var(--fg-2);max-width:64ch;font-size:.97rem}
-
-/* ---- timescale ladder ---- */
-.ladder{background:var(--surface);border:1px solid var(--rule);padding:22px 18px 16px}
-.axis-wrap{overflow-x:auto}
-svg.axis{display:block;width:100%;min-width:520px;height:auto;max-width:100%}
-.tickline{stroke:var(--rule-2);stroke-width:1}
-.axisline{stroke:var(--fg-3);stroke-width:1.5}
-.ticklbl{font-family:var(--f-mono);font-size:9.5px;fill:var(--fg-3)}
-.mk{cursor:pointer}
-.mk circle{stroke:var(--surface);stroke-width:2}
-.mk text{font-family:var(--f-mono);font-size:10px;fill:var(--fg-2)}
-.mk:hover text,.mk[data-on="1"] text{fill:var(--fg);font-weight:600}
-.mk:hover circle,.mk[data-on="1"] circle{r:7}
-.gapband{fill:var(--contest-soft);opacity:.85}
-.gaplbl{font-family:var(--f-mono);font-size:9.5px;fill:var(--contest);font-weight:600}
-.readout{margin-top:14px;padding:14px 16px;background:var(--surface-2);border:1px solid var(--rule);min-height:92px}
-.readout .ro-t{font-family:var(--f-mono);font-size:.76rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--accent)}
-.readout .ro-v{font-family:var(--f-mono);font-size:.8rem;color:var(--fg-3);margin-top:3px}
-.readout .ro-b{font-size:.92rem;color:var(--fg-2);margin-top:9px;max-width:66ch}
-
-/* ---- the moment ---- */
-.moment{background:var(--surface);border:1px solid var(--rule)}
-.canvas-hold{position:relative;background:var(--surface-2);border-bottom:1px solid var(--rule)}
-canvas{display:block;width:100%;height:auto}
-.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--rule)}
-button{font-family:var(--f-mono);font-size:.78rem;font-weight:500;letter-spacing:.04em;text-transform:uppercase;background:var(--accent);color:#fff;border:0;padding:9px 16px;cursor:pointer;border-radius:2px}
-button:hover{filter:brightness(1.1)}
-button.ghost{background:transparent;color:var(--fg-2);border:1px solid var(--rule-2)}
-button.ghost[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent);border-color:var(--accent)}
-button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-input[type=range]{flex:1 1 180px;min-width:120px;accent-color:var(--accent)}
-.stage-pane{padding:18px 16px 22px;min-height:150px}
-.stage-n{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-3)}
-.stage-t{font-size:1.18rem;margin-top:4px;font-weight:500}
-.stage-b{color:var(--fg-2);font-size:.95rem;margin-top:10px;max-width:66ch}
-.stage-meta{font-family:var(--f-mono);font-size:.76rem;color:var(--fg-3);margin-top:12px;display:flex;flex-wrap:wrap;gap:6px 18px}
-
-/* ---- evidence ledger ---- */
-.tag{display:inline-flex;align-items:center;gap:5px;font-family:var(--f-mono);font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:2px;white-space:nowrap}
-.tag::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;flex:none}
-.t-ok{color:var(--ok);background:var(--ok-soft)}
-.t-vitro{color:var(--vitro);background:var(--vitro-soft)}
-.t-contest{color:var(--contest);background:var(--contest-soft)}
-.t-theory{color:var(--theory);background:var(--theory-soft)}
-.t-excluded{color:var(--excluded);background:var(--excluded-soft)}
-.t-untest{color:var(--theory);background:transparent;border:1px dashed var(--rule-2)}
-.key{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
-.chain{display:flex;flex-direction:column;gap:0}
-.link{display:grid;grid-template-columns:34px 1fr;gap:0 16px;position:relative}
-.link-rail{display:flex;flex-direction:column;align-items:center}
-.link-dot{width:11px;height:11px;border-radius:50%;background:var(--surface);border:2px solid var(--rule-2);margin-top:20px;flex:none;z-index:1}
-.link.ok .link-dot{border-color:var(--ok)}.link.vitro .link-dot{border-color:var(--vitro)}
-.link.contest .link-dot{border-color:var(--contest)}.link.theory .link-dot{border-color:var(--theory)}
-.link.excluded .link-dot{border-color:var(--excluded);background:var(--excluded)}
-.link-stem{flex:1;width:2px;background:var(--rule);margin-top:2px}
-.link:last-child .link-stem{display:none}
-.link-body{padding-block:14px 20px}
-.link-head{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:baseline}
-.link-head h3{flex:1 1 300px;min-width:0}
-.link-ev{color:var(--fg-2);font-size:.92rem;margin-top:9px;max-width:64ch}
-.link-ev .src{font-family:var(--f-mono);font-size:.82rem;color:var(--fg-3)}
-
-/* ---- anesthesia ---- */
-.tog{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
-.preds{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px}
-.pred{background:var(--surface);border:1px solid var(--rule);padding:16px}
-.pred.live{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
-.pred h3{font-size:.98rem}
-.pred .who{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;color:var(--fg-3);margin-bottom:7px}
-.pred ul{list-style:none;padding:0;margin:11px 0 0;display:flex;flex-direction:column;gap:7px}
-.pred li{font-size:.87rem;color:var(--fg-2);display:flex;gap:8px;align-items:baseline}
-.pred li .k{font-family:var(--f-mono);font-size:.74rem;color:var(--fg-3);flex:none;width:74px}
-
-/* ---- fit table ---- */
-.fit{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-.fitcol{background:var(--surface);border:1px solid var(--rule);padding:18px}
-.fitcol h3{margin-bottom:12px}
-.fitcol ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
-.fitcol li{font-size:.92rem;color:var(--fg-2)}
-.fitcol li b{color:var(--fg);font-weight:600;display:block;font-size:.88rem;font-family:var(--f-mono);letter-spacing:.01em;margin-bottom:3px}
-.fitcol.plus{border-top:3px solid var(--ok)}
-.fitcol.minus{border-top:3px solid var(--contest)}
-
-/* ---- tests ---- */
-.tests{display:flex;flex-direction:column;gap:14px}
-.test{background:var(--surface);border:1px solid var(--rule);padding:18px;display:grid;grid-template-columns:1fr auto;gap:10px 18px;align-items:start}
-.test .cost{font-family:var(--f-mono);font-size:.78rem;color:var(--accent);white-space:nowrap;text-align:right}
-.test p{grid-column:1/-1;font-size:.92rem;color:var(--fg-2);max-width:66ch}
-.test .disc{grid-column:1/-1;font-family:var(--f-mono);font-size:.8rem;color:var(--fg-3);padding-top:9px;border-top:1px solid var(--rule)}
-
-footer{padding-block:34px 56px;color:var(--fg-3);font-size:.85rem}
-footer p{max-width:66ch;margin-bottom:11px}
-footer .mono{font-size:.78rem}
-/* ---- hero simulator ---- */
-.sim{background:#0a0812;border:1px solid var(--rule);overflow:hidden;position:relative}
-:root[data-theme="light"] .sim,:root:not([data-theme="dark"]) .sim{border-color:#241f33}
-.sim-canvas{display:block;width:100%;height:auto;background:#0a0812}
-.sim-bar{display:flex;flex-wrap:wrap;gap:16px 22px;align-items:flex-end;padding:16px 18px;background:#0e0b18;border-top:1px solid #241f33}
-.ctl{display:flex;flex-direction:column;gap:6px;min-width:0}
-.ctl-l{font-family:var(--f-mono);font-size:.63rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:#7d7496}
-.ctl-v{font-family:var(--f-mono);font-size:.63rem;color:#b9aeff}
-.seg{display:flex;border:1px solid #352e4d;border-radius:2px;overflow:hidden}
-.seg button{background:transparent;color:#8d84a6;border:0;padding:7px 13px;font-size:.7rem;letter-spacing:.05em;border-radius:0}
-.seg button[aria-pressed="true"]{background:#2a2050;color:#c5b6ff}
-.sim-bar input[type=range]{flex:0 1 128px;min-width:88px;accent-color:#8f78ff;margin:0}
-.hist-hold{display:grid;grid-template-columns:1fr auto;gap:12px 18px;align-items:end;padding:14px 18px 18px;background:#0e0b18;border-top:1px solid #241f33}
-canvas.hist{display:block;width:100%;height:auto;min-width:0}
-.hist-read{display:flex;flex-direction:column;gap:9px;text-align:right}
-.hr-k{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:#7d7496}
-.hr-v{font-family:var(--f-mono);font-size:1.3rem;line-height:1;color:#c5b6ff;font-variant-numeric:tabular-nums}
-.hr-n{font-family:var(--f-mono);font-size:.62rem;color:#7d7496;margin-top:2px}
-.sim-note{padding:14px 18px 17px;background:#0e0b18;border-top:1px solid #241f33;font-size:.87rem;color:#9c93b4;max-width:72ch}
-.sim-note b{color:#d6cdf0;font-weight:600}
-@media (max-width:620px){
-  .hist-hold{grid-template-columns:1fr}
-  .hist-read{flex-direction:row;gap:20px;text-align:left}
-}
-@media (max-width:560px){
-  .link{grid-template-columns:22px 1fr;gap:0 12px}
-  .test{grid-template-columns:1fr}
-  .test .cost{text-align:left}
-}
-@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-</style>
-
 <div class="wrap">
+
 <header>
-  <p class="eyebrow">Orchestrated Objective Reduction</p>
-  <h1>Orch OR, Honestly</h1>
-  <p class="lede">A walkthrough of the Penrose–Hameroff theory in the narrowest reading that current data will bear — with every link in the causal chain labelled by what actually supports it.</p>
-  <div class="standfirst"><strong>Why this page exists.</strong> Most explanations of this theory present every step with the same confidence. In fact some links are measured, several are in vitro only, one has been experimentally excluded, and two are not testable with any instrument we have. Reading it as a chain of mixed-strength claims is the only way to see where the real work is.</div>
+  <dl class="tb">
+    <div><dt>Subject</dt><dd>Orchestrated<br>Objective Reduction</dd></div>
+    <div><dt>Sheet</dt><dd>01 of 01</dd></div>
+    <div><dt>Revision</dt><dd>C · 2026.10.18</dd></div>
+    <div><dt>Reading</dt><dd class="hi">Narrowest consistent<br>with current data</dd></div>
+    <div><dt>Status</dt><dd>1 link excluded<br>2 not testable</dd></div>
+  </dl>
+  <div class="hero">
+    <h1>Orch OR, Honestly</h1>
+    <p class="lede">The Penrose–Hameroff theory drawn as a chain of mixed-strength claims, with every link labelled by what actually supports it.</p>
+    <p class="caveat"><b>Why the labels.</b> Most explanations present every step with the same confidence. In fact some links are measured in living animals, several exist only in vitro, one has been excluded by a dedicated experiment, and two cannot be tested with any instrument now available. Reading it as a chain of unequal links is the only way to see where the real work is.</p>
+  </div>
 </header>
 
-<section style="padding-top:clamp(26px,4vw,38px)">
-  <div class="sim">
-    <canvas id="sim" class="sim-canvas" width="1600" height="980" role="img" aria-label="Three-layer simulation: an aperiodic Penrose tiling as Platonic structure above, a microtubule lattice entering superposition in the middle, and two candidate face representations in a neural population below"></canvas>
-    <div class="sim-bar">
-      <div class="ctl"><span class="ctl-l">Selector</span>
-        <div class="seg"><button id="m-or" aria-pressed="true">Objective reduction</button><button id="m-cl" aria-pressed="false">Competition</button></div>
-      </div>
-      <div class="ctl"><span class="ctl-l">Coherent tubulin mass</span>
+<section style="border-top:0;padding-top:0">
+  <figure>
+    <div class="fig-top"><span class="fig-n">FIG. 01</span><span class="fig-t">Three layers · selection reading · live</span></div>
+    <canvas id="sim" width="1600" height="1010" role="img" aria-label="Three-layer simulation: an aperiodic Penrose tiling as Platonic structure above, a tubulin lattice entering superposition in the middle, and two candidate representations in a neural population below"></canvas>
+    <div class="fig-bar">
+      <div class="ctl"><span class="k">Selector</span>
+        <div class="seg"><button id="m-or" aria-pressed="true">Objective reduction</button><button id="m-cl" aria-pressed="false">Competition</button></div></div>
+      <div class="ctl"><span class="k">Coherent mass</span>
         <input type="range" id="mass" min="50" max="200" value="100" aria-label="Coherent tubulin mass, relative">
-        <span class="ctl-v" id="mass-v">1.00 ×</span>
-      </div>
-      <div class="ctl"><span class="ctl-l">Anesthetic depth</span>
+        <span class="v" id="mass-v">1.00 ×</span></div>
+      <div class="ctl"><span class="k">Anesthetic</span>
         <input type="range" id="anes" min="0" max="100" value="0" aria-label="Anesthetic depth">
-        <span class="ctl-v" id="anes-v">0.00 MAC</span>
-      </div>
-      <div class="ctl"><span class="ctl-l">&nbsp;</span>
-        <div class="seg"><button id="run" aria-pressed="true">Pause</button><button id="clear">Reset</button></div>
+        <span class="v" id="anes-v">0.00 MAC</span></div>
+      <div class="ctl"><span class="k">&nbsp;</span>
+        <div class="seg"><button id="run" aria-pressed="true">Pause</button><button id="clear">Reset</button></div></div>
+    </div>
+    <div class="ro">
+      <canvas id="hist" width="1100" height="190" role="img" aria-label="Live histogram of state dwell times"></canvas>
+      <div class="ro-nums">
+        <div><p class="ro-k">Dwell CV</p><p class="ro-v" id="cv">—</p><p class="ro-n" id="cvn">collecting</p></div>
+        <div><p class="ro-k">Median</p><p class="ro-v" id="md">—</p><p class="ro-n">ms</p></div>
       </div>
     </div>
-    <div class="hist-hold">
-      <canvas id="hist" class="hist" width="1100" height="200" role="img" aria-label="Live histogram of state dwell times"></canvas>
-      <div class="hist-read">
-        <div><p class="hr-k">Dwell CV</p><p class="hr-v" id="cv">—</p><p class="hr-n" id="cvn">collecting</p></div>
-        <div><p class="hr-k">Median dwell</p><p class="hr-v" id="md">—</p><p class="hr-n">milliseconds</p></div>
-      </div>
-    </div>
-    <p class="sim-note"><b>What to try.</b> Switch the selector and watch the histogram change shape — accumulation to a threshold clusters dwells around a characteristic duration (CV below 1), while memoryless competition spreads them exponentially (CV near 1). That difference is the one measurement in this whole theory that existing primate data could settle. Raise the tubulin mass and dwells shorten, because larger E_G means a shorter τ. Raise the anesthetic and selection stalls while the classical layer keeps computing both faces.</p>
-  </div>
+    <p class="fig-cap"><b>What to try.</b> Switch the selector and watch the histogram change shape. Accumulation to a threshold clusters dwells around a characteristic duration, giving a coefficient of variation well below 1; memoryless competition spreads them exponentially toward CV ≈ 1. That difference is the one measurement in this theory that existing primate data could settle. Raise the coherent mass and dwells shorten, because larger E<sub>G</sub> means shorter τ. Raise the anesthetic and selection stalls while the classical layer keeps computing both candidates.</p>
+  </figure>
 </section>
 
 <section>
-  <div class="sec-head">
-    <p class="eyebrow">01 — The problem of scale</p>
-    <h2>The theory spans fifteen orders of magnitude</h2>
-    <p>This is the first thing that makes Orch OR hard to hold in your head. It invokes physics at the femtosecond and behaviour at the second, and the argument lives in the gap between them. Select a marker to see what sits there.</p>
+  <div class="sh">
+    <span class="lbl">01 — The problem of scale</span>
+    <h2>Fifteen orders of magnitude in time</h2>
+    <p>The theory invokes physics at the femtosecond and behaviour at the second, and the argument lives in the gap between them. Select a marker.</p>
   </div>
-  <div class="ladder">
-    <div class="axis-wrap"><svg class="axis" viewBox="0 0 760 196" role="img" aria-label="Logarithmic time axis from 100 femtoseconds to 1 second, with the phenomena Orch OR invokes marked along it"></svg></div>
-    <div class="readout" id="ro" aria-live="polite"></div>
-  </div>
+  <figure>
+    <div class="fig-top"><span class="fig-n">FIG. 02</span><span class="fig-t">Logarithmic time axis · 10⁻¹³ to 10⁰ s</span></div>
+    <div style="overflow-x:auto"><canvas id="axis" width="1600" height="420" style="min-width:560px" role="img" aria-label="Logarithmic time axis with the phenomena Orch OR invokes marked along it"></canvas></div>
+    <div class="sp" id="ro2"></div>
+  </figure>
 </section>
 
 <section>
-  <div class="sec-head">
-    <p class="eyebrow">02 — Mechanism</p>
+  <div class="sh">
+    <span class="lbl">02 — The problem of size</span>
+    <h2>Four spatial scales, nested</h2>
+    <p>Six orders of magnitude in space, from a cortical population down to a protein lattice. Each level makes a different claim, and they are not equally well supported.</p>
+  </div>
+  <figure>
+    <div class="fig-top"><span class="fig-n">FIG. 03</span><span class="fig-t">Nested scales · axonometric at 25 nm</span></div>
+    <canvas id="zoom" width="1600" height="880" role="img" aria-label="Nested spatial scales from a cortical neuron population down to an axonometric view of the tubulin lattice"></canvas>
+    <div class="zt" role="tablist">
+      <button id="z0" aria-pressed="true"><span class="a">100 µm</span><span class="b">Population</span></button>
+      <button id="z1" aria-pressed="false"><span class="a">20 µm</span><span class="b">One neuron</span></button>
+      <button id="z2" aria-pressed="false"><span class="a">500 nm</span><span class="b">Dendrite</span></button>
+      <button id="z3" aria-pressed="false"><span class="a">25 nm</span><span class="b">Lattice</span></button>
+    </div>
+    <div class="sp">
+      <div class="hd"><h3 id="zh"></h3><span id="ztag"></span></div>
+      <div id="zb"></div>
+    </div>
+  </figure>
+</section>
+
+<section>
+  <div class="sh">
+    <span class="lbl">03 — Mechanism</span>
     <h2>One conscious moment, step by step</h2>
-    <p>This is the selection reading: the classical brain prepares the alternatives, a collapse event picks one, and the outcome is carried back out through ordinary signalling. Scrub through a single cycle.</p>
+    <p>The classical brain prepares the alternatives, a collapse event picks one, and the outcome is carried back out through ordinary signalling. Scrub through a single cycle.</p>
   </div>
-  <div class="moment">
-    <div class="canvas-hold"><canvas id="cv" width="1520" height="760"></canvas></div>
-    <div class="controls">
-      <button id="play">Play</button>
-      <input type="range" id="scrub" min="0" max="7" step="1" value="0" aria-label="Stage of the conscious moment">
-      <span class="mono" id="stagecount" style="font-size:.76rem;color:var(--fg-3)"></span>
+  <figure>
+    <div class="fig-top"><span class="fig-n">FIG. 04</span><span class="fig-t">Single cycle · 8 stages</span></div>
+    <canvas id="cyc" width="1600" height="560" role="img" aria-label="One cycle of the proposed mechanism, eight stages along a spine"></canvas>
+    <div class="fig-bar">
+      <div class="ctl"><span class="k">&nbsp;</span><div class="seg"><button id="play">Play</button></div></div>
+      <div class="ctl" style="flex:1 1 210px"><span class="k">Stage</span>
+        <input type="range" id="scrub" min="0" max="7" step="1" value="0" style="flex:1 1 100%" aria-label="Stage of the conscious moment"></div>
+      <div class="ctl"><span class="k">&nbsp;</span><span class="v" id="sc"></span></div>
     </div>
-    <div class="stage-pane">
-      <p class="stage-n" id="sn"></p>
-      <h3 class="stage-t" id="st"></h3>
-      <p class="stage-b" id="sb"></p>
-      <div class="stage-meta" id="sm"></div>
-    </div>
-  </div>
+    <div class="sp"><p class="n" id="sn"></p><h3 id="st" style="margin-top:7px"></h3>
+      <p class="b" id="sb"></p><div class="meta" id="sm"></div></div>
+  </figure>
 </section>
 
 <section>
-  <div class="sec-head">
-    <p class="eyebrow">03 — Evidence</p>
+  <div class="sh">
+    <span class="lbl">04 — Evidence</span>
     <h2>The chain, link by link</h2>
     <p>Each step the theory needs, and what stands behind it. The weakest links are not where critics usually attack.</p>
   </div>
   <div class="key">
-    <span class="tag t-ok">Measured in vivo</span>
-    <span class="tag t-vitro">In vitro only</span>
-    <span class="tag t-contest">Contested</span>
-    <span class="tag t-theory">Theoretical</span>
-    <span class="tag t-excluded">Excluded by experiment</span>
-    <span class="tag t-untest">Not currently testable</span>
+    <span class="tag t-ok">Measured in vivo</span><span class="tag t-vit">In vitro only</span>
+    <span class="tag t-con">Contested</span><span class="tag t-the">Theoretical</span>
+    <span class="tag t-exc">Excluded by experiment</span><span class="tag t-unt">Not currently testable</span>
   </div>
-  <div class="chain" id="chain"></div>
+  <div class="sched" id="chain"></div>
 </section>
 
 <section>
-  <div class="sec-head">
-    <p class="eyebrow">04 — Anesthesia</p>
+  <div class="sh">
+    <span class="lbl">05 — Anesthesia</span>
     <h2>What switching consciousness off should do</h2>
-    <p>Anesthesia is the sharpest tool available, because it removes experience while leaving the stimulus and most of the machinery intact. The three live accounts predict different failures — which is what makes it worth running.</p>
+    <p>The sharpest tool available, because it removes experience while leaving the stimulus and most of the machinery intact. The three live accounts predict different failures.</p>
   </div>
   <div class="tog">
-    <button class="ghost" id="aw" aria-pressed="true">Awake</button>
-    <button class="ghost" id="an" aria-pressed="false">Anesthetised</button>
+    <div class="seg"><button id="aw" aria-pressed="false">Awake</button><button id="an" aria-pressed="true">Anesthetised</button></div>
   </div>
   <div class="preds" id="preds"></div>
-  <p style="margin-top:18px;font-size:.92rem;color:var(--fg-2);max-width:66ch">Note the overlap: the selection reading and ordinary classical access accounts predict the <em>same</em> outcome here. The experiment cleanly rules out content-generating Orch OR, and does not adjudicate between the other two. Only the dwell-time measurement carries information specific to a collapse threshold.</p>
+  <p style="margin-top:19px;font-size:.92rem;color:var(--ink2);max-width:70ch">Note the overlap. The selection reading and ordinary classical access accounts predict the <em>same</em> outcome here. The experiment cleanly rules out content-generating Orch OR and does not adjudicate between the other two. Only the dwell-time measurement carries information specific to a collapse threshold.</p>
 </section>
 
 <section>
-  <div class="sec-head">
-    <p class="eyebrow">05 — The 2026 primate data</p>
+  <div class="sh">
+    <span class="lbl">06 — The 2026 primate data</span>
     <h2>Where it fits the new result, and where it doesn't</h2>
-    <p>Hesse and colleagues found that macaque face-patch populations alternate about fifteen times a second between representing a consciously seen face and a perceptually suppressed one, both at high fidelity, in the same neurons. It is the most relevant new evidence, and it cuts both ways.</p>
+    <p>Hesse and colleagues found macaque face-patch populations alternating about fifteen times a second between a consciously seen face and a perceptually suppressed one, both at high fidelity, in the same neurons. It cuts both ways.</p>
   </div>
   <div class="fit">
-    <div class="fitcol plus">
-      <h3>What it helps</h3>
-      <ul>
-        <li><b>Candidates really are prepared in parallel</b>Two full representations coexist in one population, time-shared. The selection reading needs exactly this, and nobody had shown it.</li>
-        <li><b>Substrate-property theories are squeezed</b>Suppressed content sits in the same cells, same linear code, near-equal fidelity. Theories where experience is a property of the substrate now owe an account of why one epoch is felt and the next is not.</li>
-        <li><b>Selection architectures gain ground</b>Any theory where consciousness is a choice over prepared alternatives handles this naturally. Orch OR, read this way, is one.</li>
-      </ul>
-    </div>
-    <div class="fitcol minus">
-      <h3>What it doesn't</h3>
-      <ul>
-        <li><b>The discreteness isn't selective</b>Conscious and suppressed epochs alternate at the <em>same</em> grain. If each collapse is one conscious moment, the suppressed epochs need their own explanation — so the discreteness tracks a multiplexing schedule, not awareness.</li>
-        <li><b>60 ms is not a distinctive signature</b>The authors situate it among rhythmic attention, working-memory bursts and theta-paced hippocampal flickering. A prediction of "tens of milliseconds" is matched by a crowd of classical phenomena.</li>
-        <li><b>The content is thoroughly classical</b>Both faces are reconstructable from firing rates. That is awkward for the version of Orch OR where quantum computation generates conscious content.</li>
-        <li><b>Crowded company</b>Higher-order theories and global workspace with dynamic routing explain the same data without a quantum mechanism.</li>
-      </ul>
-    </div>
+    <div class="fc p"><h3>What it helps</h3><ul>
+      <li><b>Candidates prepared in parallel</b>Two full representations coexist in one population, time-shared. The selection reading needs exactly this, and nobody had shown it.</li>
+      <li><b>Substrate theories squeezed</b>Suppressed content sits in the same cells, same linear code, near-equal fidelity. Theories where experience is a property of the substrate now owe an account of why one epoch is felt and the next is not.</li>
+      <li><b>Selection architectures gain</b>Any theory where consciousness is a choice over prepared alternatives handles this naturally. Orch OR, read this way, is one.</li>
+    </ul></div>
+    <div class="fc m"><h3>What it doesn't</h3><ul>
+      <li><b>Discreteness isn't selective</b>Conscious and suppressed epochs alternate at the same grain. If each collapse is one conscious moment, the suppressed epochs need their own explanation — so the discreteness tracks a multiplexing schedule, not awareness.</li>
+      <li><b>60 ms is not distinctive</b>The authors situate it among rhythmic attention, working-memory bursts and theta-paced hippocampal flickering. "Tens of milliseconds" is matched by a crowd of classical phenomena.</li>
+      <li><b>The content is classical</b>Both faces reconstruct from firing rates. Awkward for the version where quantum computation generates conscious content.</li>
+      <li><b>Crowded company</b>Higher-order theories and global workspace with dynamic routing explain the same data without a quantum mechanism.</li>
+    </ul></div>
   </div>
 </section>
 
 <section>
-  <div class="sec-head">
-    <p class="eyebrow">06 — What would move the needle</p>
-    <h2>Three tests, and what each can actually settle</h2>
-    <p>No statistical test on neural data can detect non-computability — a non-computable sequence passes every randomness test by construction. The leverage is all in the physics of the collapse event, which makes a timing prediction nothing classical reproduces.</p>
+  <div class="sh">
+    <span class="lbl">07 — What would move the needle</span>
+    <h2>Three tests, and what each can settle</h2>
+    <p>No statistical test on neural data can detect non-computability — a non-computable sequence passes every randomness test by construction. The leverage is in the physics of the collapse event, which makes a timing prediction nothing classical reproduces.</p>
   </div>
   <div class="tests" id="tests"></div>
 </section>
 
 <footer>
-  <p><strong style="color:var(--fg)">Sources.</strong> Hameroff &amp; Penrose, <em>Phys Life Rev</em> 11:39 (2014) · Penrose &amp; Hameroff, <em>J Conscious Stud</em> 3:36 (1996) · Hameroff, Bandyopadhyay &amp; Lauretta, <em>J Conscious Stud</em> 33:211 (2026) · Hesse et al., bioRxiv 10.64898/2026.10.15.759299 · Kalra et al., <em>ACS Cent Sci</em> 9:352 (2023) · Craddock et al., <em>Sci Rep</em> 7:9877 (2017) · Donadi et al., <em>Nat Phys</em> 17:74 (2021) · Hagan, Hameroff &amp; Tuszyński, <em>Phys Rev E</em> 65:061901 (2002) · Tegmark, <em>Phys Rev E</em> 61:4194 (2000) · Li et al., <em>Anesthesiology</em> 129:271 (2018) · Khan et al., <em>eNeuro</em> 11 (2024) · Emerson et al., <em>JACS</em> 135:5389 (2013) · Adlam, McQueen &amp; Waegell, arXiv:2510.13247 (2025)</p>
-  <p class="mono">The selection reading presented here is a narrowing of the published theory, not the authors' own formulation. Where it departs from Hameroff and Penrose, the evidence ledger says so.</p>
+  <span class="lbl">Notes</span>
+  <p><b>Sources.</b> Hameroff &amp; Penrose, <em>Phys Life Rev</em> 11:39 (2014) · Penrose &amp; Hameroff, <em>J Conscious Stud</em> 3:36 (1996) · Hameroff, Bandyopadhyay &amp; Lauretta, <em>J Conscious Stud</em> 33:211 (2026) · Hesse et al., bioRxiv 10.64898/2026.10.15.759299 · Kalra et al., <em>ACS Cent Sci</em> 9:352 (2023) · Craddock et al., <em>Sci Rep</em> 7:9877 (2017) · Donadi et al., <em>Nat Phys</em> 17:74 (2021) · Hagan, Hameroff &amp; Tuszyński, <em>Phys Rev E</em> 65:061901 (2002) · Tegmark, <em>Phys Rev E</em> 61:4194 (2000) · Li et al., <em>Anesthesiology</em> 129:271 (2018) · Khan et al., <em>eNeuro</em> 11 (2024) · Emerson et al., <em>JACS</em> 135:5389 (2013) · Kapitein &amp; Hoogenraad, <em>Neuron</em> 87:492 (2015) · Adlam, McQueen &amp; Waegell, arXiv:2510.13247 (2025)</p>
+  <p><b>On the reading.</b> The selection framing — nothing informational held in superposition, the collapse event selecting among classically prepared alternatives — is a narrowing of the published theory, not its authors' own formulation. Where it departs from Hameroff and Penrose, the schedule in section 04 says so.</p>
+  <p><b>On the Platonic layer in FIG. 01.</b> The tiling is a genuine Penrose P3 construction and it is aperiodic, so the sequence of tile types never repeats. It is not, however, non-computable — it is computed here, by subdivision. Aperiodicity stands in for a stronger property the drawing cannot honestly depict.</p>
 </footer>
 </div>
 
 <script>
-/* ============ 00 · hero simulator ============ */
+/* ═══ shared architectural drawing toolkit ═══════════════════════════════ */
+const F_M='"JetBrains Mono",ui-monospace,monospace', F_D='"Martian Mono",ui-monospace,monospace';
+const P={sh:"#0a0e15",sh2:"#0e131c",sh3:"#121823",
+  h:"#19202b",h2:"#27313f",h3:"#38455a",i3:"#4e5c6e",i2:"#8595a8",i:"#c3cedb",i1:"#e8eef6",
+  cy:"#46d9e8",cyd:"#1b5a63",am:"#f0a93c",amd:"#6b4a14",rd:"#e8594f"};
+function mk(ctx){
+ const A={};
+ A.hair=(x1,y1,x2,y2,c,w)=>{ctx.strokeStyle=c||P.h2;ctx.lineWidth=w||1;
+   ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke()};
+ A.grid=(x,y,w,h,s)=>{ctx.save();ctx.beginPath();ctx.rect(x,y,w,h);ctx.clip();
+   ctx.strokeStyle=P.h;ctx.lineWidth=1;ctx.beginPath();
+   for(let i=x;i<=x+w;i+=s){ctx.moveTo(i,y);ctx.lineTo(i,y+h)}
+   for(let j=y;j<=y+h;j+=s){ctx.moveTo(x,j);ctx.lineTo(x+w,j)}
+   ctx.stroke();ctx.restore()};
+ A.txt=(x,y,s,o)=>{o=o||{};
+   ctx.font=(o.w||400)+" "+(o.sz||18)+"px "+(o.d?F_D:F_M);
+   ctx.fillStyle=o.c||P.i3;ctx.textAlign="left";
+   if(o.tr){const ch=Array.from(s);let tw=0;
+     for(const k of ch)tw+=ctx.measureText(k).width+o.tr;
+     let cx=o.a==="right"?x-tw:(o.a==="center"?x-tw/2:x);
+     for(const k of ch){ctx.fillText(k,cx,y);cx+=ctx.measureText(k).width+o.tr}}
+   else{ctx.textAlign=o.a||"left";ctx.fillText(s,x,y)}};
+ A.dimH=(x1,x2,y,s,c)=>{const col=c||P.h3;ctx.strokeStyle=col;ctx.lineWidth=1;
+   const mid=(x1+x2)/2;ctx.font="400 15px "+F_M;const w=ctx.measureText(s).width/2+9;
+   ctx.beginPath();ctx.moveTo(x1,y);ctx.lineTo(mid-w,y);ctx.moveTo(mid+w,y);ctx.lineTo(x2,y);
+   ctx.moveTo(x1,y-5);ctx.lineTo(x1,y+5);ctx.moveTo(x2,y-5);ctx.lineTo(x2,y+5);ctx.stroke();
+   A.txt(mid,y+5,s,{sz:15,c:col,a:"center"})};
+ A.dimV=(x,y1,y2,s,c)=>{const col=c||P.h3;ctx.strokeStyle=col;ctx.lineWidth=1;
+   ctx.beginPath();ctx.moveTo(x,y1);ctx.lineTo(x,y2);
+   ctx.moveTo(x-5,y1);ctx.lineTo(x+5,y1);ctx.moveTo(x-5,y2);ctx.lineTo(x+5,y2);ctx.stroke();
+   ctx.save();ctx.translate(x-7,(y1+y2)/2);ctx.rotate(-Math.PI/2);
+   A.txt(0,0,s,{sz:15,c:col,a:"center"});ctx.restore()};
+ A.lead=(fx,fy,tx,ty,s,o)=>{o=o||{};const col=o.c||P.i3,rt=o.a==="right";
+   ctx.strokeStyle=col;ctx.lineWidth=1;ctx.beginPath();
+   ctx.moveTo(fx,fy);ctx.lineTo(tx,ty);ctx.lineTo(tx+(rt?-15:15),ty);ctx.stroke();
+   ctx.beginPath();ctx.arc(fx,fy,2.6,0,6.2832);ctx.fillStyle=col;ctx.fill();
+   A.txt(tx+(rt?-21:21),ty+4,s,{sz:o.sz||16,c:col,a:rt?"right":"left",tr:o.tr})};
+ A.reg=(x,y,w,h,L,c)=>{const col=c||P.h2;ctx.strokeStyle=col;ctx.lineWidth=1;L=L||13;
+   ctx.beginPath();
+   ctx.moveTo(x,y+L);ctx.lineTo(x,y);ctx.lineTo(x+L,y);
+   ctx.moveTo(x+w-L,y);ctx.lineTo(x+w,y);ctx.lineTo(x+w,y+L);
+   ctx.moveTo(x+w,y+h-L);ctx.lineTo(x+w,y+h);ctx.lineTo(x+w-L,y+h);
+   ctx.moveTo(x+L,y+h);ctx.lineTo(x,y+h);ctx.lineTo(x,y+h-L);ctx.stroke()};
+ A.scaleBar=(x,y,w,s)=>{ctx.strokeStyle=P.h3;ctx.lineWidth=1;
+   ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+w,y);
+   for(let i=0;i<=4;i++){const X=x+w*i/4;ctx.moveTo(X,y-(i%2?3:6));ctx.lineTo(X,y+(i%2?3:6))}
+   ctx.stroke();
+   ctx.fillStyle=P.h3;for(let i=0;i<4;i+=2)ctx.fillRect(x+w*i/4,y-3,w/4,3);
+   A.txt(x,y+20,"0",{sz:14,c:P.i3});A.txt(x+w,y+20,s,{sz:14,c:P.i3,a:"right"})};
+ return A;
+}
+const randn=()=>{let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();
+  return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)};
+const RND=s=>{const x=Math.sin(s*12.9898)*43758.5453;return x-Math.floor(x)};
+
+/* ═══ Penrose P3 by Robinson-triangle subdivision ════════════════════════ */
+const PHI=(1+Math.sqrt(5))/2, LRP=(A,B,t)=>[A[0]+(B[0]-A[0])*t,A[1]+(B[1]-A[1])*t];
+const TILES=(function(){let t=[];
+  for(let i=0;i<10;i++){const a=Math.PI*2*i/10,b=Math.PI*2*(i+1)/10;
+    let A=[0,0],B=[Math.cos(a),Math.sin(a)],C=[Math.cos(b),Math.sin(b)];
+    if(i%2===0){const s=B;B=C;C=s} t.push([0,A,B,C])}
+  for(let k=0;k<6;k++){const o=[];
+    for(const tr of t){const ty=tr[0],A=tr[1],B=tr[2],C=tr[3];
+      if(ty===0){const Q=LRP(A,B,1/PHI);o.push([0,C,Q,B],[1,Q,C,A])}
+      else{const Q=LRP(B,A,1/PHI),R=LRP(B,C,1/PHI);o.push([1,R,C,A],[1,Q,R,B],[0,R,Q,A])}}
+    t=o}
+  return t})();
+
+/* ═══ FIG 01 — three-layer simulator ════════════════════════════════════ */
 (function(){
  const cv=document.getElementById("sim"); if(!cv) return;
- const ctx=cv.getContext("2d"), W=1600, H=980;
- const hc=document.getElementById("hist"), hx=hc.getContext("2d");
- const MONO='"IBM Plex Mono",ui-monospace,monospace';
+ const ctx=cv.getContext("2d"), A=mk(ctx), W=1600, H=1010, M=56;
+ const hc=document.getElementById("hist"), hx=hc.getContext("2d"), HA=mk(hx);
+ const PB={x:M,y:72,w:W-M*2,h:232};
+ const QB={x:M,y:400,w:W-M*2,h:164};
+ const CB={x:M,y:710,w:W-M*2,h:244};
+ const GY=QB.y+QB.h+44;
 
- /* ---------- palette (this panel commits to one dark world) ---------- */
- const C={bg:"#0a0812",band:"#120e1f",rule:"#241f33",dim:"#4b4463",lbl:"#7d7496",
-          txt:"#c8bfe4",acc:"#8f78ff",acc2:"#c5b6ff",gold:"#e0b65a",ok:"#5fd19b"};
-
- /* ---------- Penrose P3 tiling by Robinson-triangle subdivision ---------- */
- const PHI=(1+Math.sqrt(5))/2, lerp=(P,Q,t)=>[P[0]+(Q[0]-P[0])*t,P[1]+(Q[1]-P[1])*t];
- function wheel(){const t=[];for(let i=0;i<10;i++){
-   const a=Math.PI*2*i/10,b=Math.PI*2*(i+1)/10;
-   let A=[0,0],B=[Math.cos(a),Math.sin(a)],C=[Math.cos(b),Math.sin(b)];
-   if(i%2===0){const s=B;B=C;C=s}
-   t.push([0,A,B,C]);} return t}
- function subdivide(tris){const o=[];
-   for(const [t,A,B,C] of tris){
-     if(t===0){const P=lerp(A,B,1/PHI); o.push([0,C,P,B],[1,P,C,A])}
-     else{const Q=lerp(B,A,1/PHI),R=lerp(B,C,1/PHI); o.push([1,R,C,A],[1,Q,R,B],[0,R,Q,A])}
-   } return o}
- let TILES=wheel(); for(let i=0;i<6;i++) TILES=subdivide(TILES);
-
- /* platonic band geometry */
- const PB={x:40,y:36,w:W-80,h:252};
- const SC=PB.w*0.78, CX=PB.x+PB.w*0.5, CY=PB.y+PB.h*0.5;
+ const SC=PB.w*.78, CX=PB.x+PB.w/2, CY=PB.y+PB.h/2;
  const px=p=>CX+p[0]*SC, py=p=>CY+p[1]*SC;
-
- /* the walk: tiles whose centroid sits in a thin horizontal lane, left to right.
-    Because the tiling is aperiodic, the type sequence along that lane never repeats. */
- const LANE=TILES.map(T=>{
-   const cx=(px(T[1])+px(T[2])+px(T[3]))/3, cy=(py(T[1])+py(T[2])+py(T[3]))/3;
-   return {t:T[0],cx,cy,T};
- }).filter(o=>Math.abs(o.cy-CY)<PB.h*0.17 && o.cx>PB.x+10 && o.cx<PB.x+PB.w-10)
+ const LANE=TILES.map(T=>({t:T[0],T,
+   cx:(px(T[1])+px(T[2])+px(T[3]))/3, cy:(py(T[1])+py(T[2])+py(T[3]))/3}))
+   .filter(o=>Math.abs(o.cy-CY)<PB.h*.17&&o.cx>PB.x+14&&o.cx<PB.x+PB.w-14)
    .sort((a,b)=>a.cx-b.cx);
-
- /* tiling pre-rendered once, then blitted */
  const off=document.createElement("canvas"); off.width=W; off.height=H;
- (function paintTiling(){
-   const o=off.getContext("2d");
-   o.save(); o.beginPath(); o.rect(PB.x,PB.y,PB.w,PB.h); o.clip();
-   for(const T of TILES){
-     const [t,A,B,C]=T;
-     o.beginPath(); o.moveTo(px(A),py(A)); o.lineTo(px(B),py(B)); o.lineTo(px(C),py(C)); o.closePath();
-     o.fillStyle = t===0 ? "rgba(143,120,255,.075)" : "rgba(197,182,255,.028)";
-     o.fill();
-     o.strokeStyle="rgba(143,120,255,.30)"; o.lineWidth=.9; o.stroke();
-   }
-   /* vignette so the strip reads as a window onto something larger */
-   const g=o.createLinearGradient(PB.x,0,PB.x+PB.w,0);
-   g.addColorStop(0,C.bg); g.addColorStop(.1,"rgba(10,8,18,0)");
-   g.addColorStop(.9,"rgba(10,8,18,0)"); g.addColorStop(1,C.bg);
-   o.fillStyle=g; o.fillRect(PB.x,PB.y,PB.w,PB.h);
-   o.restore();
- })();
+ (function(){const o=off.getContext("2d");
+  o.save();o.beginPath();o.rect(PB.x,PB.y,PB.w,PB.h);o.clip();
+  for(const T of TILES){const t=T[0],a=T[1],b=T[2],c=T[3];
+    /* fill the triangle, but stroke only two of its three edges: the third is
+       internal to a rhombus, and omitting it lets the P3 rhombi emerge */
+    o.beginPath();o.moveTo(px(a),py(a));o.lineTo(px(b),py(b));o.lineTo(px(c),py(c));o.closePath();
+    o.fillStyle=t===0?"rgba(70,217,232,.055)":"rgba(70,217,232,.018)";o.fill();
+    o.beginPath();o.moveTo(px(b),py(b));o.lineTo(px(a),py(a));o.lineTo(px(c),py(c));
+    o.strokeStyle="rgba(70,217,232,.30)";o.lineWidth=1;o.stroke()}
+  const g=o.createLinearGradient(PB.x,0,PB.x+PB.w,0);
+  g.addColorStop(0,P.sh);g.addColorStop(.12,"rgba(10,14,21,0)");
+  g.addColorStop(.88,"rgba(10,14,21,0)");g.addColorStop(1,P.sh);
+  o.fillStyle=g;o.fillRect(PB.x,PB.y,PB.w,PB.h);o.restore()})();
 
- /* ---------- parametric faces (what the 2026 experiment actually used) ---------- */
- const FACES=[
-  {head:1.00,eye:.42,brow:-.20,nose:.30,jaw:.74,mouth:.26},
-  {head:.90,eye:.30,brow:.26,nose:.46,jaw:.96,mouth:-.18}
- ];
- function drawFace(x,y,s,p,col,a,lw){
-   ctx.save(); ctx.translate(x,y); ctx.globalAlpha=a;
-   ctx.strokeStyle=col; ctx.lineWidth=lw; ctx.lineJoin="round"; ctx.lineCap="round";
-   ctx.beginPath(); /* head */
-   ctx.ellipse(0,0,s*.56*p.jaw,s*.72*p.head,0,0,Math.PI*2); ctx.stroke();
-   const ex=s*.26*(p.eye+.4);
-   [-1,1].forEach(k=>{ /* eyes */
-     ctx.beginPath(); ctx.ellipse(k*ex,-s*.10,s*.085,s*.055,0,0,Math.PI*2); ctx.stroke();
-     ctx.beginPath(); /* brows */
-     ctx.moveTo(k*ex-s*.11,-s*.26+k*0); ctx.lineTo(k*ex+s*.11,-s*.26-s*.10*p.brow*k*k*Math.sign(p.brow||1)*Math.abs(p.brow)*3);
-     ctx.stroke();
-   });
-   ctx.beginPath(); ctx.moveTo(0,-s*.04); ctx.lineTo(0,s*.04+s*.26*p.nose); ctx.stroke(); /* nose */
-   ctx.beginPath(); /* mouth */
-   ctx.moveTo(-s*.20,s*.40); ctx.quadraticCurveTo(0,s*.40+s*.22*p.mouth,s*.20,s*.40); ctx.stroke();
-   ctx.restore();
- }
+ const FA=[{jaw:.74,hd:1.0,eye:.42,brow:-.5,nose:.30,mo:.30},
+           {jaw:.98,hd:.88,eye:.26,brow:.6,nose:.50,mo:-.22}];
+ function face(x,y,s,p,c,a,lw){
+  ctx.save();ctx.translate(x,y);ctx.globalAlpha=a;
+  ctx.strokeStyle=c;ctx.lineWidth=lw;ctx.lineJoin="round";ctx.lineCap="round";
+  ctx.beginPath();ctx.ellipse(0,0,s*.55*p.jaw,s*.70*p.hd,0,0,6.2832);ctx.stroke();
+  const ex=s*.25*(p.eye+.45);
+  for(const k of [-1,1]){
+    ctx.beginPath();ctx.ellipse(k*ex,-s*.09,s*.082,s*.05,0,0,6.2832);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(k*ex-s*.105,-s*.25+s*.055*p.brow);
+    ctx.lineTo(k*ex+s*.105,-s*.25-s*.055*p.brow);ctx.stroke()}
+  ctx.beginPath();ctx.moveTo(0,-s*.03);ctx.lineTo(0,s*.03+s*.25*p.nose);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(-s*.19,s*.38);
+  ctx.quadraticCurveTo(0,s*.38+s*.21*p.mo,s*.19,s*.38);ctx.stroke();
+  ctx.restore()}
 
- /* ---------- model ---------- */
- const BASE=60;                  /* sim-ms dwell at unit mass */
- const SIM_PER_SEC=150;          /* sim-ms advanced per real second */
- let mode="or", mass=1, anes=0, running=true;
- let EG=0, thresh=1, cur=0, sinceSwitch=0, dwells=[], pulse=99, flash=0;
- let laneI=Math.floor(LANE.length*0.5), lastTile=0, coh=0, simT=0;
- const randn=()=>{let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();
-   return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)};
- function newThresh(){ return Math.max(.28, 1+randn()*.30) }
- newThresh();
-
+ const BASE=60, SPS=150;
+ let mode="or",mass=1,anes=0,run=true;
+ let EG=0,th=1,cur=0,since=0,dw=[],pulse=9,flash=0,laneI=Math.floor(LANE.length/2),coh=0,T=0;
+ const nth=()=>Math.max(.28,1+randn()*.30); th=nth();
  function collapse(){
-   dwells.push(sinceSwitch); if(dwells.length>240) dwells.shift();
-   sinceSwitch=0; EG=0; thresh=newThresh(); pulse=0; flash=1;
-   const tile=LANE[laneI%LANE.length]; lastTile=tile.t;
-   laneI=(laneI+1)%LANE.length;
-   /* outcome: gain bias, structured by the aperiodic tile type */
-   const pA = mode==="or" ? .5 + (tile.t?.30:-.30) + (cur===0?-.06:.06)
-                          : (cur===0?.5-.11:.5+.11);
-   cur = Math.random()<pA ? 0 : 1;
- }
- function step(dtReal){
-   const dt=dtReal*SIM_PER_SEC; simT+=dt; sinceSwitch+=dt;
-   const damp=1-anes*0.94;
-   if(mode==="or"){
-     EG += dt*mass*damp/BASE;
-     coh = Math.min(1, EG/thresh);
-     if(EG>=thresh && damp>0.06) collapse();
-     if(sinceSwitch>BASE*14){ sinceSwitch=BASE*14 } /* stalled under deep anesthesia */
-   }else{
-     coh = .5+.4*Math.sin(simT/37);
-     EG = 0;
-     if(Math.random() < dt/(BASE/damp || 1e9)) collapse();
-   }
-   pulse+=dtReal*3.4; flash=Math.max(0,flash-dtReal*3.2);
- }
+  dw.push(since); if(dw.length>240)dw.shift();
+  since=0;EG=0;th=nth();pulse=0;flash=1;
+  const tl=LANE[laneI%LANE.length]; laneI=(laneI+1)%LANE.length;
+  const pA = mode==="or" ? .5+(tl.t?.30:-.30)+(cur===0?-.06:.06) : (cur===0?.39:.61);
+  cur = Math.random()<pA?0:1}
+ function step(dt){
+  const d=dt*SPS; T+=d; since+=d; const damp=1-anes*.94;
+  if(mode==="or"){EG+=d*mass*damp/BASE; coh=Math.min(1,EG/th);
+    if(EG>=th&&damp>.06)collapse(); if(since>BASE*14)since=BASE*14}
+  else{coh=.5+.4*Math.sin(T/37); EG=0;
+    if(Math.random()<d/(BASE/damp||1e9))collapse()}
+  pulse+=dt*3.4; flash=Math.max(0,flash-dt*3.2)}
 
- /* ---------- draw ---------- */
- function bandLabel(x,y,s,sub){
-   ctx.font="600 20px "+MONO; ctx.fillStyle=C.lbl; ctx.textAlign="left";
-   ctx.fillText(s,x,y);
-   if(sub){ctx.font="400 18px "+MONO; ctx.fillStyle=C.dim; ctx.fillText(sub,x+ctx.measureText(s).width+18,y)}
- }
  function draw(){
-   ctx.fillStyle=C.bg; ctx.fillRect(0,0,W,H);
-   const sel=cur, act=1-anes*0.94>0.06;
+  ctx.fillStyle=P.sh;ctx.fillRect(0,0,W,H);
+  A.grid(0,0,W,H,40); A.reg(22,22,W-44,H-44,15);
+  const act=1-anes*.94>.06, sel=cur;
 
-   /* ===== PLATONIC ===== */
-   ctx.drawImage(off,0,0);
-   const tile=LANE[laneI%LANE.length];
-   if(tile){
-     const [,A,B,Cc]=tile.T;
-     ctx.beginPath(); ctx.moveTo(px(A),py(A)); ctx.lineTo(px(B),py(B)); ctx.lineTo(px(Cc),py(Cc)); ctx.closePath();
-     ctx.fillStyle=tile.t? "rgba(224,182,90,.55)":"rgba(143,120,255,.60)"; ctx.fill();
-     ctx.strokeStyle=C.gold; ctx.lineWidth=2.2; ctx.stroke();
-     if(flash>0){ctx.shadowColor=C.gold;ctx.shadowBlur=46*flash;ctx.stroke();ctx.shadowBlur=0}
-   }
-   bandLabel(PB.x,PB.y-10,"PLATONIC","aperiodic · no repeating rule generates this sequence");
-   ctx.font="400 17px "+MONO; ctx.fillStyle=C.dim; ctx.textAlign="right";
-   ctx.fillText("outcome read here →",PB.x+PB.w,PB.y-10);
+  ctx.drawImage(off,0,0);
+  ctx.strokeStyle=P.h2;ctx.lineWidth=1;ctx.strokeRect(PB.x,PB.y,PB.w,PB.h);
+  const tl=LANE[laneI%LANE.length];
+  if(tl){const a=tl.T[1],b=tl.T[2],c=tl.T[3];
+   ctx.beginPath();ctx.moveTo(px(a),py(a));ctx.lineTo(px(b),py(b));ctx.lineTo(px(c),py(c));ctx.closePath();
+   ctx.fillStyle=tl.t?"rgba(240,169,60,.40)":"rgba(70,217,232,.40)";ctx.fill();
+   ctx.strokeStyle=tl.t?P.am:P.cy;ctx.lineWidth=2;
+   if(flash>0){ctx.shadowColor=tl.t?P.am:P.cy;ctx.shadowBlur=40*flash}
+   ctx.stroke();ctx.shadowBlur=0;
+   A.lead(tl.cx,tl.cy-10,tl.cx,PB.y-22,tl.t?"THICK":"THIN",{c:tl.t?P.am:P.cy,sz:15,tr:1.6})}
+  A.txt(PB.x,PB.y-36,"PLATONIC",{sz:19,c:P.i2,tr:4,d:1,w:500});
+  A.txt(PB.x+PB.w,PB.y-36,"aperiodic · no repeating rule generates this sequence",
+    {sz:16,c:P.i3,a:"right"});
+  A.dimV(PB.x-22,PB.y,PB.y+PB.h,"outcome source");
 
-   /* ===== QUANTUM ===== */
-   const QB={x:40,y:344,w:W-80,h:180};
-   bandLabel(QB.x,QB.y-12,"QUANTUM","tubulin conformations in superposition");
-   const COLS=36,ROWS=4,cw=(QB.w-((COLS-1)*5))/COLS,chh=(QB.h-((ROWS-1)*7))/ROWS;
-   for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
-     const stag=(r*cw*0.34)%(cw+5);
-     const X=QB.x+c*(cw+5)+stag-((stag>QB.w-cw)?cw+5:0), Y=QB.y+r*(chh+7);
-     if(X<QB.x-1||X>QB.x+QB.w-cw+1) continue;
-     const idx=(c*ROWS+r)/(COLS*ROWS);
-     ctx.fillStyle=C.band; ctx.strokeStyle=C.rule; ctx.lineWidth=1.4;
-     ctx.beginPath(); ctx.roundRect(X,Y,cw,chh,3); ctx.fill(); ctx.stroke();
-     if(idx<coh&&act){
-       const ph=Math.sin(simT/22+idx*11);
-       ctx.globalAlpha=.30+.46*Math.abs(ph);
-       ctx.fillStyle=C.acc; ctx.beginPath(); ctx.roundRect(X,Y,cw,chh,3); ctx.fill();
-       ctx.globalAlpha=.26; ctx.fillStyle=C.acc2; /* the second branch, offset */
-       ctx.beginPath(); ctx.roundRect(X+ph*2.6,Y-ph*1.8,cw,chh,3); ctx.fill();
-       ctx.globalAlpha=1;
-     }
-   }
-   /* E_G gauge */
-   const gy=QB.y+QB.h+30, gh=22, gw=QB.w;
-   ctx.font="400 17px "+MONO; ctx.fillStyle=C.lbl; ctx.textAlign="left";
-   ctx.fillText("E_G",QB.x,gy-9);
-   ctx.textAlign="right"; ctx.fillStyle=mode==="or"?C.ok:C.dim; ctx.fillText("ℏ/τ",QB.x+gw,gy-9);
-   ctx.strokeStyle=C.rule; ctx.lineWidth=1.6; ctx.strokeRect(QB.x,gy,gw,gh);
-   const lvl=mode==="or"?Math.min(1,EG/thresh):0;
-   const lg=ctx.createLinearGradient(QB.x,0,QB.x+gw,0);
-   lg.addColorStop(0,"rgba(143,120,255,.45)"); lg.addColorStop(1,C.acc);
-   ctx.fillStyle=lg; ctx.fillRect(QB.x+1.5,gy+1.5,(gw-3)*lvl,gh-3);
-   ctx.strokeStyle=mode==="or"?C.ok:C.dim; ctx.lineWidth=3;
-   ctx.beginPath(); ctx.moveTo(QB.x+gw,gy-6); ctx.lineTo(QB.x+gw,gy+gh+6); ctx.stroke();
-   if(mode!=="or"){ctx.font="400 17px "+MONO;ctx.fillStyle=C.dim;ctx.textAlign="center";
-     ctx.fillText("no threshold — switching is memoryless",QB.x+gw/2,gy+gh+24)}
+  A.txt(QB.x,QB.y-30,"QUANTUM",{sz:19,c:P.i2,tr:4,d:1,w:500});
+  A.txt(QB.x+QB.w,QB.y-30,"tubulin conformations in superposition",{sz:16,c:P.i3,a:"right"});
+  const CO=40,RO=4,gp=5,cw=(QB.w-(CO-1)*gp)/CO,chh=(QB.h-(RO-1)*7)/RO;
+  for(let r=0;r<RO;r++)for(let c=0;c<CO;c++){
+   const X=QB.x+c*(cw+gp), Y=QB.y+r*(chh+7);
+   const id=(c*RO+r)/(CO*RO);
+   ctx.strokeStyle=P.h2;ctx.lineWidth=1;ctx.strokeRect(X,Y,cw,chh);
+   if(id<coh&&act){const ph=Math.sin(T/22+id*11);
+    ctx.globalAlpha=.20+.32*Math.abs(ph);ctx.fillStyle=P.cy;ctx.fillRect(X,Y,cw,chh);
+    ctx.globalAlpha=.30;ctx.strokeStyle=P.cy;
+    ctx.strokeRect(X+ph*2.4,Y-ph*1.6,cw,chh);ctx.globalAlpha=1}}
+  ctx.strokeStyle=P.h2;ctx.lineWidth=1;ctx.strokeRect(QB.x,QB.y,QB.w,QB.h);
+  A.txt(QB.x,GY-11,"E_G",{sz:17,c:P.i2});
+  A.txt(QB.x+QB.w,GY-11,"ℏ/τ",{sz:17,c:mode==="or"?P.cy:P.i3,a:"right"});
+  ctx.strokeStyle=P.h2;ctx.lineWidth=1;ctx.strokeRect(QB.x,GY,QB.w,20);
+  const lv2=mode==="or"?Math.min(1,EG/th):0;
+  ctx.fillStyle=P.cy;ctx.globalAlpha=.62;ctx.fillRect(QB.x+1,GY+1,(QB.w-2)*lv2,18);ctx.globalAlpha=1;
+  for(let i=1;i<10;i++){const X=QB.x+QB.w*i/10;A.hair(X,GY+14,X,GY+20,P.h2)}
+  ctx.strokeStyle=mode==="or"?P.cy:P.h3;ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(QB.x+QB.w,GY-6);ctx.lineTo(QB.x+QB.w,GY+26);ctx.stroke();
+  if(mode!=="or")A.txt(QB.x+QB.w/2,GY+42,"no threshold — switching is memoryless",
+    {sz:16,c:P.i3,a:"center"});
 
-   /* collapse pulse travelling down */
-   if(pulse<1&&act){
-     const a=(1-pulse)*0.85, yTop=PB.y+PB.h, yBot=664;
-     const bx=tile?tile.cx:CX;
-     const pg=ctx.createLinearGradient(0,yTop,0,yBot);
-     pg.addColorStop(0,"rgba(224,182,90,"+(a*.9)+")"); pg.addColorStop(1,"rgba(143,120,255,0)");
-     ctx.fillStyle=pg; ctx.fillRect(bx-2.5,yTop,5,yBot-yTop);
-     ctx.globalAlpha=a*.5; ctx.fillStyle=C.gold;
-     ctx.fillRect(bx-14,yTop+(yBot-yTop)*pulse,28,3); ctx.globalAlpha=1;
-   }
+  if(pulse<1&&act&&tl){
+   const yT=PB.y+PB.h, yB=CB.y, a2=(1-pulse)*.9;
+   const g=ctx.createLinearGradient(0,yT,0,yB);
+   g.addColorStop(0,"rgba(240,169,60,"+(a2*.8)+")");g.addColorStop(1,"rgba(240,169,60,0)");
+   ctx.fillStyle=g;ctx.fillRect(tl.cx-1.5,yT,3,yB-yT);
+   ctx.fillStyle=P.am;ctx.globalAlpha=a2*.75;
+   ctx.fillRect(tl.cx-13,yT+(yB-yT)*pulse,26,2);ctx.globalAlpha=1}
 
-   /* ===== CLASSICAL ===== */
-   const CB={x:40,y:664,w:W-80,h:278};
-   bandLabel(CB.x,CB.y-12,"CLASSICAL","both candidates computed · one is routed");
-   const pw=(CB.w-34)/2;
-   for(let i=0;i<2;i++){
-     const X=CB.x+i*(pw+34), on=(i===sel)&&act;
-     ctx.strokeStyle=on?C.acc:C.rule; ctx.lineWidth=on?2.6:1.4;
-     ctx.beginPath(); ctx.roundRect(X,CB.y,pw,CB.h,4); ctx.stroke();
-     if(on){ctx.fillStyle="rgba(143,120,255,.055)";ctx.fill()}
-     drawFace(X+pw*0.21,CB.y+CB.h*0.50,CB.h*0.40,FACES[i],on?C.acc2:C.dim,on?1:.5,on?3:1.8);
-     /* waveform — runs on both, always */
-     const wx=X+pw*0.40, ww=pw*0.54, wy=CB.y+CB.h*0.50;
-     ctx.strokeStyle=on?C.acc:C.dim; ctx.lineWidth=on?3:1.6; ctx.globalAlpha=on?1:.62;
-     ctx.beginPath();
-     const amp=(on?1.21:1)*(act?1:1)*CB.h*0.13;
-     for(let q=0;q<=ww;q+=3){
-       const yy=wy+Math.sin(q/17+i*2.4+simT/26)*amp*(0.6+0.4*Math.sin(q/61+simT/90));
-       q?ctx.lineTo(wx+q,yy):ctx.moveTo(wx+q,yy);
-     }
-     ctx.stroke(); ctx.globalAlpha=1;
-     ctx.font="600 19px "+MONO; ctx.textAlign="left";
-     ctx.fillStyle=on?C.acc2:C.lbl;
-     ctx.fillText(i?"CANDIDATE B":"CANDIDATE A",X+16,CB.y+30);
-     ctx.font="400 18px "+MONO; ctx.textAlign="right";
-     ctx.fillStyle=on?C.acc:C.dim;
-     ctx.fillText(on?"ROUTED · gain ×1.21":(act?"suppressed · ×1.00":"— · ×1.00"),X+pw-16,CB.y+30);
-   }
-   if(!act){
-     ctx.font="600 21px "+MONO; ctx.textAlign="center"; ctx.fillStyle=C.gold;
-     ctx.fillText("SELECTION STALLED — content still computed, nothing routed",W/2,CB.y+CB.h+30);
-   }
+  A.txt(CB.x,CB.y-30,"CLASSICAL",{sz:19,c:P.i2,tr:4,d:1,w:500});
+  A.txt(CB.x+CB.w,CB.y-30,"both candidates computed · one is routed",{sz:16,c:P.i3,a:"right"});
+  const pw=(CB.w-30)/2;
+  for(let i=0;i<2;i++){
+   const X=CB.x+i*(pw+30), on=i===sel&&act;
+   ctx.strokeStyle=on?P.cy:P.h2;ctx.lineWidth=on?2:1;ctx.strokeRect(X,CB.y,pw,CB.h);
+   if(on){ctx.fillStyle="rgba(70,217,232,.035)";ctx.fillRect(X,CB.y,pw,CB.h)}
+   face(X+pw*.20,CB.y+CB.h*.53,CB.h*.37,FA[i],on?P.i1:P.i3,on?1:.55,on?2.4:1.4);
+   const wx=X+pw*.385, ww=pw*.56, wy=CB.y+CB.h*.53;
+   A.hair(wx,wy,wx+ww,wy,P.h,1);
+   ctx.strokeStyle=on?P.cy:P.h3;ctx.lineWidth=on?2.2:1.2;ctx.globalAlpha=on?1:.7;
+   ctx.beginPath();
+   const amp=(on?1.21:1)*CB.h*.112;
+   for(let q=0;q<=ww;q+=3){
+    const yy=wy+Math.sin(q/16+i*2.4+T/26)*amp*(.62+.38*Math.sin(q/58+T/88));
+    q?ctx.lineTo(wx+q,yy):ctx.moveTo(wx+q,yy)}
+   ctx.stroke();ctx.globalAlpha=1;
+   A.txt(X+15,CB.y+27,i?"CANDIDATE B":"CANDIDATE A",{sz:17,c:on?P.i1:P.i3,tr:2.4,w:500});
+   A.txt(X+pw-15,CB.y+27,on?"ROUTED · ×1.21":(act?"suppressed · ×1.00":"— · ×1.00"),
+     {sz:16,c:on?P.cy:P.i3,a:"right"})}
+  if(!act)A.txt(W/2,CB.y+CB.h+36,"SELECTION STALLED — content still computed, nothing routed",
+    {sz:19,c:P.am,a:"center",tr:2.2,w:500});
+  A.scaleBar(M,H-34,180,"time →");
+  A.txt(W-M,H-34,"FIG. 01",{sz:16,c:P.h3,a:"right",tr:3});
  }
 
- /* ---------- histogram ---------- */
- function stats(){
-   if(dwells.length<6) return null;
-   const m=dwells.reduce((a,b)=>a+b,0)/dwells.length;
-   const sd=Math.sqrt(dwells.reduce((a,b)=>a+(b-m)*(b-m),0)/dwells.length);
-   const s=[...dwells].sort((a,b)=>a-b);
-   return {cv:sd/m, med:s[Math.floor(s.length/2)], n:dwells.length};
- }
- function drawHist(){
-   const w=hc.width,h=hc.height,pad={l:6,r:6,t:10,b:26};
-   hx.fillStyle="#0e0b18"; hx.fillRect(0,0,w,h);
-   const NB=44, MX=BASE*3.2, bins=new Array(NB).fill(0);
-   for(const d of dwells){const b=Math.min(NB-1,Math.floor(d/MX*NB)); bins[b]++}
-   const peak=Math.max(1,...bins);
-   const bw=(w-pad.l-pad.r)/NB;
-   for(let i=0;i<NB;i++){
-     const bh=(h-pad.t-pad.b)*(bins[i]/peak);
-     const g=hx.createLinearGradient(0,h-pad.b-bh,0,h-pad.b);
-     g.addColorStop(0,mode==="or"?C.acc2:"#6f6690"); g.addColorStop(1,mode==="or"?"rgba(143,120,255,.25)":"rgba(111,102,144,.2)");
-     hx.fillStyle=g; hx.fillRect(pad.l+i*bw+.8,h-pad.b-bh,bw-1.6,bh);
-   }
-   hx.strokeStyle=C.rule; hx.lineWidth=1.2;
-   hx.beginPath(); hx.moveTo(pad.l,h-pad.b); hx.lineTo(w-pad.r,h-pad.b); hx.stroke();
-   hx.font="400 11px "+MONO; hx.fillStyle=C.lbl; hx.textAlign="center";
-   for(let ms=0;ms<=MX;ms+=40){
-     const X=pad.l+(ms/MX)*(w-pad.l-pad.r);
-     hx.fillText(ms+(ms===0?" ms":""),X,h-9);
-     hx.strokeStyle=C.rule; hx.beginPath(); hx.moveTo(X,h-pad.b); hx.lineTo(X,h-pad.b+4); hx.stroke();
-   }
-   hx.textAlign="left"; hx.fillStyle=C.dim;
-   hx.fillText("dwell-time distribution",pad.l+4,pad.t+4);
-   const s=stats();
-   document.getElementById("cv").textContent = s?s.cv.toFixed(2):"—";
-   document.getElementById("md").textContent = s?Math.round(s.med):"—";
-   document.getElementById("cvn").textContent = s
-     ? (s.cv<.72?"peaked — threshold-like":(s.cv>.86?"≈1 — memoryless":"intermediate"))+" · n="+s.n
-     : "collecting";
- }
+ function st(){if(dw.length<6)return null;
+  const m=dw.reduce((a,b)=>a+b,0)/dw.length;
+  const sd=Math.sqrt(dw.reduce((a,b)=>a+(b-m)*(b-m),0)/dw.length);
+  const s=dw.slice().sort((a,b)=>a-b);
+  return {cv:sd/m,med:s[s.length>>1],n:dw.length}}
+ function hist(){
+  const w=hc.width,h=hc.height,pl=8,pb=30,pt=12;
+  hx.fillStyle=P.sh2;hx.fillRect(0,0,w,h);
+  const NB=46,MX=BASE*3.2,b=new Array(NB).fill(0);
+  for(const d of dw)b[Math.min(NB-1,Math.floor(d/MX*NB))]++;
+  const pk=Math.max(1,Math.max.apply(null,b)),bw=(w-pl*2)/NB;
+  for(let i=0;i<NB;i++){
+   const bh=(h-pt-pb)*(b[i]/pk);
+   hx.fillStyle=mode==="or"?"rgba(70,217,232,.5)":"rgba(133,149,168,.38)";
+   hx.fillRect(pl+i*bw+.6,h-pb-bh,bw-1.2,bh);
+   if(bh>.5){hx.strokeStyle=mode==="or"?P.cy:P.i2;hx.lineWidth=1;
+    hx.beginPath();hx.moveTo(pl+i*bw+.6,h-pb-bh);hx.lineTo(pl+i*bw+bw-.6,h-pb-bh);hx.stroke()}}
+  HA.hair(pl,h-pb,w-pl,h-pb,P.h3,1);
+  for(let ms=0;ms<=MX;ms+=40){const X=pl+ms/MX*(w-pl*2);
+   HA.hair(X,h-pb,X,h-pb+5,P.h3,1);
+   HA.txt(X,h-pb+20,ms+(ms?"":" ms"),{sz:14,c:P.i3,a:"center"})}
+  HA.txt(pl+4,pt+10,"DWELL-TIME DISTRIBUTION",{sz:14,c:P.i3,tr:2.4});
+  const s=st();
+  document.getElementById("cv").textContent=s?s.cv.toFixed(2):"—";
+  document.getElementById("md").textContent=s?Math.round(s.med):"—";
+  document.getElementById("cvn").textContent=s?
+   (s.cv<.72?"peaked — threshold-like":(s.cv>.86?"≈1 — memoryless":"intermediate"))+" · n="+s.n
+   :"collecting"}
 
- /* ---------- loop ---------- */
- const slow=matchMedia("(prefers-reduced-motion: reduce)").matches;
- let last=performance.now(), acc=0;
- function frame(now){
-   const dt=Math.min(.05,(now-last)/1000); last=now;
-   if(running){ step(dt); acc+=dt; if(acc>.2){acc=0; drawHist()} }
-   draw(); requestAnimationFrame(frame);
- }
- /* seed so the page is complete at rest */
- for(let i=0;i<34;i++){
-   dwells.push(mode==="or"?Math.max(14,BASE*(1+randn()*.3)):-BASE*Math.log(Math.random()));
- }
- drawHist(); draw();
- if(slow){running=false; document.getElementById("run").textContent="Play";
-   document.getElementById("run").setAttribute("aria-pressed","false"); }
- requestAnimationFrame(frame);
+ for(let i=0;i<36;i++)dw.push(Math.max(14,BASE*(1+randn()*.30)));
+ hist();
+ let last=performance.now(),acc=0;
+ (function loop(now){
+  const dt=Math.min(.05,(now-last)/1000); last=now;
+  if(run){step(dt);acc+=dt;if(acc>.2){acc=0;hist()}}
+  draw();requestAnimationFrame(loop)})(last);
+ if(matchMedia("(prefers-reduced-motion: reduce)").matches){
+  run=false;const r=document.getElementById("run");
+  r.textContent="Play";r.setAttribute("aria-pressed","false")}
 
- /* ---------- controls ---------- */
- const $=id=>document.getElementById(id);
- function setMode(m){ mode=m; dwells=[]; EG=0; sinceSwitch=0; thresh=newThresh();
-   $("m-or").setAttribute("aria-pressed",String(m==="or"));
-   $("m-cl").setAttribute("aria-pressed",String(m!=="or")); drawHist() }
- $("m-or").addEventListener("click",()=>setMode("or"));
- $("m-cl").addEventListener("click",()=>setMode("classical"));
- $("mass").addEventListener("input",e=>{mass=+e.target.value/100;
-   $("mass-v").textContent=mass.toFixed(2)+" ×"; dwells=[]; drawHist()});
- $("anes").addEventListener("input",e=>{anes=+e.target.value/100;
-   $("anes-v").textContent=(anes*1.4).toFixed(2)+" MAC"; dwells=[]; drawHist()});
- $("run").addEventListener("click",e=>{running=!running;
-   e.target.textContent=running?"Pause":"Play"; e.target.setAttribute("aria-pressed",String(running))});
- $("clear").addEventListener("click",()=>{dwells=[];EG=0;sinceSwitch=0;drawHist()});
+ const $=i=>document.getElementById(i);
+ /* seed with mode-appropriate samples so the contrast is visible immediately
+    rather than after thirty seconds of collection */
+ function seed(){dw=[];for(let i=0;i<36;i++)dw.push(mode==="or"
+  ? Math.max(14,BASE/mass*(1+randn()*.30))
+  : -BASE/mass*Math.log(Math.random()||1e-9))}
+ const setM=m=>{mode=m;EG=0;since=0;th=nth();seed();
+  $("m-or").setAttribute("aria-pressed",String(m==="or"));
+  $("m-cl").setAttribute("aria-pressed",String(m!=="or"));hist()};
+ $("m-or").onclick=()=>setM("or"); $("m-cl").onclick=()=>setM("classical");
+ $("mass").oninput=e=>{mass=+e.target.value/100;$("mass-v").textContent=mass.toFixed(2)+" ×";seed();hist()};
+ $("anes").oninput=e=>{anes=+e.target.value/100;$("anes-v").textContent=(anes*1.4).toFixed(2)+" MAC";hist()};
+ $("run").onclick=e=>{run=!run;e.target.textContent=run?"Pause":"Play";
+  e.target.setAttribute("aria-pressed",String(run))};
+ $("clear").onclick=()=>{dw=[];EG=0;since=0;hist()};
+ window.addEventListener("resize",()=>hist());
 })();
 
-/* ============ 01 · time axis ============ */
+/* ═══ FIG 02 — logarithmic time axis ════════════════════════════════════ */
 const MARKS=[
- {e:-13,lbl:"decoherence",t:"Tegmark's decoherence estimate",v:"~10⁻¹³ s · 100 femtoseconds",
-  b:"Tegmark (2000) calculated that microtubule superpositions would decohere in about 100 femtoseconds — far too fast to matter. Hagan, Hameroff and Tuszyński showed he had used a superposition separation of tens of nanometres where the theory stipulates femtometres, and recalculated 10⁻⁵–10⁻⁴ s. The correction was published in the same journal. The objection shaped the field's scepticism anyway."},
- {e:-12,lbl:"terahertz",t:"π-electron transitions in tubulin",v:"~10⁻¹² s · 1 terahertz",
-  b:"Aromatic rings inside tubulin. This is where Craddock's modelling found that anesthetic disruption of collective oscillations tracked clinical potency across all eight anesthetics tested — the one potency correlation the microtubule account has that rival targets lack."},
- {e:-9,lbl:"gigahertz",t:"Ordered water in the hollow core",v:"~10⁻⁹ s · 1 gigahertz",
-  b:"One of the four oscillatory subsystems in the 2026 fractal-time-crystal paper. Bandyopadhyay's group reports resonances here; the measurements are contested and have not been independently replicated at the level the theory needs."},
- {e:-6,lbl:"megahertz",t:"Lattice phonons and polaritons",v:"~10⁻⁶ s · 1 megahertz",
+ {e:-13,l:"decoherence",t:"Tegmark's decoherence estimate",v:"~10⁻¹³ s · 100 femtoseconds",tag:["t-con","Contested"],
+  b:"Tegmark (2000) calculated that microtubule superpositions would decohere in about 100 femtoseconds — far too fast to matter. Hagan, Hameroff and Tuszyński showed he had used a superposition separation of tens of nanometres where the theory stipulates femtometres, and recalculated 10⁻⁵–10⁻⁴ s. The correction appeared in the same journal. The objection shaped the field's scepticism anyway."},
+ {e:-12,l:"terahertz",t:"π-electron transitions in tubulin",v:"~10⁻¹² s · 1 terahertz",tag:["t-vit","In vitro only"],
+  b:"Aromatic rings inside tubulin. Craddock's modelling found that anesthetic disruption of collective oscillations here tracked clinical potency across all eight anesthetics tested — the one potency correlation the microtubule account has that rival targets lack."},
+ {e:-9,l:"gigahertz",t:"Ordered water in the hollow core",v:"~10⁻⁹ s · 1 gigahertz",tag:["t-con","Contested"],
+  b:"One of four oscillatory subsystems in the 2026 fractal-time-crystal paper. Bandyopadhyay's group reports resonances here; the measurements have not been independently replicated at the level the theory needs."},
+ {e:-6,l:"megahertz",t:"Lattice phonons and polaritons",v:"~10⁻⁶ s · 1 megahertz",tag:["t-con","Contested"],
   b:"Also where the corrected coherence estimate lands: Hagan et al. put microtubule coherence at 10⁻⁵–10⁻⁴ s. Note the distance still to travel — three to four further orders of magnitude up to a conscious moment."},
- {e:-3,lbl:"kilohertz",t:"Tubulin C-termini",v:"~10⁻³ s · 1 kilohertz",
-  b:"The slowest of the four subsystems. Hameroff and Penrose propose that beat frequencies between the faster oscillations generate the EEG rhythms we actually record — which is the theory's one testable bridge from molecular to measurable."},
- {e:-1.55,lbl:"τ = ℏ/E_G",t:"Predicted collapse time",v:"25–40 ms · from τ = ℏ/E_G",
-  b:"The theory's quantitative core. Collapse time varies inversely with the gravitational self-energy of the mass difference held in superposition, so more coherent tubulin means faster collapse. For biologically plausible masses this lands in the tens of milliseconds — which is how the theory arrived at gamma-band conscious moments."},
- {e:-1.22,lbl:"60 ms",t:"Observed alternation epochs",v:"59 and 64 ms · Hesse et al. 2026",
-  b:"Measured dwell times for the two states in macaque face patches, at the peak-likelihood bin size of 5 ms. They land squarely in the predicted window. That is a coincidence worth testing rather than celebrating: the duration distribution was assumed exponential, not measured, so whether this is a threshold process or a memoryless one is still open."},
- {e:0,lbl:"behaviour",t:"Report and action",v:"~1 s · behavioural timescale",
-  b:"Where every measurement that bears on consciousness is ultimately read out — a button press, a righting reflex, a verbal report. Three orders of magnitude above the proposed mechanism, and the whole inferential distance the theory has to cover."}
-];
+ {e:-3,l:"kilohertz",t:"Tubulin C-termini",v:"~10⁻³ s · 1 kilohertz",tag:["t-the","Theoretical"],
+  b:"The slowest of the four subsystems. Hameroff and Penrose propose that beat frequencies between the faster oscillations generate the EEG rhythms we actually record — the theory's one testable bridge from molecular to measurable."},
+ {e:-1.55,l:"τ = ℏ/E_G",t:"Predicted collapse time",v:"25–40 ms · from τ = ℏ/E_G",tag:["t-exc","Excluded by experiment"],
+  b:"The quantitative core. Collapse time varies inversely with the gravitational self-energy of the mass difference held in superposition, so more coherent tubulin means faster collapse. For biologically plausible masses this lands in the tens of milliseconds — how the theory arrived at gamma-band conscious moments. The natural parameter-free version of the mechanism was ruled out at Gran Sasso in 2021."},
+ {e:-1.22,l:"60 ms",t:"Observed alternation epochs",v:"59 and 64 ms · Hesse et al. 2026",tag:["t-ok","Measured in vivo"],
+  b:"Measured dwell times for the two states in macaque face patches, at the peak-likelihood bin size of 5 ms. They land squarely in the predicted window. A coincidence worth testing rather than celebrating: the duration distribution was assumed exponential, not measured, so whether this is a threshold process or a memoryless one is still open."},
+ {e:0,l:"behaviour",t:"Report and action",v:"~1 s · behavioural timescale",tag:["t-ok","Measured in vivo"],
+  b:"Where every measurement bearing on consciousness is ultimately read out — a button press, a righting reflex, a verbal report. Three orders of magnitude above the proposed mechanism, and the whole inferential distance the theory must cover."}];
 (function(){
- const svg=document.querySelector("svg.axis"),W=760,H=196,L=58,R=26,Y=138;
+ const cv=document.getElementById("axis"); if(!cv) return;
+ const ctx=cv.getContext("2d"), A=mk(ctx), W=1600, H=420;
+ const L=130,R=70,Y=300;
  const x=e=>L+((e+13.6)/13.6)*(W-L-R);
- const NS="http://www.w3.org/2000/svg";
- const el=(n,a)=>{const o=document.createElementNS(NS,n);for(const k in a)o.setAttribute(k,a[k]);return o};
- // the contested gap: from corrected coherence estimate to required collapse time
- const g=el("rect",{class:"gapband",x:x(-5),y:Y-74,width:x(-1.55)-x(-5),height:74});svg.appendChild(g);
- svg.appendChild(el("line",{class:"axisline",x1:L,y1:Y,x2:W-R,y2:Y}));
- const gl=el("text",{class:"gaplbl",x:(x(-5)+x(-1.55))/2,y:Y-80,"text-anchor":"middle"});
- gl.textContent="the gap the whole argument lives in";svg.appendChild(gl);
- for(let e=-13;e<=0;e++){
-   svg.appendChild(el("line",{class:"tickline",x1:x(e),y1:Y,x2:x(e),y2:Y+6}));
-   const t=el("text",{class:"ticklbl",x:x(e),y:Y+19,"text-anchor":"middle"});
-   t.textContent="10"+String(e).replace(/-/g,"⁻").replace(/0/g,"⁰").replace(/1/g,"¹").replace(/2/g,"²").replace(/3/g,"³").replace(/4/g,"⁴").replace(/5/g,"⁵").replace(/6/g,"⁶").replace(/7/g,"⁷").replace(/8/g,"⁸").replace(/9/g,"⁹");
-   svg.appendChild(t);
- }
- const sl=el("text",{class:"ticklbl",x:L-8,y:Y+19,"text-anchor":"end"});sl.textContent="seconds";svg.appendChild(sl);
+ const SUP={"-":"⁻","0":"⁰","1":"¹","2":"²","3":"³","4":"⁴","5":"⁵","6":"⁶","7":"⁷","8":"⁸","9":"⁹"};
+ const sup=n=>String(n).split("").map(c=>SUP[c]||c).join("");
+ let act=5;
  const rows=[0,1,0,1,0,1,0,1];
- MARKS.forEach((m,i)=>{
-   const gx=x(m.e),gy=Y-(rows[i]?34:14);
-   const grp=el("g",{class:"mk",tabindex:"0",role:"button","data-i":i,"aria-label":m.t});
-   grp.appendChild(el("line",{class:"tickline",x1:gx,y1:Y,x2:gx,y2:gy+5}));
-   grp.appendChild(el("circle",{cx:gx,cy:gy,r:5,fill:"var(--accent)"}));
-   const tx=el("text",{x:gx,y:gy-11,"text-anchor":i>5?"end":(i<2?"start":"middle")});
-   tx.textContent=m.lbl;grp.appendChild(tx);
-   const act=()=>{document.querySelectorAll(".mk").forEach(n=>n.removeAttribute("data-on"));grp.setAttribute("data-on","1");show(i)};
-   grp.addEventListener("click",act);
-   grp.addEventListener("keydown",ev=>{if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();act()}});
-   svg.appendChild(grp);
- });
- const ro=document.getElementById("ro");
- function show(i){const m=MARKS[i];ro.innerHTML='<p class="ro-t">'+m.t+'</p><p class="ro-v">'+m.v+'</p><p class="ro-b">'+m.b+'</p>'}
- show(5);document.querySelector('.mk[data-i="5"]').setAttribute("data-on","1");
+ function draw(){
+  ctx.fillStyle=P.sh;ctx.fillRect(0,0,W,H);
+  A.grid(0,0,W,H,40); A.reg(22,22,W-44,H-44,15);
+  const g1=x(-5),g2=x(-1.55);
+  ctx.save();ctx.beginPath();ctx.rect(g1,Y-150,g2-g1,150);ctx.clip();
+  ctx.strokeStyle="rgba(240,169,60,.16)";ctx.lineWidth=1;ctx.beginPath();
+  for(let i=-170;i<g2-g1+170;i+=9){ctx.moveTo(g1+i,Y);ctx.lineTo(g1+i+170,Y-170)}
+  ctx.stroke();ctx.restore();
+  ctx.strokeStyle="rgba(240,169,60,.38)";ctx.lineWidth=1;
+  ctx.setLineDash([4,4]);ctx.strokeRect(g1,Y-150,g2-g1,150);ctx.setLineDash([]);
+  A.txt((g1+g2)/2,Y-160,"THE GAP THE ARGUMENT LIVES IN",{sz:16,c:P.am,a:"center",tr:3.2,w:500});
+  A.hair(L,Y,W-R,Y,P.h3,1.4);
+  for(let e=-13;e<=0;e++){
+   A.hair(x(e),Y,x(e),Y+7,P.h3,1);
+   A.txt(x(e),Y+26,"10"+sup(e),{sz:16,c:P.i3,a:"center"});
+   for(let k=2;k<10;k++){const xx=x(e+Math.log10(k)); if(xx<W-R)A.hair(xx,Y,xx,Y+3,P.h2,1)}}
+  A.txt(L-14,Y+26,"seconds",{sz:16,c:P.i3,a:"right"});
+  A.dimH(L,W-R,Y+60,"15 orders of magnitude");
+  MARKS.forEach(function(m,i){
+   const gx=x(m.e), gy=Y-(rows[i]?78:34), on=i===act;
+   A.hair(gx,Y,gx,gy+6,on?P.cy:P.h3,on?1.4:1);
+   ctx.beginPath();ctx.arc(gx,gy,on?6:4,0,6.2832);
+   ctx.fillStyle=on?P.cy:P.sh;ctx.fill();
+   ctx.strokeStyle=on?P.cy:P.h3;ctx.lineWidth=1.4;ctx.stroke();
+   A.txt(gx,gy-14,m.l,{sz:on?17:15,c:on?P.i1:P.i2,
+     a:i>5?"right":(i<2?"left":"center"),tr:1.6,w:on?500:400})});
+  A.txt(W-R,H-34,"FIG. 02",{sz:16,c:P.h3,a:"right",tr:3});
+ }
+ function show(i){act=i;const m=MARKS[i];
+  document.getElementById("ro2").innerHTML=
+   '<p class="n">'+m.v+'</p><div class="hd"><h3>'+m.t+'</h3>'+
+   '<span class="tag '+m.tag[0]+'">'+m.tag[1]+'</span></div><p class="b">'+m.b+'</p>';
+  draw()}
+ cv.style.cursor="pointer";
+ cv.addEventListener("click",function(ev){
+  const r=cv.getBoundingClientRect(), mx=(ev.clientX-r.left)*(W/r.width);
+  let best=0,bd=1e9;
+  MARKS.forEach(function(m,i){const d=Math.abs(x(m.e)-mx); if(d<bd){bd=d;best=i}});
+  show(best)});
+ show(5);
 })();
 
-/* ============ 02 · the moment ============ */
-const STAGES=[
- {t:"Classical preparation",b:"Dendritic and synaptic input sets the stage: which tubulin configurations are available, and which representations the surrounding population is holding. On the selection reading nothing informational is in superposition yet — the candidates are ordinary firing patterns. This is the step the word “orchestrated” refers to.",
-  m:["timescale · milliseconds","status · measured","candidates · 2 prepared"]},
- {t:"Superposition builds",b:"Tubulin dimers enter a superposition of conformational states, recruited by the prepared classical state. The number of coherent dimers grows. This is the step every decoherence objection targets, and the step the corrected Hagan calculation defends.",
-  m:["timescale · 10⁻⁵–10⁻⁴ s and up","status · contested","coherent tubulin · rising"]},
- {t:"E_G accumulates",b:"As more mass joins the superposition, the gravitational self-energy of the difference between the two mass distributions grows. This is an accumulation toward a boundary — which is why the theory predicts regular rather than memoryless intervals, and the one place it makes a testable timing claim.",
-  m:["E_G · rising toward ℏ/τ","status · theoretical","signature · regular dwells"]},
- {t:"Threshold",b:"E_G reaches ℏ/τ. For biologically plausible masses this takes tens of milliseconds. Nothing external triggers it: collapse is objective, not caused by measurement or environment. The parameter-free version of this mechanism was excluded by the Gran Sasso radiation measurement in 2021 — the theory needs objective reduction to exist in some modified form.",
-  m:["τ = ℏ/E_G · 25–40 ms","status · excluded (parameter-free)","trigger · none"]},
- {t:"Collapse — the conscious moment",b:"One configuration is selected. On the theory, this event is not a cause of experience; it is the experience. The outcome is held to be non-computable: neither determined nor random. That identity claim is the heart of the proposal and is not testable with any instrument currently available.",
-  m:["status · not currently testable","outcome · non-computable","this is the moment"]},
- {t:"Conformational outcome",b:"The selected tubulin states persist classically. From here on everything is ordinary cell biology — which is the point. The quantum layer has done its one job and hands off.",
-  m:["timescale · milliseconds","status · plausible","quantum layer · done"]},
- {t:"Classical signalling",b:"Microtubule states regulate ion channel trafficking, receptor positioning and dendritic excitability. This machinery is well documented independent of any consciousness claim, which makes it the least speculative link in the chain.",
-  m:["timescale · 10–100 ms","status · measured","mechanism · trafficking"]},
- {t:"Gain change, then routing",b:"One representation is amplified relative to the other and routed onward to systems that support report and control. In the 2026 primate data the measured difference between conscious and suppressed epochs was a tuning-gain ratio of about 1.21 — though whether that signature reflects awareness or ordinary adaptation is currently unresolved.",
-  m:["gain ratio · ~1.21","status · measured, confounded","read out as · report"]}
-];
+/* ═══ FIG 03 — nested spatial scales ════════════════════════════════════ */
+const ZOOM=[
+ {h:"A cortical population, time-sharing two representations",tag:["t-ok","Measured in vivo"],
+  b:["The same neurons carry both the conscious and the suppressed face, switching which one they encode rather than splitting into two camps. That is Hesse's actual finding, and it is what the selection reading needs: the alternatives are prepared classically, in parallel, by ordinary firing.",
+     "Nothing here is in doubt. This level is a measurement."]},
+ {h:"One pyramidal neuron — dendritic and somatic microtubules",tag:["t-ok","Measured in vivo"],
+  b:["Hameroff locates the relevant microtubules in the dendrites and soma rather than the axon, because dendritic microtubules form mixed-polarity networks interconnected by MAPs while axonal ones are uniformly aligned. The anatomy is well established.",
+     "What is <b>not</b> established is that this compartment does anything quantum. The claim at this level is only about where to look."]},
+ {h:"Microtubules crosslinked by MAPs — the orchestration gate",tag:["t-the","Theoretical"],
+  b:["This is the answer to what goes into superposition. Microtubule-associated proteins bind the lattice at specific sites, and on the theory they both tune the quantum oscillations and determine which tubulins participate. Classical input positions the MAPs; the MAPs select the participating lattice regions.",
+     "That selection mechanism is what the word <b>orchestrated</b> in Orch OR refers to. MAP binding is real cell biology; its role as a quantum gate is a proposal with no direct measurement."]},
+ {h:"The tubulin lattice — superposition and entanglement",tag:["t-unt","Not currently testable"],
+  b:["Thirteen protofilaments in a cylinder, drawn axonometrically with the three-start helical stagger. Dimers shown doubled are in superposition of two conformations. Solid links are entanglement along and across the lattice, which has in vitro support from exciton-diffusion measurements.",
+     "The <b>dashed</b> link is the speculative step: entanglement spanning from one neuron to the next, proposed to travel through gap junctions. It is the weakest link in the theory and the one that does the most work, because it is what delivers a single unified experience. It also connects directly to the 2026 cross-area result — joint selection across regions needs entanglement reaching that far, and what was measured was significant but comparatively weak coordination."]}];
 (function(){
- const cv=document.getElementById("cv"),ctx=cv.getContext("2d");
- const scrub=document.getElementById("scrub"),play=document.getElementById("play");
- let stage=0,playing=false,timer=null,t0=performance.now();
- const css=k=>getComputedStyle(document.documentElement).getPropertyValue(k).trim();
- const ROWS=5,COLS=26;
+ const cv=document.getElementById("zoom"); if(!cv) return;
+ const ctx=cv.getContext("2d"), A=mk(ctx), W=1600, H=880, M=56;
+ const FR={x:M,y:76,w:W-M*2,h:H-176};
+ let lv=0, fade=1, T=0, st=0;
+
+ const CELLS=[];
+ for(let i=0;i<58;i++){const c=i%10, r=(i/10)|0;
+  CELLS.push({x:FR.x+80+c*((FR.w-170)/9)+(RND(i)*2-1)*30,
+              y:FR.y+92+r*((FR.h-180)/5)+(RND(i+99)*2-1)*20,
+              ph:RND(i+7)*6.28, pref:RND(i+31)>.5?1:0})}
+ function lvl0(){
+  const flip=st>.5;
+  CELLS.forEach(function(c,i){
+   const enc=flip?1-c.pref:c.pref, on=Math.sin(T*2.2+c.ph)>.3;
+   ctx.strokeStyle=P.h2;ctx.lineWidth=1;ctx.beginPath();
+   for(let k=0;k<4;k++){const a=c.ph+k*1.5708;
+    ctx.moveTo(c.x,c.y);ctx.lineTo(c.x+Math.cos(a)*16,c.y+Math.sin(a)*16)}
+   ctx.stroke();
+   ctx.beginPath();ctx.arc(c.x,c.y,8,0,6.2832);
+   ctx.fillStyle=on?(enc?P.cy:P.am):P.sh;ctx.globalAlpha=on?.75:1;ctx.fill();ctx.globalAlpha=1;
+   ctx.strokeStyle=on?(enc?P.cy:P.am):P.h3;ctx.lineWidth=1.3;ctx.stroke();
+   if(i===23){ctx.strokeStyle=P.i1;ctx.lineWidth=1.4;
+    ctx.beginPath();ctx.arc(c.x,c.y,17,0,6.2832);ctx.stroke()}});
+  const t=CELLS[23], b=46;
+  A.reg(t.x-b,t.y-b,b*2,b*2,13,P.i1);
+  A.lead(t.x+b,t.y-b,FR.x+FR.w-250,FR.y+56,"NEXT LEVEL",{c:P.i1,sz:15,tr:2.4});
+  A.txt(FR.x+16,FR.y+36,"ENCODING "+(flip?"B":"A")+" — the population switches together",
+    {sz:17,c:flip?P.am:P.cy,tr:2,w:500});
+  A.scaleBar(FR.x+16,FR.y+FR.h-26,220,"100 µm")}
+
+ function branch(x,y,a,len,d){
+  if(d<=0) return;
+  const x2=x+Math.cos(a)*len, y2=y+Math.sin(a)*len;
+  ctx.lineWidth=d*.5; ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x2,y2);ctx.stroke();
+  branch(x2,y2,a-.42-RND(d*7+x)*.2,len*.71,d-1);
+  branch(x2,y2,a+.42+RND(d*3+y)*.2,len*.71,d-1)}
+ function lvl1(){
+  const sx=FR.x+FR.w*.42, sy=FR.y+FR.h*.62;
+  ctx.strokeStyle=P.h3;
+  branch(sx,sy-30,-1.5708,112,5); branch(sx-26,sy-18,-2.5,70,4); branch(sx+26,sy-18,-.64,70,4);
+  ctx.beginPath();ctx.moveTo(sx-34,sy);ctx.lineTo(sx,sy-40);ctx.lineTo(sx+34,sy);
+  ctx.lineTo(sx+16,sy+40);ctx.lineTo(sx-16,sy+40);ctx.closePath();
+  ctx.fillStyle=P.sh2;ctx.fill();ctx.strokeStyle=P.i2;ctx.lineWidth=1.6;ctx.stroke();
+  ctx.strokeStyle=P.h3;ctx.lineWidth=2;ctx.beginPath();
+  ctx.moveTo(sx,sy+40);ctx.lineTo(sx,sy+104);ctx.lineTo(FR.x+FR.w-190,sy+104);ctx.stroke();
+  A.lead(sx+120,sy+104,FR.x+FR.w-200,sy+104,"AXON — output",{c:P.i3,sz:15,a:"right",tr:2});
+  ctx.strokeStyle=P.cy;ctx.lineWidth=1;ctx.globalAlpha=.55;
+  for(let k=-2;k<=2;k++){ctx.beginPath();
+   ctx.moveTo(sx+k*9,sy+22);ctx.lineTo(sx+k*9,sy-140-Math.abs(k)*14);ctx.stroke()}
+  ctx.globalAlpha=1;
+  ctx.strokeStyle=P.cy;ctx.setLineDash([5,5]);ctx.lineWidth=1.2;
+  ctx.strokeRect(sx-86,sy-168,172,224);ctx.setLineDash([]);
+  A.lead(sx-86,sy-110,FR.x+218,FR.y+96,"DENDRITIC–SOMATIC · mixed polarity",
+    {c:P.cy,sz:15,a:"right",tr:2});
+  A.reg(sx-20,sy-100,54,54,12,P.i1);
+  A.lead(sx+34,sy-100,FR.x+FR.w-230,FR.y+60,"NEXT LEVEL",{c:P.i1,sz:15,tr:2.4});
+  A.dimV(FR.x+FR.w-104,sy-168,sy+56,"≈ 20 µm");
+  A.scaleBar(FR.x+16,FR.y+FR.h-26,200,"20 µm")}
+
+ function lvl2(){
+  const n=5, top=FR.y+116, sp=(FR.h-240)/(n-1), x0=FR.x+112, x1=FR.x+FR.w-180;
+  for(let k=0;k<4;k++){
+   const y=top+40+k*44, on=Math.sin(T*2.4-k*.8)>0;
+   ctx.strokeStyle=on?P.i2:P.h2;ctx.lineWidth=on?1.6:1;
+   ctx.beginPath();ctx.moveTo(FR.x+24,y);ctx.lineTo(x0-18,y);ctx.stroke();
+   ctx.beginPath();ctx.moveTo(x0-18,y);ctx.lineTo(x0-27,y-4.5);ctx.lineTo(x0-27,y+4.5);
+   ctx.closePath();ctx.fillStyle=on?P.i2:P.h2;ctx.fill()}
+  A.txt(FR.x+24,top+18,"CLASSICAL INPUT",{sz:15,c:P.i2,tr:2.4,w:500});
+  for(let i=0;i<n;i++){
+   const y=top+i*sp;
+   ctx.strokeStyle=P.h3;ctx.lineWidth=1.2;ctx.strokeRect(x0,y-9,x1-x0,18);
+   ctx.strokeStyle=P.h2;ctx.lineWidth=1;ctx.beginPath();
+   for(let q=x0;q<x1;q+=13){ctx.moveTo(q,y-9);ctx.lineTo(q,y+9)}ctx.stroke();
+   for(let s=0;s<3;s++){
+    const sx2=x0+(x1-x0)*(.1+s*.3)+Math.sin(T*.7+i+s)*14, wd=(x1-x0)*.14;
+    if(Math.sin(T*2.4-s*.8-i*.3)>0){
+     ctx.fillStyle="rgba(70,217,232,.2)";ctx.fillRect(sx2,y-9,wd,18);
+     ctx.strokeStyle=P.cy;ctx.lineWidth=1.2;ctx.strokeRect(sx2,y-9,wd,18)}}}
+  for(let i=0;i<n-1;i++)for(let k=0;k<6;k++){
+   const y=top+i*sp, X=x0+(x1-x0)*(.08+k*.166)+Math.sin(T*.5+k)*7;
+   ctx.strokeStyle=P.am;ctx.lineWidth=1.5;ctx.globalAlpha=.75;
+   ctx.beginPath();ctx.moveTo(X,y+9);ctx.lineTo(X+9,y+sp*.5);ctx.lineTo(X,y+sp-9);ctx.stroke();
+   ctx.globalAlpha=1}
+  A.lead(x0+(x1-x0)*.41,top+sp*.5,FR.x+FR.w-210,FR.y+74,"MAPs — the gate",{c:P.am,sz:16,tr:2});
+  A.lead(x0+(x1-x0)*.1,top+sp*2,FR.x+FR.w-210,FR.y+FR.h-118,"eligible lattice regions",
+    {c:P.cy,sz:15,tr:2});
+  A.dimH(x0,x1,top+sp*(n-1)+56,"≈ 500 nm");
+  A.scaleBar(FR.x+16,FR.y+FR.h-26,190,"500 nm")}
+
+ function lvl3(){
+  const NP=13, RINGS=15, R=236, PITCH=58, SQ=.42, SKEW=.26;
+  const ax=FR.x+176, cy=FR.y+FR.h*.50, XMAX=FR.x+FR.w-128;
+  const RY=R*SQ;                                   /* projected tube half-height */
+  const pts=[];
+  for(let r=0;r<RINGS;r++)for(let p=0;p<NP;p++){
+   const th=6.2832*p/NP, z=r*PITCH+p*(3*PITCH/NP);
+   pts.push({sx:ax+z+R*Math.sin(th)*SKEW, sy:cy-R*Math.cos(th)*SQ,
+     depth:Math.sin(th), p:p, r:r, sup:(r*NP+p)%3===0&&r>1&&r<RINGS-2})}
+  pts.sort((a,b)=>a.depth-b.depth);
+  /* tube silhouette + end ellipse, hidden-line weight */
+  ctx.strokeStyle=P.h2;ctx.lineWidth=1;
+  for(const s of [-1,1]){ctx.beginPath();ctx.moveTo(ax,cy+s*RY);ctx.lineTo(XMAX,cy+s*RY);ctx.stroke()}
+  ctx.beginPath();ctx.ellipse(ax,cy,R*SKEW,RY,0,0,6.2832);ctx.stroke();
+  for(const q of pts){
+   if(q.sx>XMAX||q.sx<ax-4) continue;
+   const back=q.depth<0, w=23, h=15;
+   ctx.globalAlpha=back?.26:1;
+   ctx.strokeStyle=q.sup?P.cy:P.h3;ctx.lineWidth=q.sup?1.5:1;
+   ctx.strokeRect(q.sx-w/2,q.sy-h/2,w,h);
+   if(!back){A.hair(q.sx-w/2,q.sy,q.sx+w/2,q.sy,q.sup?"rgba(70,217,232,.4)":P.h2,1)}
+   if(q.sup&&!back){
+    const sh=Math.sin(T*3+q.r*.7+q.p)*3.2;
+    ctx.fillStyle="rgba(70,217,232,.26)";ctx.fillRect(q.sx-w/2,q.sy-h/2,w,h);
+    ctx.globalAlpha=.42;ctx.strokeRect(q.sx-w/2+sh,q.sy-h/2-sh*.6,w,h)}
+   ctx.globalAlpha=1}
+  const sups=pts.filter(q=>q.sup&&q.depth>-.25&&q.sx<XMAX&&q.sx>ax).sort((a,b)=>a.sx-b.sx);
+  ctx.strokeStyle=P.cy;ctx.lineWidth=1.2;ctx.globalAlpha=.6;
+  for(let i=0;i<sups.length-1;i++){
+   const a=sups[i],b=sups[i+1];
+   if(Math.hypot(a.sx-b.sx,a.sy-b.sy)>190) continue;
+   ctx.beginPath();ctx.moveTo(a.sx,a.sy);
+   ctx.quadraticCurveTo((a.sx+b.sx)/2,(a.sy+b.sy)/2-18,b.sx,b.sy);ctx.stroke()}
+  ctx.globalAlpha=1;
+  const last=sups.length?sups[sups.length-1]:{sx:XMAX-60,sy:cy};
+  ctx.strokeStyle=P.am;ctx.lineWidth=1.4;ctx.setLineDash([6,6]);
+  ctx.beginPath();ctx.moveTo(last.sx,last.sy);
+  ctx.quadraticCurveTo(last.sx+90,last.sy-70,XMAX+56,FR.y+150);ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.beginPath();ctx.arc(XMAX+56,FR.y+150,3,0,6.2832);ctx.fillStyle=P.am;ctx.fill();
+  A.txt(FR.x+FR.w-24,FR.y+108,"VIA GAP JUNCTIONS → NEXT NEURON",{c:P.am,sz:15,a:"right",tr:1.8,w:500});
+  A.txt(FR.x+FR.w-24,FR.y+130,"speculative — the weakest link",{c:P.am,sz:15,a:"right"});
+  if(sups.length>3)A.lead(sups[3].sx,sups[3].sy,FR.x+150,FR.y+FR.h-78,
+    "ENTANGLEMENT WITHIN LATTICE",{c:P.cy,sz:15,tr:1.8});
+  A.lead(ax+PITCH*3,cy-RY,FR.x+176,FR.y+58,"13 PROTOFILAMENTS · 3-start helix",{c:P.i2,sz:15,tr:2});
+  A.dimV(ax-34,cy-RY,cy+RY,"25 nm");
+  A.scaleBar(FR.x+16,FR.y+FR.h-26,160,"25 nm")}
+
  function draw(){
-  const W=cv.width,H=cv.height,now=performance.now(),ph=((now-t0)/1000)%1;
-  const bg=css("--surface-2"),fg=css("--fg"),f2=css("--fg-2"),f3=css("--fg-3"),ac=css("--accent"),rl=css("--rule-2"),ok=css("--ok");
-  ctx.clearRect(0,0,W,H);ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
-  // ---- microtubule lattice ----
-  const lx=90,ly=130,cw=42,chh=44,gap=6;
-  ctx.font="500 26px "+'"IBM Plex Mono",monospace';ctx.fillStyle=f3;ctx.textAlign="left";
-  ctx.fillText("MICROTUBULE LATTICE", lx, ly-32);
-  const frac=stage<=0?0:stage===1?0.45:stage===2?0.85:stage>=4?1:1;
-  for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
-    const X=lx+c*(cw+gap),Y=ly+r*(chh+gap);
-    const idx=(c*ROWS+r)/(ROWS*COLS);
-    const inSup=idx<frac&&stage>=1&&stage<=3;
-    const settled=stage>=4&&idx<1;
-    ctx.fillStyle=bg;ctx.strokeStyle=rl;ctx.lineWidth=2;
-    ctx.beginPath();ctx.roundRect(X,Y,cw,chh,4);ctx.fill();ctx.stroke();
-    if(inSup){
-      const a=.3+.55*Math.abs(Math.sin(ph*Math.PI*2+idx*9));
-      ctx.fillStyle=ac;ctx.globalAlpha=a;ctx.beginPath();ctx.roundRect(X,Y,cw,chh,4);ctx.fill();ctx.globalAlpha=1;
-    } else if(settled){
-      const up=(Math.sin(c*2.7+r*1.3)>0);
-      ctx.fillStyle=up?ac:bg;ctx.strokeStyle=ac;
-      ctx.beginPath();ctx.roundRect(X,Y,cw,chh,4);ctx.fill();ctx.stroke();
-    }
-  }
-  if(stage===4){ // collapse flash
-    const a=Math.max(0,1-((now-t0)%1000)/400);
-    ctx.fillStyle=ac;ctx.globalAlpha=a*.3;ctx.fillRect(lx-14,ly-14,COLS*(cw+gap)+14,ROWS*(chh+gap)+14);ctx.globalAlpha=1;
-  }
-  // ---- E_G gauge ----
-  const gx=90,gy=460,gw=COLS*(cw+gap)-gap,gh=40;
-  ctx.font="500 26px "+'"IBM Plex Mono",monospace';ctx.fillStyle=f3;
-  ctx.fillText("E_G  —  GRAVITATIONAL SELF-ENERGY", gx, gy-20);
-  ctx.strokeStyle=rl;ctx.lineWidth=2;ctx.strokeRect(gx,gy,gw,gh);
-  const lvl=stage<=0?0:stage===1?.42:stage===2?.82:stage>=3?1:0;
-  ctx.fillStyle=stage>=3?ok:ac;ctx.fillRect(gx+2,gy+2,(gw-4)*lvl,gh-4);
-  const thx=gx+gw-4;
-  ctx.strokeStyle=ok;ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(thx,gy-8);ctx.lineTo(thx,gy+gh+8);ctx.stroke();
-  ctx.font="500 24px "+'"IBM Plex Mono",monospace';ctx.fillStyle=ok;ctx.textAlign="right";
-  ctx.fillText("ℏ/τ", thx-10, gy-16);ctx.textAlign="left";
-  // ---- two candidate channels ----
-  const chy=566,chw=(gw-40)/2;
-  ["CANDIDATE A","CANDIDATE B"].forEach((nm,i)=>{
-    const X=gx+i*(chw+40);
-    const sel=(stage>=7&&i===0);
-    const pre=stage>=0;
-    ctx.font="500 24px "+'"IBM Plex Mono",monospace';
-    ctx.fillStyle=sel?ac:f3;ctx.textAlign="left";ctx.fillText(nm,X,chy-12);
-    ctx.strokeStyle=sel?ac:rl;ctx.lineWidth=sel?4:2;
-    ctx.beginPath();ctx.roundRect(X,chy,chw,96,4);ctx.stroke();
-    // waveform
-    ctx.strokeStyle=sel?ac:f3;ctx.lineWidth=sel?5:2.5;ctx.globalAlpha=pre?1:.25;
-    ctx.beginPath();
-    const amp=sel?34:(stage>=7?12:22);
-    for(let p=0;p<=chw-20;p+=3){
-      const yy=chy+48+Math.sin(p/14+i*2+ph*6.28)*amp*(sel?1:.8);
-      p===0?ctx.moveTo(X+10+p,yy):ctx.lineTo(X+10+p,yy);
-    }
-    ctx.stroke();ctx.globalAlpha=1;
-    if(sel){ctx.font="500 22px "+'"IBM Plex Mono",monospace';ctx.fillStyle=ac;ctx.textAlign="right";
-      ctx.fillText("ROUTED · gain ×1.21",X+chw-12,chy+86);ctx.textAlign="left"}
-  });
-  // ---- stage rail ----
-  const ry=712;
-  for(let i=0;i<8;i++){
-    const X=gx+i*((gw-0)/8),w=(gw/8)-8;
-    ctx.fillStyle=i<=stage?ac:rl;ctx.globalAlpha=i===stage?1:(i<stage?.5:.35);
-    ctx.fillRect(X,ry,w,7);ctx.globalAlpha=1;
-  }
-  if(playing||stage===4||stage<=2)raf=requestAnimationFrame(draw);
- }
- let raf=null;
+  ctx.fillStyle=P.sh;ctx.fillRect(0,0,W,H);
+  A.grid(0,0,W,H,40); A.reg(22,22,W-44,H-44,15);
+  ctx.strokeStyle=P.h2;ctx.lineWidth=1;ctx.strokeRect(FR.x,FR.y,FR.w,FR.h);
+  ctx.save();ctx.beginPath();ctx.rect(FR.x+1,FR.y+1,FR.w-2,FR.h-2);ctx.clip();
+  ctx.globalAlpha=fade;
+  if(lv===0)lvl0(); else if(lv===1)lvl1(); else if(lv===2)lvl2(); else lvl3();
+  ctx.globalAlpha=1;ctx.restore();
+  A.txt(FR.x,FR.y-34,["POPULATION","ONE NEURON","DENDRITE INTERIOR","TUBULIN LATTICE"][lv],
+    {sz:19,c:P.i2,tr:4,d:1,w:500});
+  A.txt(FR.x+FR.w,FR.y-34,["100 µm","20 µm","500 nm","25 nm"][lv],{sz:17,c:P.cy,a:"right"});
+  for(let i=0;i<4;i++){ctx.fillStyle=i===lv?P.cy:P.h2;ctx.fillRect(FR.x+i*32,H-48,22,3)}
+  A.txt(W-M,H-34,"FIG. 03",{sz:16,c:P.h3,a:"right",tr:3})}
+
+ let last=performance.now();
+ (function loop(now){const dt=Math.min(.05,(now-last)/1000);last=now;
+  T+=dt; st=(st+dt*.42)%1; fade=Math.min(1,fade+dt*3.4);
+  draw();requestAnimationFrame(loop)})(last);
+ function cap(){const z=ZOOM[lv];
+  document.getElementById("zh").textContent=z.h;
+  document.getElementById("ztag").innerHTML='<span class="tag '+z.tag[0]+'">'+z.tag[1]+'</span>';
+  document.getElementById("zb").innerHTML=z.b.map(t=>'<p class="b">'+t+'</p>').join("")}
+ for(let i=0;i<4;i++)(function(i){
+  document.getElementById("z"+i).onclick=function(){
+   lv=i;fade=0;
+   for(let k=0;k<4;k++)document.getElementById("z"+k).setAttribute("aria-pressed",String(k===i));
+   cap()}})(i);
+ cap();
+})();
+
+/* ═══ FIG 04 — one cycle ════════════════════════════════════════════════ */
+const STAGES=[
+ {t:"Classical preparation",m:["milliseconds","measured","2 candidates prepared"],
+  b:"Dendritic and synaptic input sets the stage: which tubulin configurations are available, and which representations the surrounding population is holding. On the selection reading nothing informational is in superposition yet — the candidates are ordinary firing patterns. This is what the word “orchestrated” refers to."},
+ {t:"Superposition builds",m:["10⁻⁵–10⁻⁴ s and up","contested","coherent tubulin rising"],
+  b:"Tubulin dimers enter a superposition of conformational states, recruited by the prepared classical state. The number of coherent dimers grows. This is the step every decoherence objection targets, and the step the corrected Hagan calculation defends."},
+ {t:"E_G accumulates",m:["rising toward ℏ/τ","theoretical","signature: regular dwells"],
+  b:"As more mass joins the superposition, the gravitational self-energy of the difference between the two mass distributions grows. This is accumulation toward a boundary — which is why the theory predicts regular rather than memoryless intervals, and the one place it makes a testable timing claim."},
+ {t:"Threshold",m:["τ = ℏ/E_G · 25–40 ms","excluded (parameter-free)","no external trigger"],
+  b:"E_G reaches ℏ/τ. Nothing external triggers it: collapse is objective, not caused by measurement or environment. The parameter-free version of this mechanism was excluded by the Gran Sasso radiation measurement in 2021, so the theory needs objective reduction to exist in some modified form."},
+ {t:"Collapse — the conscious moment",m:["not currently testable","outcome non-computable","this is the moment"],
+  b:"One configuration is selected. On the theory this event is not a cause of experience; it is the experience. The outcome is held to be non-computable: neither determined nor random. That identity claim is the heart of the proposal and is not testable with any instrument now available."},
+ {t:"Conformational outcome",m:["milliseconds","plausible","quantum layer done"],
+  b:"The selected tubulin states persist classically. From here on everything is ordinary cell biology — which is the point. The quantum layer has done its one job and hands off."},
+ {t:"Classical signalling",m:["10–100 ms","measured","channel trafficking"],
+  b:"Microtubule states regulate ion channel trafficking, receptor positioning and dendritic excitability. This machinery is documented independent of any consciousness claim, which makes it the least speculative link in the chain."},
+ {t:"Gain change, then routing",m:["gain ratio ≈1.21","measured, confounded","read out as report"],
+  b:"One representation is amplified relative to the other and routed onward to systems supporting report and control. In the 2026 primate data the measured difference between conscious and suppressed epochs was a tuning-gain ratio of about 1.21 — though whether that signature reflects awareness or ordinary adaptation is unresolved."}];
+(function(){
+ const cv=document.getElementById("cyc"); if(!cv) return;
+ const ctx=cv.getContext("2d"), A=mk(ctx), W=1600, H=560, M=56;
+ let i=0, playing=false, tmr=null, T=0;
+ const LX=M+56, LW=W-M*2-112, LY=H*.50;
+ function draw(){
+  ctx.fillStyle=P.sh;ctx.fillRect(0,0,W,H);
+  A.grid(0,0,W,H,40); A.reg(22,22,W-44,H-44,15);
+  const n=8, gap=LW/(n-1);
+  A.hair(LX,LY,LX+LW,LY,P.h2,1);
+  ctx.strokeStyle=P.cy;ctx.lineWidth=1.6;
+  ctx.beginPath();ctx.moveTo(LX,LY);ctx.lineTo(LX+gap*i,LY);ctx.stroke();
+  for(let k=0;k<n;k++){
+   const X=LX+gap*k, on=k===i, done=k<i, s=on?13:9;
+   ctx.lineWidth=on?2:1.2;
+   if(k===4){ctx.beginPath();ctx.moveTo(X,LY-s*1.3);ctx.lineTo(X+s*1.3,LY);
+     ctx.lineTo(X,LY+s*1.3);ctx.lineTo(X-s*1.3,LY);ctx.closePath();
+     ctx.fillStyle=on?P.am:P.sh;ctx.strokeStyle=on?P.am:(done?P.amd:P.h3)}
+   else{ctx.fillStyle=on?P.cy:P.sh;ctx.strokeStyle=on?P.cy:(done?P.cyd:P.h3);
+     if(k>=1&&k<=3){ctx.beginPath();ctx.arc(X,LY,s,0,6.2832)}
+     else{ctx.beginPath();ctx.rect(X-s,LY-s,s*2,s*2)}}
+   ctx.fill();ctx.stroke();
+   const ly=k%2?LY+78:LY-62;
+   A.hair(X,LY+(k%2?s+5:-s-5),X,ly+(k%2?-14:14),on?P.cy:P.h2,1);
+   const wd=STAGES[k].t.split(" ");
+   const lines=wd.length>2?[wd.slice(0,2).join(" "),wd.slice(2).join(" ")]:[STAGES[k].t];
+   lines.forEach(function(L,q){A.txt(X,ly+q*19,L.toUpperCase(),
+     {sz:on?15:13,c:on?P.i1:P.i3,a:"center",tr:1.1,w:on?500:400})});
+   A.txt(X,k%2?LY-s-16:LY+s+24,String(k+1).padStart(2,"0"),
+     {sz:on?18:14,c:on?P.i1:P.i3,a:"center",w:on?500:400})}
+  A.dimH(LX,LX+gap*.5,LY+146,"classical");
+  A.dimH(LX+gap*.5,LX+gap*4.5,LY+146,"quantum");
+  A.dimH(LX+gap*4.5,LX+LW,LY+146,"classical");
+  A.txt(M,58,"ONE CONSCIOUS MOMENT",{sz:19,c:P.i2,tr:4,d:1,w:500});
+  A.txt(W-M,58,"stage "+(i+1)+" of 8",{sz:17,c:P.cy,a:"right"});
+  if(i===4){const g=.5+.5*Math.sin(T*4);
+   ctx.globalAlpha=.28*g;ctx.strokeStyle=P.am;ctx.lineWidth=2;
+   ctx.beginPath();ctx.arc(LX+gap*4,LY,27+g*9,0,6.2832);ctx.stroke();ctx.globalAlpha=1}
+  A.txt(W-M,H-34,"FIG. 04",{sz:16,c:P.h3,a:"right",tr:3})}
  function render(){
-  const s=STAGES[stage];
-  document.getElementById("sn").textContent="Stage "+(stage+1)+" of 8";
+  const s=STAGES[i];
+  document.getElementById("sn").textContent="Stage "+(i+1)+" of 8";
   document.getElementById("st").textContent=s.t;
   document.getElementById("sb").textContent=s.b;
   document.getElementById("sm").innerHTML=s.m.map(x=>"<span>"+x+"</span>").join("");
-  document.getElementById("stagecount").textContent=(stage+1)+" / 8";
-  scrub.value=stage;
-  cancelAnimationFrame(raf);t0=performance.now();raf=requestAnimationFrame(draw);
- }
- scrub.addEventListener("input",()=>{stage=+scrub.value;stop();render()});
- function stop(){playing=false;clearInterval(timer);play.textContent="Play"}
- play.addEventListener("click",()=>{
-   if(playing){stop();return}
-   playing=true;play.textContent="Pause";
-   if(stage>=7)stage=0;
-   render();
-   timer=setInterval(()=>{if(stage>=7){stop();return}stage++;render()},2600);
- });
+  document.getElementById("sc").textContent=(i+1)+" / 8";
+  document.getElementById("scrub").value=i}
+ let last=performance.now();
+ (function loop(now){const dt=Math.min(.05,(now-last)/1000);last=now;T+=dt;
+  draw();requestAnimationFrame(loop)})(last);
+ function stop(){playing=false;clearInterval(tmr);
+  document.getElementById("play").textContent="Play"}
+ document.getElementById("scrub").oninput=e=>{i=+e.target.value;stop();render()};
+ document.getElementById("play").onclick=function(e){
+  if(playing){stop();return}
+  playing=true;e.target.textContent="Pause"; if(i>=7)i=0; render();
+  tmr=setInterval(function(){if(i>=7){stop();return}i++;render()},2500)};
  render();
- window.addEventListener("resize",()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(draw)});
 })();
 
-/* ============ 03 · ledger ============ */
+/* ═══ 04 · evidence schedule ════════════════════════════════════════════ */
 const CHAIN=[
  {k:"ok",tag:["t-ok","Measured in vivo"],h:"Anesthetics bind tubulin and microtubules",
   e:"Settled structural and proteomic pharmacology, independent of any consciousness claim. Epothilone B's binding site on β-tubulin is likewise established. <span class='src'>Pan et al. 2008; Bodakuntla et al. 2025</span>"},
  {k:"ok",tag:["t-ok","Measured in vivo"],h:"Microtubule-targeting drugs shift anesthetic sensitivity",
   e:"Brain-penetrant epothilone B delays isoflurane-induced loss of righting reflex in rats and mice. But the literature is unresolved: epothilone D shifted sensitivity the opposite way, and a destabiliser shifted it the same way as the stabiliser — which no simple stabilisation account predicts. <span class='src'>Khan et al. 2024; Huang et al. 2026; BMC Anesthesiol 2025</span>"},
- {k:"vitro",tag:["t-vitro","In vitro only"],h:"Anesthetics dampen quantum optical effects in microtubules",
+ {k:"vit",tag:["t-vit","In vitro only"],h:"Anesthetics dampen quantum optical effects in microtubules",
   e:"Isoflurane and etomidate reduce exciton diffusion in microtubules, measured by tryptophan autofluorescence lifetimes; energy migration over 6.6 nm exceeds what conventional Förster theory accounts for. Isolated microtubules, not neurons. <span class='src'>Kalra et al. 2023</span>"},
- {k:"vitro",tag:["t-vitro","In vitro only"],h:"Anesthetic potency tracks disruption of tubulin terahertz oscillations",
-  e:"Computational modelling found a Meyer–Overton correlation across all eight anesthetics studied. This is the microtubule account's strongest comparative claim — no equivalent potency correlation has been demonstrated for any rival target. It is modelling, not measurement. <span class='src'>Craddock et al. 2017</span>"},
- {k:"contest",tag:["t-contest","Contested"],h:"Microtubules sustain coherence long enough to matter",
+ {k:"vit",tag:["t-vit","In vitro only"],h:"Anesthetic potency tracks disruption of tubulin terahertz oscillations",
+  e:"Computational modelling found a Meyer–Overton correlation across all eight anesthetics studied. The microtubule account's strongest comparative claim — no equivalent potency correlation has been demonstrated for any rival target. It is modelling, not measurement. <span class='src'>Craddock et al. 2017</span>"},
+ {k:"con",tag:["t-con","Contested"],h:"Microtubules sustain coherence long enough to matter",
   e:"Tegmark put decoherence at 10⁻¹³ s. Hagan et al. showed he used a separation distance seven orders of magnitude too large and recalculated 10⁻⁵–10⁻⁴ s. Even the corrected figure leaves several orders of magnitude to the tens of milliseconds the theory needs. <span class='src'>Tegmark 2000; Hagan et al. 2002</span>"},
- {k:"contest",tag:["t-contest","Contested"],h:"The lattice has resonance structure across many frequencies",
+ {k:"con",tag:["t-con","Contested"],h:"The lattice has resonance structure across many frequencies",
   e:"Bandyopadhyay's group reports self-similar oscillations from hertz to terahertz, framed in 2026 as fractal time crystals with four distinct subsystems. Independent replication at the level the theory requires is not yet available. <span class='src'>Hameroff, Bandyopadhyay &amp; Lauretta 2026</span>"},
- {k:"excluded",tag:["t-excluded","Excluded by experiment"],h:"Collapse occurs objectively at τ = ℏ/E_G",
+ {k:"exc",tag:["t-exc","Excluded by experiment"],h:"Collapse occurs objectively at τ = ℏ/E_G",
   e:"The quantitative core, and the only place the theory makes a prediction nothing classical reproduces. A dedicated measurement of spontaneous radiation at the Gran Sasso underground laboratory ruled out the natural parameter-free version of the Diósi–Penrose model. Objective reduction must exist in some modified form for anything downstream to follow. <span class='src'>Donadi et al. 2021</span>"},
- {k:"theory",tag:["t-theory","Theoretical"],h:"Nothing informational is held in superposition",
-  e:"The narrowing this page presents. In the published theory, superposed tubulin states carry information and undergo quantum computation; here they do not, and the collapse event selects among classically prepared alternatives. This buys immunity to the no-cloning argument against quantum agency, and costs the entanglement account of unified experience. <span class='src'>departs from Hameroff &amp; Penrose 2014; cf. Adlam, McQueen &amp; Waegell 2025</span>"},
- {k:"theory",tag:["t-untest","Not currently testable"],h:"The collapse outcome is non-computable",
+ {k:"the",tag:["t-the","Theoretical"],h:"MAPs determine which tubulins participate",
+  e:"Microtubule-associated proteins bind the lattice at specific sites and, on the theory, both tune the quantum oscillations and gate which regions enter superposition. This is the classical-to-quantum interface and the referent of “orchestrated.” MAP binding is real cell biology; its role as a quantum gate has no direct measurement."},
+ {k:"the",tag:["t-the","Theoretical"],h:"Nothing informational is held in superposition",
+  e:"The narrowing this sheet presents. In the published theory, superposed tubulin states carry information and undergo quantum computation; here they do not, and the collapse event selects among classically prepared alternatives. This buys immunity to the no-cloning argument against quantum agency, and costs the entanglement account of unified experience. <span class='src'>departs from Hameroff &amp; Penrose 2014; cf. Adlam, McQueen &amp; Waegell 2025</span>"},
+ {k:"the",tag:["t-unt","Not currently testable"],h:"The collapse outcome is non-computable",
   e:"No computable statistical test can distinguish a non-computable sequence from a random one — every such test is itself an algorithm, and a non-computable sequence is generally maximally incompressible. Penrose's claim was never about the statistics of outcomes but about performance: producing right answers where no computable procedure could. That signature is unavailable in any perception experiment. <span class='src'>Penrose 1989, 1994</span>"},
- {k:"theory",tag:["t-untest","Not currently testable"],h:"The collapse event is the moment of experience",
+ {k:"the",tag:["t-unt","Not currently testable"],h:"The collapse event is the moment of experience",
   e:"An identity claim, not a causal one, and the load-bearing step for the whole proposal. Why gravitational self-energy minimisation should track anything experiential is answered by appeal to proto-conscious structure in Planck-scale geometry. That is an enormous promissory note, and narrowing the theory makes it starker rather than smaller, because selection now carries the entire explanatory burden."},
  {k:"ok",tag:["t-ok","Measured in vivo"],h:"Microtubule states regulate synaptic and neural function",
-  e:"Ion channel trafficking, receptor positioning, dendritic excitability. Thoroughly documented cell biology, and the reason a collapse outcome has a short causal path to the neuronal gain that distinguishes conscious from suppressed epochs in the primate data. <span class='src'>Kapitein &amp; Hoogenraad 2015</span>"}
-];
-document.getElementById("chain").innerHTML=CHAIN.map(l=>
- '<div class="link '+l.k+'"><div class="link-rail"><div class="link-dot"></div><div class="link-stem"></div></div>'+
- '<div class="link-body"><div class="link-head"><h3>'+l.h+'</h3><span class="tag '+l.tag[0]+'">'+l.tag[1]+'</span></div>'+
- '<p class="link-ev">'+l.e+'</p></div></div>').join("");
+  e:"Ion channel trafficking, receptor positioning, dendritic excitability. Thoroughly documented cell biology, and the reason a collapse outcome has a short causal path to the neuronal gain that distinguishes conscious from suppressed epochs in the primate data. <span class='src'>Kapitein &amp; Hoogenraad 2015</span>"}];
+document.getElementById("chain").innerHTML=CHAIN.map(function(l,i){
+ return '<div class="row '+l.k+'"><div class="idx">'+String(i+1).padStart(2,"0")+'</div>'+
+ '<div class="bod"><div class="hd"><h3>'+l.h+'</h3>'+
+ '<span class="tag '+l.tag[0]+'">'+l.tag[1]+'</span></div>'+
+ '<p class="ev">'+l.e+'</p></div></div>'}).join("");
 
-/* ============ 04 · anesthesia ============ */
+/* ═══ 05 · predictions ══════════════════════════════════════════════════ */
 const PRED=[
- {who:"Content-generating Orch OR",h:"The pictures themselves degrade",
-  r:{Multiplexing:"stops or fragments",Fidelity:"degrades",Asymmetry:"gone with everything else"},
-  a:{Multiplexing:"stops or fragments",Fidelity:"degrades",Asymmetry:"gone with everything else"}},
+ {who:"Content-generating Orch OR",h:"The representations themselves degrade",
+  d:{Multiplexing:"stops or fragments",Fidelity:"degrades",Asymmetry:"gone with everything else"}},
  {who:"Selection reading",h:"Generation survives, selection stops",
-  r:{Multiplexing:"continues",Fidelity:"near-normal",Asymmetry:"collapses toward 1.0"},
-  a:{Multiplexing:"continues",Fidelity:"near-normal",Asymmetry:"collapses toward 1.0"}},
+  d:{Multiplexing:"continues",Fidelity:"near-normal",Asymmetry:"collapses toward 1.0"}},
  {who:"Classical access accounts",h:"Broadcast is blocked",
-  r:{Multiplexing:"continues",Fidelity:"near-normal",Asymmetry:"collapses, or scales with arousal"},
-  a:{Multiplexing:"continues",Fidelity:"near-normal",Asymmetry:"collapses, or scales with arousal"}}
-];
-let anes=false;
+  d:{Multiplexing:"continues",Fidelity:"near-normal",Asymmetry:"collapses, or scales with arousal"}}];
+let anesOn=true;
 function renderPred(){
- document.getElementById("preds").innerHTML=PRED.map((p,i)=>{
-  const d=anes?p.a:p.r;
-  const rows=anes?Object.keys(d).map(k=>'<li><span class="k">'+k+'</span><span>'+d[k]+'</span></li>').join("")
-   :'<li><span class="k">Awake</span><span>two states alternate, ~1.21 gain ratio, decodable at 66%</span></li>';
-  return '<div class="pred'+(anes?' live':'')+'"><p class="who">'+p.who+'</p><h3>'+(anes?p.h:"Prediction appears when anesthetised")+'</h3><ul>'+rows+'</ul></div>';
- }).join("");
- document.getElementById("aw").setAttribute("aria-pressed",String(!anes));
- document.getElementById("an").setAttribute("aria-pressed",String(anes));
-}
-document.getElementById("aw").addEventListener("click",()=>{anes=false;renderPred()});
-document.getElementById("an").addEventListener("click",()=>{anes=true;renderPred()});
-anes=true;renderPred();
+ document.getElementById("preds").innerHTML=PRED.map(function(p){
+  const rows=anesOn
+   ? Object.keys(p.d).map(k=>'<li><span class="k">'+k+'</span><span>'+p.d[k]+'</span></li>').join("")
+   : '<li><span class="k">Awake</span><span>two states alternate · gain ratio ≈1.21 · paired decoding 66%</span></li>';
+  return '<div class="pred'+(anesOn?' live':'')+'"><p class="who">'+p.who+'</p>'+
+   '<h3>'+(anesOn?p.h:"Prediction appears when anesthetised")+'</h3><ul>'+rows+'</ul></div>'}).join("");
+ document.getElementById("aw").setAttribute("aria-pressed",String(!anesOn));
+ document.getElementById("an").setAttribute("aria-pressed",String(anesOn))}
+document.getElementById("aw").onclick=()=>{anesOn=false;renderPred()};
+document.getElementById("an").onclick=()=>{anesOn=true;renderPred()};
+renderPred();
 
-/* ============ 06 · tests ============ */
+/* ═══ 07 · tests ════════════════════════════════════════════════════════ */
 const TESTS=[
  {h:"Are the dwell times memoryless?",c:"~$15k · existing data",
   p:"The 2026 primate analysis fitted a time-homogeneous transition matrix, which imposes geometric state durations, and the autocorrelation fit explicitly assumes exponential dwells. So the analysis cannot distinguish memoryless switching from accumulation to a threshold. A hidden semi-Markov model with a flexible duration distribution would, with the coefficient of variation as the readout: 1 for exponential, below 1 for a threshold process.",
-  d:"Settles: whether switching probability depends on elapsed duration. Does not settle: whether any accumulation is quantum, or classical refractoriness and synaptic time constants."},
+  d:"SETTLES — whether switching probability depends on elapsed duration.<br>DOES NOT SETTLE — whether any accumulation is quantum, or classical refractoriness and synaptic time constants."},
  {h:"Does a tubulin-binding drug change the alternation period?",c:"~$300k · new recordings",
   p:"The sharpest available test of the physics. More coherent mass means larger E_G, hence shorter τ, hence faster alternation. No classical account of a 15 Hz cortical rhythm predicts that a microtubule-stabilising drug shifts its period by an inverse-mass law. Requires a non-tubulin comparator matched for excitability effects, and direction plus rough magnitude preregistered — the tubulin count in E_G is a free parameter that will otherwise absorb any result.",
-  d:"Settles: whether the putative clock is touchable by microtubule pharmacology. Does not settle: the identity claim."},
+  d:"SETTLES — whether the putative clock is touchable by microtubule pharmacology.<br>DOES NOT SETTLE — the identity claim."},
  {h:"Flash suppression under light anesthesia",c:"~$300k · new recordings",
   p:"Removes consciousness while holding stimulus and adaptation structure fixed. Its main value is theory-neutral: it resolves whether the measured gain asymmetry is a signature of conscious access or an artefact of stimulus recency, which the awake paradigm cannot separate because the suppressed face is always the primed one.",
-  d:"Settles: the recency confound, and rules out content-generating Orch OR. Does not settle: selection versus classical access — they predict the same result."}
-];
-document.getElementById("tests").innerHTML=TESTS.map(t=>
- '<div class="test"><h3>'+t.h+'</h3><span class="cost">'+t.c+'</span><p>'+t.p+'</p><p class="disc">'+t.d+'</p></div>').join("");
+  d:"SETTLES — the recency confound, and rules out content-generating Orch OR.<br>DOES NOT SETTLE — selection versus classical access; they predict the same result."}];
+document.getElementById("tests").innerHTML=TESTS.map(function(t){
+ return '<div class="test"><h3>'+t.h+'</h3><span class="c">'+t.c+'</span>'+
+ '<p>'+t.p+'</p><p class="d">'+t.d+'</p></div>'}).join("");
 </script>
 </body>
 </html>
