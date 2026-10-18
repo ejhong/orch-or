@@ -367,8 +367,20 @@ footer em{color:var(--ink2);font-style:normal}
   <div class="sh">
     <span class="lbl">07 — What would move the needle</span>
     <h2>Three tests, and what each can settle</h2>
-    <p>No statistical test on neural data can detect non-computability — a non-computable sequence passes every randomness test by construction. The leverage is in the physics of the collapse event, which makes a timing prediction nothing classical reproduces.</p>
+    <p>No statistical test on neural data can detect non-computability — a non-computable sequence passes every randomness test by construction. The leverage is in the physics of the collapse event, which makes a timing prediction nothing classical reproduces. FIG. 05 shows why.</p>
   </div>
+  <figure style="margin-bottom:24px">
+    <div class="fig-top"><span class="fig-n">FIG. 05</span><span class="fig-t">The G&ouml;del ladder &middot; why the claim is unmeasurable</span></div>
+    <canvas id="god" width="1600" height="760" role="img" aria-label="An infinite ladder of formal systems, each with a Goedel sentence it cannot prove, with a machine pinned at one rung and understanding climbing"></canvas>
+    <div class="fig-bar">
+      <div class="ctl"><span class="k">&nbsp;</span>
+        <div class="seg"><button id="g-step">Step up</button><button id="g-auto" aria-pressed="true">Auto</button><button id="g-rst">Reset</button></div></div>
+      <div class="ctl"><span class="k">Understanding at</span><span class="v" id="g-lv">F&#8320;</span></div>
+      <div class="ctl"><span class="k">Machine pinned at</span><span class="v" id="g-mc" style="color:var(--ink3)">F&#8320;</span></div>
+    </div>
+    <p class="fig-cap"><b>How to read it.</b> Each rung is a formal system. Its G&ouml;del sentence is true but sits outside what that system can prove, so seeing it lets you build the next rung &mdash; which has a G&ouml;del sentence of its own. The ladder never terminates, and a machine handed any fixed system stays where it was put. <b>The reason this cannot be measured</b> is on the right: the observable output at every rung is one bit, <i>true</i>, and a system that merely guessed, or that was handed the next rung to begin with, emits the identical bit. The difference is a claim about an unbounded sequence, and every experiment is finite.</p>
+    <p class="fig-cap" style="border-top:1px solid var(--hair)"><b>Contested.</b> The Lucas&ndash;Penrose argument has a large critical literature. It assumes the mathematician is consistent and sound, and that they know which formal system they are &mdash; both of which have been disputed at length. The figure draws the argument; it does not endorse it.</p>
+  </figure>
   <div class="tests" id="tests"></div>
 </section>
 
@@ -1031,6 +1043,99 @@ function renderPred(){
 document.getElementById("aw").onclick=()=>{anesOn=false;renderPred()};
 document.getElementById("an").onclick=()=>{anesOn=true;renderPred()};
 renderPred();
+
+/* ═══ FIG 05 — the Gödel ladder ═════════════════════════════════════════ */
+(function(){
+ const cv=document.getElementById("god"); if(!cv) return;
+ const ctx=cv.getContext("2d"), A=mk(ctx), W=1600, H=760, M=56;
+ const SUB=["₀","₁","₂","₃","₄","₅"];
+ const BX=250, BW=540, LH=98, Y0=H-158, NV=5;
+ let lv=0, auto=true, T=0, acc=0;
+ const yOf=n=>Y0-n*LH;
+ function draw(){
+  ctx.fillStyle=P.sh;ctx.fillRect(0,0,W,H);
+  A.grid(0,0,W,H,40); A.reg(22,22,W-44,H-44,15);
+  A.txt(M,56,"THE GÖDEL LADDER",{sz:19,c:P.i2,tr:4,d:1,w:500});
+  A.txt(W-M,56,"each rung is built by seeing past the one below",{sz:16,c:P.i3,a:"right"});
+  /* the rungs */
+  for(let n=0;n<NV;n++){
+   const y=yOf(n), seen=n<=lv;
+   ctx.strokeStyle=seen?P.h3:P.h;ctx.lineWidth=1;
+   ctx.strokeRect(BX,y-30,BW,60);
+   if(seen){ctx.fillStyle="rgba(70,217,232,.045)";ctx.fillRect(BX,y-30,BW,60)}
+   A.txt(BX+16,y-8,"F"+SUB[n],{sz:19,c:seen?P.i1:P.i3,w:500});
+   A.txt(BX+16,y+16,n?"F"+SUB[n-1]+" + G(F"+SUB[n-1]+")":"any consistent system for arithmetic",
+     {sz:15,c:P.i3});
+   A.txt(BX+BW-16,y+6,"provable here",{sz:15,c:seen?P.i3:P.h2,a:"right"});
+   /* its Gödel sentence, outside the box */
+   const gx=BX+BW+92;
+   ctx.beginPath();ctx.moveTo(gx,y-11);ctx.lineTo(gx+11,y);ctx.lineTo(gx,y+11);
+   ctx.lineTo(gx-11,y);ctx.closePath();
+   ctx.fillStyle=seen?P.am:P.sh;ctx.strokeStyle=seen?P.am:P.h3;ctx.lineWidth=1.4;
+   ctx.fill();ctx.stroke();
+   A.hair(BX+BW,y,gx-13,y,seen?P.amd:P.h,1);
+   A.txt(gx+22,y+5,"G(F"+SUB[n]+")   true · unprovable here",
+     {sz:16,c:seen?P.am:P.h2});
+   /* absorbed into the next rung */
+   if(n<NV-1&&n<lv){
+    ctx.strokeStyle=P.am;ctx.lineWidth=1.2;ctx.setLineDash([5,5]);
+    ctx.beginPath();ctx.moveTo(gx,y-13);
+    ctx.quadraticCurveTo(gx+40,y-LH*.5,BX+BW+20,yOf(n+1)+6);
+    ctx.lineTo(BX+BW-6,yOf(n+1)+6);ctx.stroke();ctx.setLineDash([])}
+  }
+  /* continues upward */
+  const yt=yOf(NV-1);
+  ctx.strokeStyle=P.h3;ctx.lineWidth=1;ctx.setLineDash([3,7]);
+  ctx.beginPath();ctx.moveTo(BX+BW/2,yt-40);ctx.lineTo(BX+BW/2,yt-96);ctx.stroke();
+  ctx.setLineDash([]);
+  A.txt(BX+BW/2,yt-104,"Fω , Fω₊₁ , …  without end",{sz:17,c:P.i3,a:"center",tr:1.4});
+  /* the machine, pinned */
+  const my=yOf(0);
+  ctx.strokeStyle=P.h3;ctx.lineWidth=1.4;ctx.strokeRect(M+36,my-26,112,52);
+  for(let i=0;i<3;i++)A.hair(M+36,my-26+(i+1)*13,M+148,my-26+(i+1)*13,P.h,1);
+  A.txt(M+92,my+46,"MACHINE",{sz:15,c:P.i3,a:"center",tr:1.6,w:500});
+  A.txt(M+92,my-40,"pinned where it was put",{sz:15,c:P.i3,a:"center"});
+  A.hair(M+148,my,BX-8,my,P.h,1);
+  /* understanding, climbing */
+  const uy=yOf(lv);
+  ctx.beginPath();ctx.arc(M+92,uy,13,0,6.2832);
+  ctx.fillStyle=P.cy;ctx.strokeStyle=P.cy;ctx.lineWidth=2;
+  ctx.globalAlpha=.75;ctx.fill();ctx.globalAlpha=1;ctx.stroke();
+  const g=.5+.5*Math.sin(T*3.4);
+  ctx.globalAlpha=.3*g;ctx.beginPath();ctx.arc(M+92,uy,20+g*7,0,6.2832);ctx.stroke();ctx.globalAlpha=1;
+  A.txt(M+92,uy-30,"UNDERSTANDING",{sz:15,c:P.cy,a:"center",tr:1.6,w:500});
+  ctx.strokeStyle=P.cy;ctx.lineWidth=1.6;
+  ctx.beginPath();ctx.moveTo(M+92,my-14);ctx.lineTo(M+92,uy+14);ctx.stroke();
+  if(lv>0)A.dimV(M+20,uy,my,"the gap never closes",P.cy);
+  /* the unmeasurability panel */
+  const PX=W-M-342, PY=H-268, PW=342, PH=184;
+  ctx.strokeStyle=P.h2;ctx.lineWidth=1;ctx.strokeRect(PX,PY,PW,PH);
+  ctx.fillStyle=P.sh2;ctx.fillRect(PX+1,PY+1,PW-2,PH-2);
+  A.txt(PX+16,PY+28,"WHAT AN OBSERVER SEES",{sz:15,c:P.i2,tr:2.2,w:500});
+  A.hair(PX+16,PY+42,PX+PW-16,PY+42,P.h2,1);
+  const rows=[["saw it",P.cy],["guessed",P.i3],["handed F"+SUB[1],P.i3]];
+  rows.forEach(function(r,i){
+   const y=PY+76+i*34;
+   A.txt(PX+16,y,r[0],{sz:16,c:r[1]});
+   A.hair(PX+150,y-5,PX+196,y-5,P.h2,1);
+   A.txt(PX+PW-16,y,"output:  true",{sz:16,c:P.i2,a:"right"})});
+  A.txt(PX+16,PY+PH-16,"identical at every finite rung",{sz:15,c:P.am});
+  A.txt(W-M,H-34,"FIG. 05",{sz:16,c:P.h3,a:"right",tr:3});
+ }
+ function sync(){document.getElementById("g-lv").textContent="F"+SUB[lv];
+  document.getElementById("g-mc").textContent="F"+SUB[0]}
+ let last=performance.now();
+ (function loop(now){const dt=Math.min(.05,(now-last)/1000);last=now;T+=dt;
+  if(auto){acc+=dt;if(acc>1.7){acc=0;lv=(lv+1)%NV;sync()}}
+  draw();requestAnimationFrame(loop)})(last);
+ document.getElementById("g-step").onclick=function(){
+  auto=false;document.getElementById("g-auto").setAttribute("aria-pressed","false");
+  lv=(lv+1)%NV;sync()};
+ document.getElementById("g-auto").onclick=function(e){
+  auto=!auto;e.target.setAttribute("aria-pressed",String(auto))};
+ document.getElementById("g-rst").onclick=function(){lv=0;acc=0;sync()};
+ sync();
+})();
 
 /* ═══ 07 · tests ════════════════════════════════════════════════════════ */
 const TESTS=[
