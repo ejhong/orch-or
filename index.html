@@ -184,6 +184,30 @@ input[type=range]{flex:1 1 180px;min-width:120px;accent-color:var(--accent)}
 footer{padding-block:34px 56px;color:var(--fg-3);font-size:.85rem}
 footer p{max-width:66ch;margin-bottom:11px}
 footer .mono{font-size:.78rem}
+/* ---- hero simulator ---- */
+.sim{background:#0a0812;border:1px solid var(--rule);overflow:hidden;position:relative}
+:root[data-theme="light"] .sim,:root:not([data-theme="dark"]) .sim{border-color:#241f33}
+.sim-canvas{display:block;width:100%;height:auto;background:#0a0812}
+.sim-bar{display:flex;flex-wrap:wrap;gap:16px 22px;align-items:flex-end;padding:16px 18px;background:#0e0b18;border-top:1px solid #241f33}
+.ctl{display:flex;flex-direction:column;gap:6px;min-width:0}
+.ctl-l{font-family:var(--f-mono);font-size:.63rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:#7d7496}
+.ctl-v{font-family:var(--f-mono);font-size:.63rem;color:#b9aeff}
+.seg{display:flex;border:1px solid #352e4d;border-radius:2px;overflow:hidden}
+.seg button{background:transparent;color:#8d84a6;border:0;padding:7px 13px;font-size:.7rem;letter-spacing:.05em;border-radius:0}
+.seg button[aria-pressed="true"]{background:#2a2050;color:#c5b6ff}
+.sim-bar input[type=range]{flex:0 1 128px;min-width:88px;accent-color:#8f78ff;margin:0}
+.hist-hold{display:grid;grid-template-columns:1fr auto;gap:12px 18px;align-items:end;padding:14px 18px 18px;background:#0e0b18;border-top:1px solid #241f33}
+canvas.hist{display:block;width:100%;height:auto;min-width:0}
+.hist-read{display:flex;flex-direction:column;gap:9px;text-align:right}
+.hr-k{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:#7d7496}
+.hr-v{font-family:var(--f-mono);font-size:1.3rem;line-height:1;color:#c5b6ff;font-variant-numeric:tabular-nums}
+.hr-n{font-family:var(--f-mono);font-size:.62rem;color:#7d7496;margin-top:2px}
+.sim-note{padding:14px 18px 17px;background:#0e0b18;border-top:1px solid #241f33;font-size:.87rem;color:#9c93b4;max-width:72ch}
+.sim-note b{color:#d6cdf0;font-weight:600}
+@media (max-width:620px){
+  .hist-hold{grid-template-columns:1fr}
+  .hist-read{flex-direction:row;gap:20px;text-align:left}
+}
 @media (max-width:560px){
   .link{grid-template-columns:22px 1fr;gap:0 12px}
   .test{grid-template-columns:1fr}
@@ -199,6 +223,36 @@ footer .mono{font-size:.78rem}
   <p class="lede">A walkthrough of the Penrose–Hameroff theory in the narrowest reading that current data will bear — with every link in the causal chain labelled by what actually supports it.</p>
   <div class="standfirst"><strong>Why this page exists.</strong> Most explanations of this theory present every step with the same confidence. In fact some links are measured, several are in vitro only, one has been experimentally excluded, and two are not testable with any instrument we have. Reading it as a chain of mixed-strength claims is the only way to see where the real work is.</div>
 </header>
+
+<section style="padding-top:clamp(26px,4vw,38px)">
+  <div class="sim">
+    <canvas id="sim" class="sim-canvas" width="1600" height="980" role="img" aria-label="Three-layer simulation: an aperiodic Penrose tiling as Platonic structure above, a microtubule lattice entering superposition in the middle, and two candidate face representations in a neural population below"></canvas>
+    <div class="sim-bar">
+      <div class="ctl"><span class="ctl-l">Selector</span>
+        <div class="seg"><button id="m-or" aria-pressed="true">Objective reduction</button><button id="m-cl" aria-pressed="false">Competition</button></div>
+      </div>
+      <div class="ctl"><span class="ctl-l">Coherent tubulin mass</span>
+        <input type="range" id="mass" min="50" max="200" value="100" aria-label="Coherent tubulin mass, relative">
+        <span class="ctl-v" id="mass-v">1.00 ×</span>
+      </div>
+      <div class="ctl"><span class="ctl-l">Anesthetic depth</span>
+        <input type="range" id="anes" min="0" max="100" value="0" aria-label="Anesthetic depth">
+        <span class="ctl-v" id="anes-v">0.00 MAC</span>
+      </div>
+      <div class="ctl"><span class="ctl-l">&nbsp;</span>
+        <div class="seg"><button id="run" aria-pressed="true">Pause</button><button id="clear">Reset</button></div>
+      </div>
+    </div>
+    <div class="hist-hold">
+      <canvas id="hist" class="hist" width="1100" height="200" role="img" aria-label="Live histogram of state dwell times"></canvas>
+      <div class="hist-read">
+        <div><p class="hr-k">Dwell CV</p><p class="hr-v" id="cv">—</p><p class="hr-n" id="cvn">collecting</p></div>
+        <div><p class="hr-k">Median dwell</p><p class="hr-v" id="md">—</p><p class="hr-n">milliseconds</p></div>
+      </div>
+    </div>
+    <p class="sim-note"><b>What to try.</b> Switch the selector and watch the histogram change shape — accumulation to a threshold clusters dwells around a characteristic duration (CV below 1), while memoryless competition spreads them exponentially (CV near 1). That difference is the one measurement in this whole theory that existing primate data could settle. Raise the tubulin mass and dwells shorten, because larger E_G means a shorter τ. Raise the anesthetic and selection stalls while the classical layer keeps computing both faces.</p>
+  </div>
+</section>
 
 <section>
   <div class="sec-head">
@@ -308,6 +362,299 @@ footer .mono{font-size:.78rem}
 </div>
 
 <script>
+/* ============ 00 · hero simulator ============ */
+(function(){
+ const cv=document.getElementById("sim"); if(!cv) return;
+ const ctx=cv.getContext("2d"), W=1600, H=980;
+ const hc=document.getElementById("hist"), hx=hc.getContext("2d");
+ const MONO='"IBM Plex Mono",ui-monospace,monospace';
+
+ /* ---------- palette (this panel commits to one dark world) ---------- */
+ const C={bg:"#0a0812",band:"#120e1f",rule:"#241f33",dim:"#4b4463",lbl:"#7d7496",
+          txt:"#c8bfe4",acc:"#8f78ff",acc2:"#c5b6ff",gold:"#e0b65a",ok:"#5fd19b"};
+
+ /* ---------- Penrose P3 tiling by Robinson-triangle subdivision ---------- */
+ const PHI=(1+Math.sqrt(5))/2, lerp=(P,Q,t)=>[P[0]+(Q[0]-P[0])*t,P[1]+(Q[1]-P[1])*t];
+ function wheel(){const t=[];for(let i=0;i<10;i++){
+   const a=Math.PI*2*i/10,b=Math.PI*2*(i+1)/10;
+   let A=[0,0],B=[Math.cos(a),Math.sin(a)],C=[Math.cos(b),Math.sin(b)];
+   if(i%2===0){const s=B;B=C;C=s}
+   t.push([0,A,B,C]);} return t}
+ function subdivide(tris){const o=[];
+   for(const [t,A,B,C] of tris){
+     if(t===0){const P=lerp(A,B,1/PHI); o.push([0,C,P,B],[1,P,C,A])}
+     else{const Q=lerp(B,A,1/PHI),R=lerp(B,C,1/PHI); o.push([1,R,C,A],[1,Q,R,B],[0,R,Q,A])}
+   } return o}
+ let TILES=wheel(); for(let i=0;i<6;i++) TILES=subdivide(TILES);
+
+ /* platonic band geometry */
+ const PB={x:40,y:36,w:W-80,h:252};
+ const SC=PB.w*0.78, CX=PB.x+PB.w*0.5, CY=PB.y+PB.h*0.5;
+ const px=p=>CX+p[0]*SC, py=p=>CY+p[1]*SC;
+
+ /* the walk: tiles whose centroid sits in a thin horizontal lane, left to right.
+    Because the tiling is aperiodic, the type sequence along that lane never repeats. */
+ const LANE=TILES.map(T=>{
+   const cx=(px(T[1])+px(T[2])+px(T[3]))/3, cy=(py(T[1])+py(T[2])+py(T[3]))/3;
+   return {t:T[0],cx,cy,T};
+ }).filter(o=>Math.abs(o.cy-CY)<PB.h*0.17 && o.cx>PB.x+10 && o.cx<PB.x+PB.w-10)
+   .sort((a,b)=>a.cx-b.cx);
+
+ /* tiling pre-rendered once, then blitted */
+ const off=document.createElement("canvas"); off.width=W; off.height=H;
+ (function paintTiling(){
+   const o=off.getContext("2d");
+   o.save(); o.beginPath(); o.rect(PB.x,PB.y,PB.w,PB.h); o.clip();
+   for(const T of TILES){
+     const [t,A,B,C]=T;
+     o.beginPath(); o.moveTo(px(A),py(A)); o.lineTo(px(B),py(B)); o.lineTo(px(C),py(C)); o.closePath();
+     o.fillStyle = t===0 ? "rgba(143,120,255,.075)" : "rgba(197,182,255,.028)";
+     o.fill();
+     o.strokeStyle="rgba(143,120,255,.30)"; o.lineWidth=.9; o.stroke();
+   }
+   /* vignette so the strip reads as a window onto something larger */
+   const g=o.createLinearGradient(PB.x,0,PB.x+PB.w,0);
+   g.addColorStop(0,C.bg); g.addColorStop(.1,"rgba(10,8,18,0)");
+   g.addColorStop(.9,"rgba(10,8,18,0)"); g.addColorStop(1,C.bg);
+   o.fillStyle=g; o.fillRect(PB.x,PB.y,PB.w,PB.h);
+   o.restore();
+ })();
+
+ /* ---------- parametric faces (what the 2026 experiment actually used) ---------- */
+ const FACES=[
+  {head:1.00,eye:.42,brow:-.20,nose:.30,jaw:.74,mouth:.26},
+  {head:.90,eye:.30,brow:.26,nose:.46,jaw:.96,mouth:-.18}
+ ];
+ function drawFace(x,y,s,p,col,a,lw){
+   ctx.save(); ctx.translate(x,y); ctx.globalAlpha=a;
+   ctx.strokeStyle=col; ctx.lineWidth=lw; ctx.lineJoin="round"; ctx.lineCap="round";
+   ctx.beginPath(); /* head */
+   ctx.ellipse(0,0,s*.56*p.jaw,s*.72*p.head,0,0,Math.PI*2); ctx.stroke();
+   const ex=s*.26*(p.eye+.4);
+   [-1,1].forEach(k=>{ /* eyes */
+     ctx.beginPath(); ctx.ellipse(k*ex,-s*.10,s*.085,s*.055,0,0,Math.PI*2); ctx.stroke();
+     ctx.beginPath(); /* brows */
+     ctx.moveTo(k*ex-s*.11,-s*.26+k*0); ctx.lineTo(k*ex+s*.11,-s*.26-s*.10*p.brow*k*k*Math.sign(p.brow||1)*Math.abs(p.brow)*3);
+     ctx.stroke();
+   });
+   ctx.beginPath(); ctx.moveTo(0,-s*.04); ctx.lineTo(0,s*.04+s*.26*p.nose); ctx.stroke(); /* nose */
+   ctx.beginPath(); /* mouth */
+   ctx.moveTo(-s*.20,s*.40); ctx.quadraticCurveTo(0,s*.40+s*.22*p.mouth,s*.20,s*.40); ctx.stroke();
+   ctx.restore();
+ }
+
+ /* ---------- model ---------- */
+ const BASE=60;                  /* sim-ms dwell at unit mass */
+ const SIM_PER_SEC=150;          /* sim-ms advanced per real second */
+ let mode="or", mass=1, anes=0, running=true;
+ let EG=0, thresh=1, cur=0, sinceSwitch=0, dwells=[], pulse=99, flash=0;
+ let laneI=Math.floor(LANE.length*0.5), lastTile=0, coh=0, simT=0;
+ const randn=()=>{let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();
+   return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)};
+ function newThresh(){ return Math.max(.28, 1+randn()*.30) }
+ newThresh();
+
+ function collapse(){
+   dwells.push(sinceSwitch); if(dwells.length>240) dwells.shift();
+   sinceSwitch=0; EG=0; thresh=newThresh(); pulse=0; flash=1;
+   const tile=LANE[laneI%LANE.length]; lastTile=tile.t;
+   laneI=(laneI+1)%LANE.length;
+   /* outcome: gain bias, structured by the aperiodic tile type */
+   const pA = mode==="or" ? .5 + (tile.t?.30:-.30) + (cur===0?-.06:.06)
+                          : (cur===0?.5-.11:.5+.11);
+   cur = Math.random()<pA ? 0 : 1;
+ }
+ function step(dtReal){
+   const dt=dtReal*SIM_PER_SEC; simT+=dt; sinceSwitch+=dt;
+   const damp=1-anes*0.94;
+   if(mode==="or"){
+     EG += dt*mass*damp/BASE;
+     coh = Math.min(1, EG/thresh);
+     if(EG>=thresh && damp>0.06) collapse();
+     if(sinceSwitch>BASE*14){ sinceSwitch=BASE*14 } /* stalled under deep anesthesia */
+   }else{
+     coh = .5+.4*Math.sin(simT/37);
+     EG = 0;
+     if(Math.random() < dt/(BASE/damp || 1e9)) collapse();
+   }
+   pulse+=dtReal*3.4; flash=Math.max(0,flash-dtReal*3.2);
+ }
+
+ /* ---------- draw ---------- */
+ function bandLabel(x,y,s,sub){
+   ctx.font="600 20px "+MONO; ctx.fillStyle=C.lbl; ctx.textAlign="left";
+   ctx.fillText(s,x,y);
+   if(sub){ctx.font="400 18px "+MONO; ctx.fillStyle=C.dim; ctx.fillText(sub,x+ctx.measureText(s).width+18,y)}
+ }
+ function draw(){
+   ctx.fillStyle=C.bg; ctx.fillRect(0,0,W,H);
+   const sel=cur, act=1-anes*0.94>0.06;
+
+   /* ===== PLATONIC ===== */
+   ctx.drawImage(off,0,0);
+   const tile=LANE[laneI%LANE.length];
+   if(tile){
+     const [,A,B,Cc]=tile.T;
+     ctx.beginPath(); ctx.moveTo(px(A),py(A)); ctx.lineTo(px(B),py(B)); ctx.lineTo(px(Cc),py(Cc)); ctx.closePath();
+     ctx.fillStyle=tile.t? "rgba(224,182,90,.55)":"rgba(143,120,255,.60)"; ctx.fill();
+     ctx.strokeStyle=C.gold; ctx.lineWidth=2.2; ctx.stroke();
+     if(flash>0){ctx.shadowColor=C.gold;ctx.shadowBlur=46*flash;ctx.stroke();ctx.shadowBlur=0}
+   }
+   bandLabel(PB.x,PB.y-10,"PLATONIC","aperiodic · no repeating rule generates this sequence");
+   ctx.font="400 17px "+MONO; ctx.fillStyle=C.dim; ctx.textAlign="right";
+   ctx.fillText("outcome read here →",PB.x+PB.w,PB.y-10);
+
+   /* ===== QUANTUM ===== */
+   const QB={x:40,y:344,w:W-80,h:180};
+   bandLabel(QB.x,QB.y-12,"QUANTUM","tubulin conformations in superposition");
+   const COLS=36,ROWS=4,cw=(QB.w-((COLS-1)*5))/COLS,chh=(QB.h-((ROWS-1)*7))/ROWS;
+   for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
+     const stag=(r*cw*0.34)%(cw+5);
+     const X=QB.x+c*(cw+5)+stag-((stag>QB.w-cw)?cw+5:0), Y=QB.y+r*(chh+7);
+     if(X<QB.x-1||X>QB.x+QB.w-cw+1) continue;
+     const idx=(c*ROWS+r)/(COLS*ROWS);
+     ctx.fillStyle=C.band; ctx.strokeStyle=C.rule; ctx.lineWidth=1.4;
+     ctx.beginPath(); ctx.roundRect(X,Y,cw,chh,3); ctx.fill(); ctx.stroke();
+     if(idx<coh&&act){
+       const ph=Math.sin(simT/22+idx*11);
+       ctx.globalAlpha=.30+.46*Math.abs(ph);
+       ctx.fillStyle=C.acc; ctx.beginPath(); ctx.roundRect(X,Y,cw,chh,3); ctx.fill();
+       ctx.globalAlpha=.26; ctx.fillStyle=C.acc2; /* the second branch, offset */
+       ctx.beginPath(); ctx.roundRect(X+ph*2.6,Y-ph*1.8,cw,chh,3); ctx.fill();
+       ctx.globalAlpha=1;
+     }
+   }
+   /* E_G gauge */
+   const gy=QB.y+QB.h+30, gh=22, gw=QB.w;
+   ctx.font="400 17px "+MONO; ctx.fillStyle=C.lbl; ctx.textAlign="left";
+   ctx.fillText("E_G",QB.x,gy-9);
+   ctx.textAlign="right"; ctx.fillStyle=mode==="or"?C.ok:C.dim; ctx.fillText("ℏ/τ",QB.x+gw,gy-9);
+   ctx.strokeStyle=C.rule; ctx.lineWidth=1.6; ctx.strokeRect(QB.x,gy,gw,gh);
+   const lvl=mode==="or"?Math.min(1,EG/thresh):0;
+   const lg=ctx.createLinearGradient(QB.x,0,QB.x+gw,0);
+   lg.addColorStop(0,"rgba(143,120,255,.45)"); lg.addColorStop(1,C.acc);
+   ctx.fillStyle=lg; ctx.fillRect(QB.x+1.5,gy+1.5,(gw-3)*lvl,gh-3);
+   ctx.strokeStyle=mode==="or"?C.ok:C.dim; ctx.lineWidth=3;
+   ctx.beginPath(); ctx.moveTo(QB.x+gw,gy-6); ctx.lineTo(QB.x+gw,gy+gh+6); ctx.stroke();
+   if(mode!=="or"){ctx.font="400 17px "+MONO;ctx.fillStyle=C.dim;ctx.textAlign="center";
+     ctx.fillText("no threshold — switching is memoryless",QB.x+gw/2,gy+gh+24)}
+
+   /* collapse pulse travelling down */
+   if(pulse<1&&act){
+     const a=(1-pulse)*0.85, yTop=PB.y+PB.h, yBot=664;
+     const bx=tile?tile.cx:CX;
+     const pg=ctx.createLinearGradient(0,yTop,0,yBot);
+     pg.addColorStop(0,"rgba(224,182,90,"+(a*.9)+")"); pg.addColorStop(1,"rgba(143,120,255,0)");
+     ctx.fillStyle=pg; ctx.fillRect(bx-2.5,yTop,5,yBot-yTop);
+     ctx.globalAlpha=a*.5; ctx.fillStyle=C.gold;
+     ctx.fillRect(bx-14,yTop+(yBot-yTop)*pulse,28,3); ctx.globalAlpha=1;
+   }
+
+   /* ===== CLASSICAL ===== */
+   const CB={x:40,y:664,w:W-80,h:278};
+   bandLabel(CB.x,CB.y-12,"CLASSICAL","both candidates computed · one is routed");
+   const pw=(CB.w-34)/2;
+   for(let i=0;i<2;i++){
+     const X=CB.x+i*(pw+34), on=(i===sel)&&act;
+     ctx.strokeStyle=on?C.acc:C.rule; ctx.lineWidth=on?2.6:1.4;
+     ctx.beginPath(); ctx.roundRect(X,CB.y,pw,CB.h,4); ctx.stroke();
+     if(on){ctx.fillStyle="rgba(143,120,255,.055)";ctx.fill()}
+     drawFace(X+pw*0.21,CB.y+CB.h*0.50,CB.h*0.40,FACES[i],on?C.acc2:C.dim,on?1:.5,on?3:1.8);
+     /* waveform — runs on both, always */
+     const wx=X+pw*0.40, ww=pw*0.54, wy=CB.y+CB.h*0.50;
+     ctx.strokeStyle=on?C.acc:C.dim; ctx.lineWidth=on?3:1.6; ctx.globalAlpha=on?1:.62;
+     ctx.beginPath();
+     const amp=(on?1.21:1)*(act?1:1)*CB.h*0.13;
+     for(let q=0;q<=ww;q+=3){
+       const yy=wy+Math.sin(q/17+i*2.4+simT/26)*amp*(0.6+0.4*Math.sin(q/61+simT/90));
+       q?ctx.lineTo(wx+q,yy):ctx.moveTo(wx+q,yy);
+     }
+     ctx.stroke(); ctx.globalAlpha=1;
+     ctx.font="600 19px "+MONO; ctx.textAlign="left";
+     ctx.fillStyle=on?C.acc2:C.lbl;
+     ctx.fillText(i?"CANDIDATE B":"CANDIDATE A",X+16,CB.y+30);
+     ctx.font="400 18px "+MONO; ctx.textAlign="right";
+     ctx.fillStyle=on?C.acc:C.dim;
+     ctx.fillText(on?"ROUTED · gain ×1.21":(act?"suppressed · ×1.00":"— · ×1.00"),X+pw-16,CB.y+30);
+   }
+   if(!act){
+     ctx.font="600 21px "+MONO; ctx.textAlign="center"; ctx.fillStyle=C.gold;
+     ctx.fillText("SELECTION STALLED — content still computed, nothing routed",W/2,CB.y+CB.h+30);
+   }
+ }
+
+ /* ---------- histogram ---------- */
+ function stats(){
+   if(dwells.length<6) return null;
+   const m=dwells.reduce((a,b)=>a+b,0)/dwells.length;
+   const sd=Math.sqrt(dwells.reduce((a,b)=>a+(b-m)*(b-m),0)/dwells.length);
+   const s=[...dwells].sort((a,b)=>a-b);
+   return {cv:sd/m, med:s[Math.floor(s.length/2)], n:dwells.length};
+ }
+ function drawHist(){
+   const w=hc.width,h=hc.height,pad={l:6,r:6,t:10,b:26};
+   hx.fillStyle="#0e0b18"; hx.fillRect(0,0,w,h);
+   const NB=44, MX=BASE*3.2, bins=new Array(NB).fill(0);
+   for(const d of dwells){const b=Math.min(NB-1,Math.floor(d/MX*NB)); bins[b]++}
+   const peak=Math.max(1,...bins);
+   const bw=(w-pad.l-pad.r)/NB;
+   for(let i=0;i<NB;i++){
+     const bh=(h-pad.t-pad.b)*(bins[i]/peak);
+     const g=hx.createLinearGradient(0,h-pad.b-bh,0,h-pad.b);
+     g.addColorStop(0,mode==="or"?C.acc2:"#6f6690"); g.addColorStop(1,mode==="or"?"rgba(143,120,255,.25)":"rgba(111,102,144,.2)");
+     hx.fillStyle=g; hx.fillRect(pad.l+i*bw+.8,h-pad.b-bh,bw-1.6,bh);
+   }
+   hx.strokeStyle=C.rule; hx.lineWidth=1.2;
+   hx.beginPath(); hx.moveTo(pad.l,h-pad.b); hx.lineTo(w-pad.r,h-pad.b); hx.stroke();
+   hx.font="400 11px "+MONO; hx.fillStyle=C.lbl; hx.textAlign="center";
+   for(let ms=0;ms<=MX;ms+=40){
+     const X=pad.l+(ms/MX)*(w-pad.l-pad.r);
+     hx.fillText(ms+(ms===0?" ms":""),X,h-9);
+     hx.strokeStyle=C.rule; hx.beginPath(); hx.moveTo(X,h-pad.b); hx.lineTo(X,h-pad.b+4); hx.stroke();
+   }
+   hx.textAlign="left"; hx.fillStyle=C.dim;
+   hx.fillText("dwell-time distribution",pad.l+4,pad.t+4);
+   const s=stats();
+   document.getElementById("cv").textContent = s?s.cv.toFixed(2):"—";
+   document.getElementById("md").textContent = s?Math.round(s.med):"—";
+   document.getElementById("cvn").textContent = s
+     ? (s.cv<.72?"peaked — threshold-like":(s.cv>.86?"≈1 — memoryless":"intermediate"))+" · n="+s.n
+     : "collecting";
+ }
+
+ /* ---------- loop ---------- */
+ const slow=matchMedia("(prefers-reduced-motion: reduce)").matches;
+ let last=performance.now(), acc=0;
+ function frame(now){
+   const dt=Math.min(.05,(now-last)/1000); last=now;
+   if(running){ step(dt); acc+=dt; if(acc>.2){acc=0; drawHist()} }
+   draw(); requestAnimationFrame(frame);
+ }
+ /* seed so the page is complete at rest */
+ for(let i=0;i<34;i++){
+   dwells.push(mode==="or"?Math.max(14,BASE*(1+randn()*.3)):-BASE*Math.log(Math.random()));
+ }
+ drawHist(); draw();
+ if(slow){running=false; document.getElementById("run").textContent="Play";
+   document.getElementById("run").setAttribute("aria-pressed","false"); }
+ requestAnimationFrame(frame);
+
+ /* ---------- controls ---------- */
+ const $=id=>document.getElementById(id);
+ function setMode(m){ mode=m; dwells=[]; EG=0; sinceSwitch=0; thresh=newThresh();
+   $("m-or").setAttribute("aria-pressed",String(m==="or"));
+   $("m-cl").setAttribute("aria-pressed",String(m!=="or")); drawHist() }
+ $("m-or").addEventListener("click",()=>setMode("or"));
+ $("m-cl").addEventListener("click",()=>setMode("classical"));
+ $("mass").addEventListener("input",e=>{mass=+e.target.value/100;
+   $("mass-v").textContent=mass.toFixed(2)+" ×"; dwells=[]; drawHist()});
+ $("anes").addEventListener("input",e=>{anes=+e.target.value/100;
+   $("anes-v").textContent=(anes*1.4).toFixed(2)+" MAC"; dwells=[]; drawHist()});
+ $("run").addEventListener("click",e=>{running=!running;
+   e.target.textContent=running?"Pause":"Play"; e.target.setAttribute("aria-pressed",String(running))});
+ $("clear").addEventListener("click",()=>{dwells=[];EG=0;sinceSwitch=0;drawHist()});
+})();
+
 /* ============ 01 · time axis ============ */
 const MARKS=[
  {e:-13,lbl:"decoherence",t:"Tegmark's decoherence estimate",v:"~10⁻¹³ s · 100 femtoseconds",
