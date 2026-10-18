@@ -10,7 +10,7 @@ by what actually supports it.
 
 Most explanations of this theory present every step with the same confidence. In fact some
 links are measured in vivo, several are in vitro only, one has been experimentally excluded,
-and two are not testable with any instrument currently available. Reading it as a chain of
+and three are not testable with any instrument currently available. Reading it as a chain of
 mixed-strength claims is the only way to see where the real work is.
 
 ## What's in it
